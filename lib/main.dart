@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qldt/common/app_theme.dart';
 import 'package:qldt/router/router_config.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       initialRoute: RouterConfig.splash,
       getPages: RouterConfig.getPages,
       theme: ThemeData(
+        fontFamily: AppTheme.fontFamily,
         primarySwatch: Colors.blue,
       ),
       home: Container(),
