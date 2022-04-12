@@ -6,9 +6,11 @@ class AppEmailInput extends AppTextField {
     Key? key,
     TextEditingController? controller,
     String? hintText,
+    TextInputType? keyboardType,
   }) : super(
           key: key,
           controller: controller,
           hintText: hintText,
+          keyboardType: keyboardType,
         );
 }

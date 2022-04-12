@@ -46,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               AppEmailInput(
                 hintText: 'Email',
                 controller: state.emailTextController,
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: AppDimens.spacingNormal),
               AppPasswordInput(
