@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qldt/ui/main/main_page.dart';
+import 'package:qldt/ui/auth/login/login_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(
       const Duration(seconds: 3),
       () => Get.offAll(
-        () => const MainPage(),
+        () => const LoginPage(),
       ),
     );
   }
@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Colors.red,
     );
   }
 }
