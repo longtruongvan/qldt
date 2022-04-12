@@ -13,4 +13,5 @@ class AppColors {
   static const Color whileColor = Color(0xffFFFFFF);
 
   static const Color color10182B = Color(0xff10182B);
+
 }
