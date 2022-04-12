@@ -14,6 +14,7 @@ class AppTextField extends StatelessWidget {
   final double? borderRadius;
   final EdgeInsetsGeometry? contentPadding;
   final TextInputType? keyboardType;
+  final Widget? suffixIcon;
 
   /// properties text input password
   final bool? obscureText;
@@ -37,6 +38,7 @@ class AppTextField extends StatelessWidget {
     this.enableSuggestions,
     this.obscureText,
     this.obscuringCharacter,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -51,27 +53,24 @@ class AppTextField extends StatelessWidget {
       obscureText: obscureText ?? false,
       // obscuringCharacter: obscuringCharacter ?? '',
       decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: hintStyle ?? AppTextStyle.colorDarkGrayW400,
-          // isDense: true,
-          // border: OutlineInputBorder(
-          //     borderRadius: BorderRadius.circular(10),
-          //     borderSide: const BorderSide(
-          //       color: Colors.red,
-          //     )),
-          // contentPadding: contentPadding ?? const EdgeInsets.all(16),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderNormal),
-            borderSide: BorderSide(
-              color: enableBorderColor ?? AppColors.grayColor,
-            ),
+        hintText: hintText,
+        hintStyle: hintStyle ?? AppTextStyle.colorDarkGrayS14W400,
+        enabledBorder: OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(borderRadius ?? AppDimens.borderNormal),
+          borderSide: BorderSide(
+            color: enableBorderColor ?? AppColors.grayColor,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderNormal),
-            borderSide: BorderSide(
-              color: focusBorderColor ?? AppColors.grayColor,
-            ),
-          )),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(borderRadius ?? AppDimens.borderNormal),
+          borderSide: BorderSide(
+            color: focusBorderColor ?? AppColors.grayColor,
+          ),
+        ),
+        suffixIcon: suffixIcon,
+      ),
     );
   }
 }

@@ -7,10 +7,11 @@ class AppPasswordInput extends AppTextField {
     TextEditingController? controller,
     String? hintText,
     TextInputType? keyboardType,
-    bool? obscureText,// properties text input password
-    bool? enableSuggestions,// properties text input password
-    bool? autoCorrect,// properties text input password
+    bool? obscureText, // properties text input password
+    bool? enableSuggestions, // properties text input password
+    bool? autoCorrect, // properties text input password
     String? obscuringCharacter,
+    Widget? suffixIcon,
   }) : super(
           key: key,
           controller: controller,
@@ -19,5 +20,6 @@ class AppPasswordInput extends AppTextField {
           obscureText: obscureText,
           enableSuggestions: enableSuggestions,
           autoCorrect: autoCorrect,
+          suffixIcon: suffixIcon,
         );
 }

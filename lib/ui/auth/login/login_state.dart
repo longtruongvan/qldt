@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 class LoginState {
+  RxBool showPassword = false.obs;
   late TextEditingController emailTextController;
   late TextEditingController passwordTextController;
 

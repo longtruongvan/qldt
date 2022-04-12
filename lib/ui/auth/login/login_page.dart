@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_dimens.dart';
+import 'package:qldt/common/app_images.dart';
 import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/ui/auth/login/login_logic.dart';
+import 'package:qldt/ui/widgets/button/app_button.dart';
 import 'package:qldt/ui/widgets/textfields/app_email_input.dart';
 import 'package:qldt/ui/widgets/textfields/app_label_text_field.dart';
 import 'package:qldt/ui/widgets/textfields/app_password_input.dart';
@@ -49,19 +51,51 @@ class _LoginPageState extends State<LoginPage> {
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: AppDimens.spacingNormal),
-              AppPasswordInput(
-                hintText: 'Password',
-                controller: state.passwordTextController,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-                enableSuggestions: false,
-                autoCorrect: false,
-                // obscuringCharacter: '*',
+              Obx(
+                () => AppPasswordInput(
+                  hintText: 'Password',
+                  controller: state.passwordTextController,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: !state.showPassword.value,
+                  enableSuggestions: false,
+                  autoCorrect: false,
+                  // obscuringCharacter: '*',
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      logic.showPassword();
+                    },
+                    child: Image.asset(
+                      (state.showPassword.value)
+                          ? AppImages.icShowPassword
+                          : AppImages.icHidePassword,
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                ),
               ),
-              const SizedBox(height: AppDimens.spacingNormal),
-              Text(
-                'Forgot Password?',
-                style: AppTextStyle.colorDarkGrayW500,
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  margin: const EdgeInsets.all(AppDimens.spacingNormal),
+                  child: Text(
+                    'Forgot Password?',
+                    style: AppTextStyle.colorDarkGrayS14W500,
+                  ),
+                ),
+              ),
+              const AppButton(
+                title: 'Log in',
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  margin: const EdgeInsets.all(AppDimens.spacingNormal),
+                  child: Text(
+                    'Sign up',
+                    style: AppTextStyle.colorDarkGrayS14W500,
+                  ),
+                ),
               ),
             ],
           ),
