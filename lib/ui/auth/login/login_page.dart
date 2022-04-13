@@ -35,8 +35,8 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
+            left: AppDimens.spacingNormal,
+            right: AppDimens.spacingNormal,
             bottom: 20.0,
             top: 52.0,
           ),
@@ -124,7 +124,9 @@ class _LoginPageState extends State<LoginPage> {
                 title: 'Log in',
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  logic.goToSignUpScreen();
+                },
                 child: Container(
                   margin: const EdgeInsets.all(AppDimens.spacingNormal),
                   child: Text(
