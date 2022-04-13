@@ -108,7 +108,9 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           const SizedBox(height: AppDimens.spacingNormal),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              logic.backPress();
+            },
             child: Container(
               margin: const EdgeInsets.all(AppDimens.spacingNormal),
               child: Text(
