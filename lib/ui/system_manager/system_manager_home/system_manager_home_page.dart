@@ -7,6 +7,8 @@ import 'package:qldt/common/app_images.dart';
 import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_logic.dart';
 
+import 'system_manager_home_logic.dart';
+
 class SystemManagerHomePage extends StatefulWidget {
   const SystemManagerHomePage({Key? key}) : super(key: key);
 
@@ -16,6 +18,7 @@ class SystemManagerHomePage extends StatefulWidget {
 
 class _SystemManagerHomePageState extends State<SystemManagerHomePage>
     with AutomaticKeepAliveClientMixin {
+  final logic = Get.put(SystemManagerHomeLogic());
   final systemManagerMainPageState = Get.find<SystemManagerMainLogic>().state;
 
   @override
@@ -103,48 +106,53 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
   }
 
   Widget _buildItemDepartmentManager() {
-    return Container(
-      width: Get.width - 32,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColors.grayColor,
-          width: 1,
+    return GestureDetector(
+      onTap: () {
+        logic.goToDepartmentManager();
+      },
+      child: Container(
+        width: Get.width - 32,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: AppColors.grayColor,
+            width: 1,
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            AppImages.imgDepartmentManager,
-            fit: BoxFit.cover,
-            height: 194,
-          ),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.spacingNormal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              AppImages.imgDepartmentManager,
+              fit: BoxFit.cover,
+              height: 194,
             ),
-            child: Text(
-              "Department Manager",
-              style: AppTextStyle.color3C3A36S24W500,
+            const SizedBox(
+              height: AppDimens.spacingNormal,
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.spacingNormal,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                "Department Manager",
+                style: AppTextStyle.color3C3A36S24W500,
+              ),
             ),
-            child: Text(
-              "Add, edit, delete, search, set departments, ...",
-              style: AppTextStyle.color3C3A36S14W400,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                "Add, edit, delete, search, set departments, ...",
+                style: AppTextStyle.color3C3A36S14W400,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-        ],
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+          ],
+        ),
       ),
     );
   }

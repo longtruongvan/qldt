@@ -4,14 +4,18 @@ import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
 
 class AppLabelTextField extends StatelessWidget {
   final String title;
+  final double? spacingTitleAndTextField;
   final TextStyle? titleStyle;
+  final TextStyle? hintStyle;
   final String? hintText;
   final TextEditingController? controller;
 
   const AppLabelTextField({
     Key? key,
     required this.title,
+    this.spacingTitleAndTextField,
     this.titleStyle,
+    this.hintStyle,
     this.hintText,
     this.controller,
   }) : super(key: key);
@@ -26,9 +30,12 @@ class AppLabelTextField extends StatelessWidget {
           title,
           style: titleStyle ?? AppTextStyle.color10182BS14w500,
         ),
-        const SizedBox(height: 5,),
+        SizedBox(
+          height: spacingTitleAndTextField ?? 5,
+        ),
         AppTextField(
           hintText: hintText,
+          hintStyle: hintStyle,
           controller: controller,
         ),
       ],

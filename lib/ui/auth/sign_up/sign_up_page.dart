@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/ui/auth/sign_up/sign_up_logic.dart';
+import 'package:qldt/ui/widgets/button/back_button.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
@@ -136,26 +137,7 @@ class _SignUpPageState extends State<SignUpPage> {
         top: AppDimens.spacingNormal,
         left: AppDimens.spacingNormal,
         child: SafeArea(
-          child: GestureDetector(
-            onTap: () => logic.backPress(),
-            child: Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.whiteColor,
-                border: Border.all(
-                  color: AppColors.grayColor,
-                  width: 1,
-                ),
-              ),
-              child: Image.asset(
-                AppImages.icBack,
-                width: 16,
-                height: 16,
-              ),
-            ),
-          ),
+          child: AppBackButton(eventHandler: logic.backPress,),
         ));
   }
 }
