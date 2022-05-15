@@ -1,10 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_theme.dart';
 import 'package:qldt/router/router_config.dart';
+import 'package:qldt/utils/authentication.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  Future(builabc);
   runApp(const MyApp());
+}
+
+void builabc() async{
+  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {
