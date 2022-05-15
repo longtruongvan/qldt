@@ -6,4 +6,8 @@ class AppImages {
   static const logoGoogle = 'assets/icons/google_logo.png';
   static const logoSignUp = 'assets/icons/logo_sign_up.png';
   static const icBack = 'assets/icons/ic_back.png';
+  static const imgDepartmentManager = 'assets/images/img_department_manager.png';
+  static const imgLoading = 'assets/images/img_loading.gif';
+  static const imgLoading1 = 'assets/images/img_loading_1.gif';
+  static const imgManagerUserItem = 'assets/images/img_user_manager_item.png';
 }

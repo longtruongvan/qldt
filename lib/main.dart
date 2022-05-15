@@ -8,11 +8,11 @@ import 'package:qldt/utils/authentication.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  Future(builabc);
+  Future(initService);
   runApp(const MyApp());
 }
 
-void builabc() async{
+void initService() async{
   await Firebase.initializeApp();
 }
 
