@@ -9,12 +9,15 @@ class AppTextField extends StatelessWidget {
   final Color? enableBorderColor;
   final Color? focusBorderColor;
   final Color? cursorColor;
+  final Color? errorColor;
+  final String? errorText;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
   final double? borderRadius;
   final EdgeInsetsGeometry? contentPadding;
   final TextInputType? keyboardType;
   final Widget? suffixIcon;
+  final TextInputAction? textInputAction;
 
   /// properties text input password
   final bool? obscureText;
@@ -39,6 +42,9 @@ class AppTextField extends StatelessWidget {
     this.obscureText,
     this.obscuringCharacter,
     this.suffixIcon,
+    this.textInputAction,
+    this.errorColor,
+    this.errorText,
   }) : super(key: key);
 
   @override
@@ -52,19 +58,33 @@ class AppTextField extends StatelessWidget {
       enableSuggestions: enableSuggestions ?? true,
       obscureText: obscureText ?? false,
       // obscuringCharacter: obscuringCharacter ?? '',
+      textInputAction: textInputAction ?? TextInputAction.done,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: hintStyle ?? AppTextStyle.colorDarkGrayS14W400,
+        errorText: errorText,
+        errorBorder: (errorText != null)
+            ? OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  borderRadius ?? AppDimens.borderNormal,
+                ),
+                borderSide: const BorderSide(
+                  color: AppColors.errorColor,
+                ),
+              )
+            : null,
         enabledBorder: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(borderRadius ?? AppDimens.borderNormal),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? AppDimens.borderNormal,
+          ),
           borderSide: BorderSide(
             color: enableBorderColor ?? AppColors.grayColor,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(borderRadius ?? AppDimens.borderNormal),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? AppDimens.borderNormal,
+          ),
           borderSide: BorderSide(
             color: focusBorderColor ?? AppColors.grayColor,
           ),

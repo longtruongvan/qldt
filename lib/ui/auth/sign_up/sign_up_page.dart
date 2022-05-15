@@ -24,102 +24,109 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            _buildBodyWidget(),
-            _buildBackButton(),
-          ],
-        ),
+      // resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          _buildBodyWidget(),
+          _buildBackButton(),
+        ],
       ),
     );
   }
 
   Widget _buildBodyWidget() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: AppDimens.spacingNormal,
-        right: AppDimens.spacingNormal,
-        bottom: 20.0,
-        top: 52.0,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Image.asset(
-              AppImages.logoSignUp,
-              // width: 24,
-              // height: 24,
-            ),
+    return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: AppDimens.spacingNormal,
+            right: AppDimens.spacingNormal,
+            bottom: 20.0,
+            top: 52.0,
           ),
-          const SizedBox(height: AppDimens.spacingNormal),
-          Text(
-            'Sign up',
-            style: AppTextStyle.colorDarkS24W500,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Create your account',
-            style: AppTextStyle.colorDarkGrayS14W400,
-          ),
-          const SizedBox(height: AppDimens.spacingNormal),
-          AppEmailInput(
-            hintText: 'Name',
-            controller: state.emailTextController,
-            keyboardType: TextInputType.emailAddress,
-          ),
-          const SizedBox(height: AppDimens.spacingNormal),
-          AppEmailInput(
-            hintText: 'E-mail',
-            controller: state.emailTextController,
-            keyboardType: TextInputType.emailAddress,
-          ),
-          const SizedBox(height: AppDimens.spacingNormal),
-          Obx(
-            () => AppPasswordInput(
-              hintText: 'Password',
-              controller: state.passwordTextController,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: !state.showPassword.value,
-              enableSuggestions: false,
-              autoCorrect: false,
-              // obscuringCharacter: '*',
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  logic.showPassword();
-                },
-                child: Image.asset(
-                  (state.showPassword.value)
-                      ? AppImages.icShowPassword
-                      : AppImages.icHidePassword,
-                  width: 24,
-                  height: 24,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                AppImages.logoSignUp,
+                // width: 24,
+                // height: 24,
+              ),
+              const SizedBox(height: AppDimens.spacingNormal),
+              Text(
+                'Sign up',
+                style: AppTextStyle.colorDarkS24W500,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Create your account',
+                style: AppTextStyle.colorDarkGrayS14W400,
+              ),
+              const SizedBox(height: AppDimens.spacingNormal),
+              AppEmailInput(
+                hintText: 'Name',
+                errorText: 'Please check your registration name again',
+                controller: state.emailTextController,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: AppDimens.spacingNormal),
+              AppEmailInput(
+                hintText: 'E-mail',
+                errorText: 'Please check your email again',
+                controller: state.emailTextController,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: AppDimens.spacingNormal),
+              Obx(
+                () => AppPasswordInput(
+                  hintText: 'Password',
+                  errorText: 'Please check your password again',
+                  controller: state.passwordTextController,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: !state.showPassword.value,
+                  enableSuggestions: false,
+                  autoCorrect: false,
+                  textInputAction: TextInputAction.done,
+                  // obscuringCharacter: '*',
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      logic.showPassword();
+                    },
+                    child: Image.asset(
+                      (state.showPassword.value)
+                          ? AppImages.icShowPassword
+                          : AppImages.icHidePassword,
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(height: AppDimens.spacingNormal),
-          const AppButton(
-            title: 'Sign up',
-          ),
-          const SizedBox(height: AppDimens.spacingNormal),
-          GestureDetector(
-            onTap: () {
-              logic.backPress();
-            },
-            child: Container(
-              margin: const EdgeInsets.all(AppDimens.spacingNormal),
-              child: Text(
-                'Log in',
-                style: AppTextStyle.colorDarkGrayS14W500,
+              const SizedBox(height: AppDimens.spacingNormal),
+              const AppButton(
+                title: 'Sign up',
               ),
-            ),
+              const SizedBox(height: AppDimens.spacingNormal),
+              GestureDetector(
+                onTap: () {
+                  logic.backPress();
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(AppDimens.spacingNormal),
+                  child: Text(
+                    'Log in',
+                    style: AppTextStyle.colorDarkGrayS14W500,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -128,23 +135,25 @@ class _SignUpPageState extends State<SignUpPage> {
     return Positioned(
         top: AppDimens.spacingNormal,
         left: AppDimens.spacingNormal,
-        child: GestureDetector(
-          onTap: () => logic.backPress(),
-          child: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.whiteColor,
-              border: Border.all(
-                color: AppColors.grayColor,
-                width: 2,
+        child: SafeArea(
+          child: GestureDetector(
+            onTap: () => logic.backPress(),
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.whiteColor,
+                border: Border.all(
+                  color: AppColors.grayColor,
+                  width: 1,
+                ),
               ),
-            ),
-            child: Image.asset(
-              AppImages.icBack,
-              width: 16,
-              height: 16,
+              child: Image.asset(
+                AppImages.icBack,
+                width: 16,
+                height: 16,
+              ),
             ),
           ),
         ));

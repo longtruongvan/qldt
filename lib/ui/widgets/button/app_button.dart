@@ -20,6 +20,10 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        if (onPress == null) {
+          return;
+        }
+        onPress!();
         // TO DO
       },
       child: Container(
