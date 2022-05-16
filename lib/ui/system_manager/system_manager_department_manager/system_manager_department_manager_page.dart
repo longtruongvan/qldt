@@ -62,7 +62,7 @@ class _SystemManagerDepartmentManagerState
                   ],
                 ),
               ),
-              const SizedBox(height: AppDimens.spacingNormal*2),
+              const SizedBox(height: AppDimens.spacingNormal * 2),
               Row(
                 children: [
                   Text(
@@ -71,7 +71,7 @@ class _SystemManagerDepartmentManagerState
                   ),
                   const Spacer(),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(const AddDepartmentPage());
                     },
                     child: const Icon(
@@ -83,73 +83,48 @@ class _SystemManagerDepartmentManagerState
               ),
               const SizedBox(height: AppDimens.spacingNormal),
               Expanded(
-                child: DefaultTabController(
-                  length: 5,
-                  child: Column(
-                    children: [
-                      TabBar(
-                        indicatorColor: Colors.transparent,
-                        isScrollable: true,
-                        tabs: [
-                          Container(
-                            child: Text("Toà nhà A"),
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                child: Obx(
+                  () => DefaultTabController(
+                    length: state.listBuilding.length,
+                    child: Column(
+                      children: [
+                        TabBar(
+                          indicatorColor: Colors.transparent,
+                          isScrollable: true,
+                          tabs: state.listBuilding.map((buildingResponse) {
+                            return Container(
+                              child: Text(buildingResponse.name??''),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                            );
+                          }).toList(),
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            // Creates border
+                            color: AppColors.primaryColor,
                           ),
-                          Container(
-                            child: Text("Toà nhà A"),
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                          ),
-                          Container(
-                            child: Text("Toà nhà A"),
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                          ),
-                          Container(
-                            child: Text("Toà nhà A"),
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                          ),
-                          Container(
-                            child: Text("Toà nhà A"),
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                          ),
-                        ],
-                        indicator: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          // Creates border
-                          color: AppColors.primaryColor,
+                          labelColor: AppColors.whiteColor,
+                          unselectedLabelColor: AppColors.grayColor,
+                          unselectedLabelStyle: const TextStyle(
+                              color: AppColors.grayColor, fontSize: 16),
+                          labelStyle: const TextStyle(
+                              color: AppColors.primaryColor, fontSize: 16),
                         ),
-                        labelColor: AppColors.whiteColor,
-                        unselectedLabelColor: AppColors.grayColor,
-                        unselectedLabelStyle: const TextStyle(
-                            color: AppColors.grayColor, fontSize: 16),
-                        labelStyle: const TextStyle(
-                            color: AppColors.primaryColor, fontSize: 16),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(
-                              top: AppDimens.spacingNormal),
-                          child: TabBarView(
-                            children: [
-                              Container(
-                                color: Colors.red,
-                              ),
-                              Container(
-                                color: Colors.green,
-                              ),
-                              Container(
-                                color: Colors.black,
-                              ),
-                              Container(
-                                color: Colors.blue,
-                              ),
-                              Container(
-                                color: Colors.yellow,
-                              ),
-                            ],
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                                top: AppDimens.spacingNormal),
+                            child: TabBarView(
+                              children: state.listBuilding.map((buildingResponse){
+                                return Container(
+                                  color: Colors.red,
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

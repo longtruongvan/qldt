@@ -2,11 +2,14 @@ import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../model/response/building_response.dart';
+
 class SystemManagerDepartmentLogic{
   final state = SystemManagerDepartmentState();
 
   SystemManagerDepartmentLogic(){
     fetchData();
+    getDataListBuilding();
   }
 
   void fetchData() async{
@@ -36,6 +39,25 @@ class SystemManagerDepartmentLogic{
           var x=DepartmentResponse.fromJson(snapshot.data());
           print("");
         }).toList();
+      }
+    });
+  }
+
+  void getDataListBuilding() {
+    state.stateLoading.value = true;
+    FirebaseFirestore.instance
+        .collection('Building')
+        .snapshots()
+        .listen((dataSnapshot) {
+      if (dataSnapshot.docs.isNotEmpty) {
+        state.listBuilding.clear();
+        var data = dataSnapshot.docs.map((snapshot) {
+          var response = BuildingResponse.fromJson(snapshot.data());
+          state.listBuilding.add(response);
+        }).toList();
+        state.stateLoading.value = false;
+      } else {
+        state.stateLoading.value = false;
       }
     });
   }

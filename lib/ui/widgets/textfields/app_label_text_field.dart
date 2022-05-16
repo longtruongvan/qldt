@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
 
@@ -9,6 +12,8 @@ class AppLabelTextField extends StatelessWidget {
   final TextStyle? hintStyle;
   final String? hintText;
   final TextEditingController? controller;
+  final Icon? iconSuffix;
+  final bool? isEnable;
 
   const AppLabelTextField({
     Key? key,
@@ -18,6 +23,8 @@ class AppLabelTextField extends StatelessWidget {
     this.hintStyle,
     this.hintText,
     this.controller,
+    this.iconSuffix,
+    this.isEnable,
   }) : super(key: key);
 
   @override
@@ -37,6 +44,8 @@ class AppLabelTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: hintStyle,
           controller: controller,
+          suffixIcon: iconSuffix,
+          isEnable: isEnable,
         ),
       ],
     );

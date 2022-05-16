@@ -9,6 +9,7 @@ part of 'department_response.dart';
 DepartmentResponse _$DepartmentResponseFromJson(Map<String, dynamic> json) =>
     DepartmentResponse(
       id: json['id'] as String?,
+      idBuilding: json['idBuilding'] as String?,
       description: json['description'] as String?,
       location: json['location'] as String?,
       name: json['name'] as String?,
@@ -18,6 +19,7 @@ DepartmentResponse _$DepartmentResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$DepartmentResponseToJson(DepartmentResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'idBuilding': instance.idBuilding,
       'description': instance.description,
       'location': instance.location,
       'name': instance.name,

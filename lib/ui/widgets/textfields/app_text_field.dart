@@ -23,11 +23,13 @@ class AppTextField extends StatelessWidget {
   final bool? obscureText;
   final bool? enableSuggestions;
   final bool? autoCorrect;
+  final bool? isEnable;
   final String? obscuringCharacter;
 
   const AppTextField({
     Key? key,
     this.controller,
+    this.isEnable,
     this.hintText,
     this.enableBorderColor,
     this.focusBorderColor,
@@ -52,6 +54,7 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       cursorColor: cursorColor,
+      enabled: isEnable ?? true,
       keyboardType: keyboardType ?? TextInputType.text,
       style: textStyle ?? AppTextStyle.color10182BS14w500,
       autocorrect: autoCorrect ?? true,
@@ -74,6 +77,14 @@ class AppTextField extends StatelessWidget {
               )
             : null,
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? AppDimens.borderNormal,
+          ),
+          borderSide: BorderSide(
+            color: enableBorderColor ?? AppColors.grayColor,
+          ),
+        ),
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             borderRadius ?? AppDimens.borderNormal,
           ),
