@@ -42,6 +42,10 @@ class AppTextStyle {
   static final colorGrayS14W500 =
       colorGrayS14.copyWith(fontWeight: FontWeight.w500);
 
+  /// S16 weight 500
+  static final colorGrayS16W500 =
+      colorGrayS14.copyWith(fontWeight: FontWeight.w500, fontSize: 16);
+
   static const colorDarkGray = TextStyle(color: AppColors.darkGrayColor);
 
   /// S14
@@ -52,6 +56,12 @@ class AppTextStyle {
       colorDarkGrayS14.copyWith(fontWeight: FontWeight.w500);
 
   static const colorWhite = TextStyle(color: AppColors.whiteColor);
+
+  /// S14 Weight 500
+  static final colorWhiteS14W500 = colorWhite.copyWith(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
 
   /// S16
   static final colorWhiteS16 = colorWhite.copyWith(fontSize: 16);

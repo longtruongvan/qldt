@@ -70,7 +70,7 @@ class AddDepartmentLogic {
         'You have not provided enough information',
         backgroundColor: AppColors.warningColor,
         colorText: AppColors.whiteColor,
-      ).show();
+      );
       return;
     }
     state.stateLoading.value = true;
@@ -94,7 +94,7 @@ class AddDepartmentLogic {
         'Add department success',
         backgroundColor: AppColors.successColor,
         colorText: AppColors.whiteColor,
-      ).show();
+      );
     }).catchError((onError) {
       state.stateLoading.value = false;
       Get.snackbar(
@@ -102,7 +102,7 @@ class AddDepartmentLogic {
         'Add department failure',
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
-      ).show();
+      );
     });
   }
 }

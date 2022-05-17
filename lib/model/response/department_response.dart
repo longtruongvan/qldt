@@ -10,6 +10,7 @@ class DepartmentResponse {
   String? location;
   String? name;
   bool? status;
+  String? nameBuilding;
 
   DepartmentResponse({
     this.id,

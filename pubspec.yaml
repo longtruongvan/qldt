@@ -81,6 +81,7 @@ flutter:
     - assets/icons/google_logo.png
     - assets/icons/logo_sign_up.png
     - assets/icons/ic_back.png
+    - assets/icons/ic_classroom.png
     - assets/images/img_department_manager.png
     - assets/images/img_loading.gif
     - assets/images/img_loading_1.gif

@@ -10,4 +10,5 @@ class AppImages {
   static const imgLoading = 'assets/images/img_loading.gif';
   static const imgLoading1 = 'assets/images/img_loading_1.gif';
   static const imgManagerUserItem = 'assets/images/img_user_manager_item.png';
+  static const icClassroom = 'assets/icons/ic_classroom.png';
 }
