@@ -124,6 +124,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
           children: [
             Image.asset(
               AppImages.imgDepartmentManager,
+              width: Get.width,
               fit: BoxFit.cover,
               height: 194,
             ),
@@ -174,6 +175,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
             AppImages.imgManagerUserItem,
             fit: BoxFit.cover,
             height: 194,
+            width: Get.width,
           ),
           const SizedBox(
             height: AppDimens.spacingNormal,

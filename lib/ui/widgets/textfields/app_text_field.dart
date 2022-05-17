@@ -18,7 +18,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final Widget? suffixIcon;
   final TextInputAction? textInputAction;
-
+  final Function(String value)? onChanged;
   /// properties text input password
   final bool? obscureText;
   final bool? enableSuggestions;
@@ -47,6 +47,7 @@ class AppTextField extends StatelessWidget {
     this.textInputAction,
     this.errorColor,
     this.errorText,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -61,6 +62,7 @@ class AppTextField extends StatelessWidget {
       enableSuggestions: enableSuggestions ?? true,
       obscureText: obscureText ?? false,
       // obscuringCharacter: obscuringCharacter ?? '',
+      onChanged: onChanged,
       textInputAction: textInputAction ?? TextInputAction.done,
       decoration: InputDecoration(
         hintText: hintText,

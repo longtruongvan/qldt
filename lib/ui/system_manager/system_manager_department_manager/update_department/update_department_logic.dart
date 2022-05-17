@@ -61,7 +61,7 @@ class UpdateDepartmentLogic {
     }
   }
 
-  void updateDepartmentHandler() {
+  void updateDepartmentHandler(Function() callback) {
     if (state.nameBuildingTextController.text == '' ||
         state.nameDepartmentTextController.text == '' ||
         state.locationTextController.text == '' ||
@@ -89,6 +89,7 @@ class UpdateDepartmentLogic {
         ).toJson())
         .then((value) {
       state.stateLoading.value = false;
+      callback();
       Get.back(closeOverlays: true);
       Get.snackbar(
         'Success',

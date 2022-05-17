@@ -17,12 +17,14 @@ class DetailDepartmentPage extends StatefulWidget {
   final DepartmentResponse departmentResponse;
   final BuildingResponse buildingResponse;
   final List<BuildingResponse> listBuildingResponse;
+  final Function() callback;
 
   const DetailDepartmentPage({
     Key? key,
     required this.departmentResponse,
     required this.buildingResponse,
     required this.listBuildingResponse,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -36,10 +38,10 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
   @override
   void initState() {
     logic.fetchData(
-      departmentResponse: widget.departmentResponse,
-      buildingResponse: widget.buildingResponse,
-      listBuildingResponse: widget.listBuildingResponse,
-    );
+        departmentResponse: widget.departmentResponse,
+        buildingResponse: widget.buildingResponse,
+        listBuildingResponse: widget.listBuildingResponse,
+        callback: () {});
     super.initState();
   }
 
@@ -116,7 +118,7 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
   Widget _buildBookNowButtonWidget() {
     return GestureDetector(
       onTap: () {
-        if(state.departmentResponse.value.status??false){
+        if (state.departmentResponse.value.status ?? false) {
           showDialog(
               context: context,
               builder: (BuildContext c) {
@@ -144,33 +146,37 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
               });
           return;
         }
-        logic.bookClassroomHandler(id: state.departmentResponse.value.id);
+        logic.bookClassroomHandler(
+            id: state.departmentResponse.value.id ?? '',
+            callback: () {
+              widget.callback();
+            });
       },
       child: Row(
         children: [
           const Spacer(),
           Obx(() => Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: (state.departmentResponse.value.status ?? false)
-                  ? AppColors.grayColor
-                  : Colors.green,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.add,
-                  color: AppColors.whiteColor,
-                  size: 20,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: (state.departmentResponse.value.status ?? false)
+                      ? AppColors.grayColor
+                      : Colors.green,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                Text(
-                  "Book now",
-                  style: AppTextStyle.colorWhiteS14W500,
-                )
-              ],
-            ),
-          )),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.add,
+                      color: AppColors.whiteColor,
+                      size: 20,
+                    ),
+                    Text(
+                      "Book now",
+                      style: AppTextStyle.colorWhiteS14W500,
+                    )
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -244,6 +250,9 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
                 UpdateDepartmentPage(
                   departmentResponse: widget.departmentResponse,
                   buildingResponse: widget.buildingResponse,
+                  callback: (){
+                    widget.callback();
+                  },
                 ),
               );
             }
@@ -284,7 +293,11 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
                   style: AppTextStyle.colorPrimaryS16,
                 ),
                 onPressed: () {
-                  logic.deleteClassroom(id: widget.departmentResponse.id);
+                  logic.deleteClassroom(
+                      id: widget.departmentResponse.id ?? '',
+                      callback: () {
+                        widget.callback();
+                      });
                 },
               ),
             ],

@@ -6,7 +6,7 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/detail_
 
 import '../../../../common/app_colors.dart';
 
-class DetailDepartmentLogic {
+class DetailDepartmentLogic extends GetxController{
   final state = DetailDepartmentState();
 
   DetailDepartmentLogic() {}
@@ -15,6 +15,7 @@ class DetailDepartmentLogic {
     required DepartmentResponse departmentResponse,
     required BuildingResponse buildingResponse,
     required List<BuildingResponse> listBuildingResponse,
+    required Function() callback,
   }) {
     state.departmentResponse.value = departmentResponse;
     state.buildingResponse.value = buildingResponse;
@@ -39,6 +40,8 @@ class DetailDepartmentLogic {
         state.departmentResponse.value = dataDepartment;
         state.buildingResponse.value = dataBuilding;
         state.nameBuilding.value = dataBuilding.name ?? '';
+        state.departmentResponse.refresh();
+        state.buildingResponse.refresh();
         // update ui while update department
       } else {}
       state.statusLoading.value = false;
@@ -74,7 +77,7 @@ class DetailDepartmentLogic {
     });
   }
 
-  void deleteClassroom({required id}) {
+  void deleteClassroom({required String id,required Function() callback}) {
     Get.back();
     state.statusLoading.value = true;
     FirebaseFirestore.instance
@@ -101,7 +104,7 @@ class DetailDepartmentLogic {
     });
   }
 
-  void bookClassroomHandler({required id}) {
+  void bookClassroomHandler({required String id,required Function() callback}) {
     state.statusLoading.value = true;
     FirebaseFirestore.instance.collection('Department').doc(id).update({
       'status': !(state.departmentResponse.value.status ?? false)

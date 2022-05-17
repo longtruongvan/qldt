@@ -1,10 +1,11 @@
+import 'package:get/get.dart';
 import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../model/response/building_response.dart';
 
-class SystemManagerDepartmentLogic {
+class SystemManagerDepartmentLogic extends GetxController{
   final state = SystemManagerDepartmentState();
 
   SystemManagerDepartmentLogic() {

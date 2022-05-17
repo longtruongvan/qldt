@@ -14,11 +14,13 @@ import '../add_department_dialog_choose_building/dialog_choose_building.dart';
 class UpdateDepartmentPage extends StatefulWidget {
   final DepartmentResponse departmentResponse;
   final BuildingResponse buildingResponse;
+  final Function() callback;
 
   const UpdateDepartmentPage({
     Key? key,
     required this.departmentResponse,
     required this.buildingResponse,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -63,7 +65,9 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
         color: AppColors.whiteColor,
         child: GestureDetector(
           onTap: () {
-            logic.updateDepartmentHandler();
+            logic.updateDepartmentHandler((){
+              widget.callback();
+            });
           },
           child: Container(
             margin: const EdgeInsets.only(bottom: 20),

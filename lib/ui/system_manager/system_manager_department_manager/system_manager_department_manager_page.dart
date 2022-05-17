@@ -8,6 +8,7 @@ import 'package:qldt/model/response/building_response.dart';
 import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/add_department/add_department_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/detail_department/detail_department_page.dart';
+import 'package:qldt/ui/system_manager/system_manager_department_manager/search_department/search_department_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_logic.dart';
 import 'package:qldt/ui/widgets/button/back_button.dart';
 
@@ -105,6 +106,7 @@ class _SystemManagerDepartmentManagerState
             departmentResponse: departmentResponse,
             buildingResponse: buildingResponse,
             listBuildingResponse: state.listBuilding,
+            callback: (){},
           ),
         );
       },
@@ -206,27 +208,32 @@ class _SystemManagerDepartmentManagerState
   }
 
   Widget _buildSearchWidget() {
-    return Container(
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: AppColors.grayColor,
-            width: 1,
-          )),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.search,
-            size: 24,
-            color: AppColors.grayColor,
-          ),
-          const SizedBox(width: 5),
-          Text(
-            "Search",
-            style: AppTextStyle.colorGrayS14W500,
-          )
-        ],
+    return GestureDetector(
+      onTap: (){
+        Get.to(const SearchDepartmentPage());
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+              color: AppColors.grayColor,
+              width: 1,
+            )),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.search,
+              size: 24,
+              color: AppColors.grayColor,
+            ),
+            const SizedBox(width: 5),
+            Text(
+              "Search",
+              style: AppTextStyle.colorGrayS14W500,
+            )
+          ],
+        ),
       ),
     );
   }

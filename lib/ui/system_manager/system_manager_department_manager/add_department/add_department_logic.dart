@@ -8,7 +8,7 @@ import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/add_department/add_department_state.dart';
 import 'package:uuid/uuid.dart';
 
-class AddDepartmentLogic {
+class AddDepartmentLogic extends GetxController{
   final state = AddDepartmentState();
 
   AddDepartmentLogic() {
