@@ -89,6 +89,9 @@ class AppTextStyle {
   /// S16
   static final color3C3A36S16 = color3C3A36.copyWith(fontSize: 16);
 
+  /// S18 Weight 500
+  static final color3C3A36S18W500 = color3C3A36.copyWith(fontSize: 18,fontWeight: FontWeight.w500);
+
   /// S24
   static final color3C3A36S24 = color3C3A36.copyWith(fontSize: 24);
 

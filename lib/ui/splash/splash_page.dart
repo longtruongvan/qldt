@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qldt/ui/student/student_main/student_main_page.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(
       const Duration(seconds: 3),
       () => Get.offAll(
-        () => const SystemManagerMainPage(),
+        () => const StudentMainPage(),
         //     () => (FirebaseAuth.instance.currentUser != null)
         //     ? const HomePage()
         //     : const LoginPage(),
