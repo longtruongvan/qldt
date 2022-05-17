@@ -1,28 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qldt/common/app_colors.dart';
-import 'package:qldt/ui/system_manager/system_manager_department_manager/add_department/add_department_logic.dart';
-import 'package:qldt/ui/system_manager/system_manager_department_manager/add_department_dialog_choose_building/dialog_choose_building.dart';
-import 'package:qldt/ui/widgets/textfields/app_label_text_field.dart';
+import 'package:qldt/model/response/building_response.dart';
+import 'package:qldt/model/response/department_response.dart';
+import 'package:qldt/ui/system_manager/system_manager_department_manager/update_department/update_department_logic.dart';
 
+import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
 import '../../../widgets/button/back_button.dart';
+import '../../../widgets/textfields/app_label_text_field.dart';
+import '../add_department_dialog_choose_building/dialog_choose_building.dart';
 
-class AddDepartmentPage extends StatefulWidget {
-  const AddDepartmentPage({Key? key}) : super(key: key);
+class UpdateDepartmentPage extends StatefulWidget {
+  final DepartmentResponse departmentResponse;
+  final BuildingResponse buildingResponse;
+
+  const UpdateDepartmentPage({
+    Key? key,
+    required this.departmentResponse,
+    required this.buildingResponse,
+  }) : super(key: key);
 
   @override
-  State<AddDepartmentPage> createState() => _AddDepartmentPageState();
+  State<UpdateDepartmentPage> createState() => _UpdateDepartmentPageState();
 }
 
-class _AddDepartmentPageState extends State<AddDepartmentPage> {
-  final logic = Get.put(AddDepartmentLogic());
-  final state = Get.find<AddDepartmentLogic>().state;
+class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
+  final logic = Get.put(UpdateDepartmentLogic());
+  final state = Get.find<UpdateDepartmentLogic>().state;
+
+  @override
+  void initState() {
+    logic.setData(widget.departmentResponse,widget.buildingResponse);
+    super.initState();
+  }
 
   @override
   void dispose() {
-    Get.delete<AddDepartmentLogic>();
+    Get.delete<UpdateDepartmentLogic>();
     super.dispose();
   }
 
@@ -47,8 +62,8 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
       child: Container(
         color: AppColors.whiteColor,
         child: GestureDetector(
-          onTap: (){
-            logic.addDepartmentHandel();
+          onTap: () {
+            logic.updateDepartmentHandler();
           },
           child: Container(
             margin: const EdgeInsets.only(bottom: 20),
@@ -58,7 +73,7 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
             height: 60,
             child: Center(
                 child: Text(
-              "OK",
+              "Update",
               style: AppTextStyle.colorWhiteS16
                   .copyWith(fontWeight: FontWeight.w500),
             )),
@@ -83,12 +98,24 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
   Widget _buildBodyWidget() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildAppbarWidget(),
+          _buildContentBodyWidget(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContentBodyWidget() {
+    return Expanded(
       child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildAppbarWidget(),
             const SizedBox(
               height: AppDimens.spacingNormal,
             ),
@@ -159,7 +186,7 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
             // ),
             // GestureDetector(
             //   onTap: () {
-            //     logic.pickImageHandler();
+            //     // logic.pickImageHandler();
             //   },
             //   child: Container(
             //     decoration: BoxDecoration(
@@ -194,7 +221,7 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text(
-          "Add department",
+          "Update department",
           style: AppTextStyle.colorDarkS24W500,
         ),
       ],

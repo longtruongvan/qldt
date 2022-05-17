@@ -25,7 +25,7 @@ class _DialogChooseBuildingState extends State<DialogChooseBuilding> {
     return AlertDialog(
       title: Text(
         "Select building",
-        style: AppTextStyle.colorDartS16W500,
+        style: AppTextStyle.colorDarkS16W500,
       ),
       content: SizedBox(
         width: Get.width * 0.45,
@@ -84,7 +84,7 @@ class _DialogChooseBuildingState extends State<DialogChooseBuilding> {
           },
           child: Text(
             "OK",
-            style: AppTextStyle.colorDartS16W500.copyWith(
+            style: AppTextStyle.colorDarkS16W500.copyWith(
               color: AppColors.primaryColor,
             ),
           ),

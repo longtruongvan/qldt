@@ -7,6 +7,7 @@ import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/model/response/building_response.dart';
 import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/add_department/add_department_page.dart';
+import 'package:qldt/ui/system_manager/system_manager_department_manager/detail_department/detail_department_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_logic.dart';
 import 'package:qldt/ui/widgets/button/back_button.dart';
 
@@ -97,54 +98,65 @@ class _SystemManagerDepartmentManagerState
 
   Widget _buildItemDepartmentWidget(BuildingResponse buildingResponse,
       DepartmentResponse departmentResponse, int index) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      padding: const EdgeInsets.all(AppDimens.spacingNormal),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-            color: (departmentResponse.status ?? false)
-                ? Colors.green
-                : AppColors.grayColor,
-            width: 1),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            AppImages.icClassroom,
-            width: 24,
-            height: 24,
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+          DetailDepartmentPage(
+            departmentResponse: departmentResponse,
+            buildingResponse: buildingResponse,
+            listBuildingResponse: state.listBuilding,
           ),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: Text(
-              "P: ${state.listData[buildingResponse]![index].name}",
-              style: (departmentResponse.status ?? false)
-                  ? AppTextStyle.colorDartS16W500
-                  : AppTextStyle.colorGrayS16W500,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.all(AppDimens.spacingNormal),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
               color: (departmentResponse.status ?? false)
                   ? Colors.green
                   : AppColors.grayColor,
-              borderRadius: BorderRadius.circular(20),
+              width: 1),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              AppImages.icClassroom,
+              width: 24,
+              height: 24,
             ),
-            child: Text(
-              "Status: ${(departmentResponse.status ?? false) ? "Online" : "Offline"}",
-              style: AppTextStyle.colorWhiteS14W500,
+            const SizedBox(
+              width: 10,
             ),
-          )
-        ],
+            Expanded(
+              child: Text(
+                "P: ${state.listData[buildingResponse]![index].name}",
+                style: (departmentResponse.status ?? false)
+                    ? AppTextStyle.colorDarkS16W500
+                    : AppTextStyle.colorGrayS16W500,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: (departmentResponse.status ?? false)
+                    ? Colors.green
+                    : AppColors.grayColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                "Status: ${(departmentResponse.status ?? false) ? "Online" : "Offline"}",
+                style: AppTextStyle.colorWhiteS14W500,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -177,7 +189,7 @@ class _SystemManagerDepartmentManagerState
       children: [
         Text(
           "List of departments",
-          style: AppTextStyle.colorDartS20W500,
+          style: AppTextStyle.colorDarkS20W500,
         ),
         const Spacer(),
         GestureDetector(

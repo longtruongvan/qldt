@@ -7,23 +7,25 @@ class AppTextStyle {
 
   /// S14
   static final colorPrimaryS14 = colorPrimary.copyWith(fontSize: 14);
+  /// S16 Bold
+  static final colorPrimaryS16 = colorPrimary.copyWith(fontSize: 16,fontWeight: FontWeight.w500);
 
   static const colorDark = TextStyle(color: AppColors.darkColor);
 
   /// S14 Weight 500
-  static final colorDartS14W500 = colorDark.copyWith(
+  static final colorDarkS14W500 = colorDark.copyWith(
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 
   /// S16 Weight 500
-  static final colorDartS16W500 = colorDark.copyWith(
+  static final colorDarkS16W500 = colorDark.copyWith(
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
 
   /// S20 Weight 500
-  static final colorDartS20W500 = colorDark.copyWith(
+  static final colorDarkS20W500 = colorDark.copyWith(
     fontSize: 20,
     fontWeight: FontWeight.w500,
   );
