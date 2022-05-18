@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progressive_image/progressive_image.dart';
-import 'package:qldt/ui/student/student_home/student_home_logic.dart';
-import 'package:qldt/ui/student/student_main/student_main_logic.dart';
+import 'package:qldt/ui/teacher/teacher_home/teacher_home_logic.dart';
 
-import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
 
-class StudentHomePage extends StatefulWidget {
-  const StudentHomePage({Key? key}) : super(key: key);
+class TeacherHomePage extends StatefulWidget {
+  const TeacherHomePage({Key? key}) : super(key: key);
 
   @override
-  State<StudentHomePage> createState() => _StudentHomePageState();
+  State<TeacherHomePage> createState() => _TeacherHomePageState();
 }
 
-class _StudentHomePageState extends State<StudentHomePage> {
-  final logic = Get.put(StudentHomeLogic());
-  final state = Get.find<StudentHomeLogic>().state;
-  final studentMainPageState = Get.find<StudentMainLogic>().state;
+class _TeacherHomePageState extends State<TeacherHomePage> {
+  final logic = Get.put(TeacherHomeLogic());
+  final state = Get.find<TeacherHomeLogic>().state;
+  final teacherHomeState = Get.find<TeacherHomeLogic>().state;
+
+  @override
+  void dispose() {
+    Get.delete<TeacherHomeLogic>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,8 +139,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
         const Spacer(),
         InkWell(
           onTap: () {
-            studentMainPageState.itemSelected.value = 2;
-            studentMainPageState.pageController.jumpToPage(2);
+            teacherHomeState.itemSelected.value = 2;
+            teacherHomeState.pageController.jumpToPage(2);
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24),
@@ -144,9 +148,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
               placeholder: AppImages.imgLoading1,
               placeholderScale: 1.5,
               thumbnail:
-                  'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
+              'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               image:
-                  'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
+              'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               fit: BoxFit.cover,
               width: 48,
               height: 48,
