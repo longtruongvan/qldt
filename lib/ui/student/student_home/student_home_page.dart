@@ -34,12 +34,14 @@ class _StudentHomePageState extends State<StudentHomePage> {
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       child: Container(
+        height: Get.height,
         padding: const EdgeInsets.only(
           left: AppDimens.spacingNormal,
           right: AppDimens.spacingNormal,
         ),
         width: Get.size.width,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHeaderWidget(),
@@ -52,12 +54,14 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 _buildItemTopicWidget('Đăng ký học', (){}),
               ],
             ),
+            const SizedBox(height: 10,),
             Row(
               children: [
                 _buildItemTopicWidget('Lịch thi', (){}),
                 _buildItemTopicWidget('Học phí', (){}),
               ],
             ),
+            const SizedBox(height: 10,),
             Row(
               children: [
                 _buildItemTopicWidget('Lộ trình', (){}),
@@ -74,6 +78,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
     return Flexible(
       flex: 1,
       child: Card(
+        elevation: 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
