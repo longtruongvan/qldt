@@ -76,7 +76,7 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
       ),
       left: AppDimens.spacingNormal,
       right: AppDimens.spacingNormal,
-      bottom: 0,
+      bottom: AppDimens.spacingNormal,
     );
   }
 

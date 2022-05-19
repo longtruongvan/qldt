@@ -21,4 +21,5 @@ class AppImages {
   static const icClassroom = 'assets/icons/ic_classroom.png';
   static const imgClassroom = 'assets/images/img_classroom.jpeg';
   static const imgSpecialized = 'assets/images/img_specialized.png';
+  static const imgSubjectManager = 'assets/images/img_subject_manage.png';
 }

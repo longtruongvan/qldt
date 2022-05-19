@@ -15,6 +15,8 @@ class AppLabelTextField extends StatelessWidget {
   final TextEditingController? controller;
   final Icon? iconSuffix;
   final bool? isEnable;
+  final TextInputAction? textInputAction;
+  final TextInputType? textInputType;
 
   const AppLabelTextField({
     Key? key,
@@ -27,6 +29,8 @@ class AppLabelTextField extends StatelessWidget {
     this.iconSuffix,
     this.isEnable,
     this.textStyle,
+    this.textInputAction,
+    this.textInputType,
   }) : super(key: key);
 
   @override
@@ -49,6 +53,8 @@ class AppLabelTextField extends StatelessWidget {
           suffixIcon: iconSuffix,
           isEnable: isEnable,
           textStyle: textStyle ?? AppTextStyle.color3C3A36S18W500,
+          textInputAction: textInputAction ?? TextInputAction.done,
+          keyboardType: textInputType,
         ),
       ],
     );

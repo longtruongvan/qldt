@@ -7,6 +7,7 @@ import 'package:qldt/common/app_images.dart';
 import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_logic.dart';
 import 'package:qldt/ui/system_manager/specialized/specialized_page.dart';
+import 'package:qldt/ui/system_manager/subjects/subject_page.dart';
 
 import 'system_manager_home_logic.dart';
 
@@ -46,6 +47,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
   Widget _buildBodyWidget() {
     return SingleChildScrollView(
       child: Container(
+        color: AppColors.whiteColor,
         padding: const EdgeInsets.only(
           left: AppDimens.spacingNormal,
           right: AppDimens.spacingNormal,
@@ -66,6 +68,63 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
               height: AppDimens.spacingNormal,
             ),
             _buildItemSpecialized(),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+            _buildItemSubjectManager(),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildItemSubjectManager(){
+    return GestureDetector(
+      onTap: () {
+        Get.to(const SubjectPage());
+      },
+      child: Container(
+        width: Get.width - 32,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: AppColors.grayColor,
+            width: 1,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              AppImages.imgSubjectManager,
+              width: Get.width,
+              fit: BoxFit.cover,
+              height: 194,
+            ),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                "Subject Manager",
+                style: AppTextStyle.color3C3A36S24W500,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                "Add, edit, delete, search, set subject, ...",
+                style: AppTextStyle.color3C3A36S14W400,
+              ),
+            ),
             const SizedBox(
               height: AppDimens.spacingNormal,
             ),

@@ -86,7 +86,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
       ),
       left: AppDimens.spacingNormal,
       right: AppDimens.spacingNormal,
-      bottom: 0,
+      bottom: AppDimens.spacingNormal,
     );
   }
 
