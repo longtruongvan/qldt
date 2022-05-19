@@ -37,6 +37,8 @@ dependencies:
 
   flutter_easyloading: ^3.0.3
   cloud_firestore: ^3.1.15
+  firebase_messaging: ^11.4.0
+  flutter_local_notifications: ^9.5.3+1
   progressive_image: ^2.0.0
 
   # flutter pub run build_runner build --delete-conflicting-outputs

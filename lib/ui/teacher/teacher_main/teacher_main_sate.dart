@@ -6,6 +6,6 @@ class TeacherMainState{
   late PageController pageController;
 
   TeacherMainState(){
-    pageController = PageController();
+    pageController = PageController(initialPage: 0);
   }
 }
