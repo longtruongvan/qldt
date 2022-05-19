@@ -13,9 +13,7 @@ SubjectResponse _$SubjectResponseFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       code: json['code'] as String?,
       numberOffLesson: json['numberOffLesson'] as int?,
-    )
-      ..icon = json['icon'] as String?
-      ..isSelected = json['isSelected'] as bool?;
+    );
 
 Map<String, dynamic> _$SubjectResponseToJson(SubjectResponse instance) =>
     <String, dynamic>{
@@ -24,6 +22,4 @@ Map<String, dynamic> _$SubjectResponseToJson(SubjectResponse instance) =>
       'name': instance.name,
       'code': instance.code,
       'numberOffLesson': instance.numberOffLesson,
-      'icon': instance.icon,
-      'isSelected': instance.isSelected,
     };

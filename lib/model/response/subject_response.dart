@@ -3,10 +3,15 @@ part 'subject_response.g.dart';
 
 @JsonSerializable()
 class SubjectResponse {
+  @JsonKey(name: 'id')
   String? id;
+  @JsonKey(name: 'idSpecialized')
   String? idSpecialized;
+  @JsonKey(name: 'name')
   String? name;
+  @JsonKey(name: 'code')
   String? code;
+  @JsonKey(name: 'numberOffLesson')
   int? numberOffLesson;
   String? icon;
   bool? isSelected;

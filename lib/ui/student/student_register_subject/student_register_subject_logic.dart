@@ -31,6 +31,19 @@ class StudentRegisterSubjectLogic {
     Get.to(StudentRegisterSubjectNextPage(
       specializedResponse: state.specializedSelected.value,
       listSubject: arrSubject,
+      callback: () {
+        state.countSubjectSelected.value = 0;
+        for(int i =0;i<state.currentListSubject.length;i++){
+          state.currentListSubject[i].isSelected = false;
+        }
+
+        for(int i =0;i<state.listSubject.length;i++){
+          state.listSubject[i].isSelected = false;
+        }
+
+        state.listSubject.refresh();
+        state.currentListSubject.refresh();
+      },
     ));
   }
 

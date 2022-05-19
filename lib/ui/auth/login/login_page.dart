@@ -38,7 +38,11 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Stack(
-          children: [_buildBodyWidget(context), _buildLoadingWidget()],
+          fit: StackFit.expand,
+          children: [
+            _buildBodyWidget(context),
+            _buildLoadingWidget(),
+          ],
         ),
       ),
     );

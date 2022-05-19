@@ -13,7 +13,12 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/system_
 import 'package:qldt/ui/widgets/button/back_button.dart';
 
 class SystemManagerDepartmentManagerPage extends StatefulWidget {
-  const SystemManagerDepartmentManagerPage({Key? key}) : super(key: key);
+  final bool isSystemManager;
+
+  const SystemManagerDepartmentManagerPage({
+    Key? key,
+    required this.isSystemManager,
+  }) : super(key: key);
 
   @override
   State<SystemManagerDepartmentManagerPage> createState() =>
@@ -38,8 +43,8 @@ class _SystemManagerDepartmentManagerState
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.whiteColor,
         elevation: 0,
-        bottom:  PreferredSize(
-          preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(0),
           child: _buildAppbarWidget(),
         ),
       ),
@@ -114,7 +119,8 @@ class _SystemManagerDepartmentManagerState
             departmentResponse: departmentResponse,
             buildingResponse: buildingResponse,
             listBuildingResponse: state.listBuilding,
-            callback: (){},
+            callback: () {},
+            isSystemManager: widget.isSystemManager,
           ),
         );
       },
@@ -202,23 +208,28 @@ class _SystemManagerDepartmentManagerState
           style: AppTextStyle.colorDarkS20W500,
         ),
         const Spacer(),
-        GestureDetector(
-          onTap: () {
-            Get.to(const AddDepartmentPage());
-          },
-          child: const Icon(
-            Icons.add_circle,
-            color: AppColors.primaryColor,
+        Visibility(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(const AddDepartmentPage());
+            },
+            child: const Icon(
+              Icons.add_circle,
+              color: AppColors.primaryColor,
+            ),
           ),
-        ),
+          visible: widget.isSystemManager,
+        )
       ],
     );
   }
 
   Widget _buildSearchWidget() {
     return GestureDetector(
-      onTap: (){
-        Get.to(const SearchDepartmentPage());
+      onTap: () {
+        Get.to(SearchDepartmentPage(
+          isSystemManager: widget.isSystemManager,
+        ));
       },
       child: Container(
         padding: const EdgeInsets.all(10.0),
@@ -249,13 +260,17 @@ class _SystemManagerDepartmentManagerState
   Widget _buildAppbarWidget() {
     return Row(
       children: [
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
         AppBackButton(eventHandler: () {
           Get.back(closeOverlays: true);
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text("Department manager", style: AppTextStyle.colorDarkS24W500),
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
       ],
     );
   }

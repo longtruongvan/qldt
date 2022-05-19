@@ -3,6 +3,6 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/system_
 
 class SystemManagerHomeLogic extends GetxController{
   void goToDepartmentManager() {
-    Get.to(const SystemManagerDepartmentManagerPage());
+    Get.to(const SystemManagerDepartmentManagerPage(isSystemManager: true,));
   }
 }

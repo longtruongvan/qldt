@@ -60,7 +60,7 @@ class StudentRegisterSubjectNextLogic extends GetxController {
     }
   }
 
-  void submitButtonClickListener() {
+  void submitButtonClickListener(Function() callback) {
     state.statusLoading.value = true;
 
     int count = 0;
@@ -135,8 +135,11 @@ class StudentRegisterSubjectNextLogic extends GetxController {
     state.mergeRequest.listen((p0) {
       if (p0 <= 0) {
         state.statusLoading.value = false;
-        if(!isFailure){
-          AppSnackBar.showSuccess(title: 'Success', message: 'Register success');
+        if (!isFailure) {
+          callback();
+          Get.back(closeOverlays: true);
+          AppSnackBar.showSuccess(
+              title: 'Success', message: 'Register success');
         }
       }
     });
@@ -159,8 +162,8 @@ class StudentRegisterSubjectNextLogic extends GetxController {
       FirebaseFirestore.instance
           .collection('Person')
           .doc(authService.user.value?.uid ?? '')
-          .set({
-        'idCourse': [listRequest[i].id]
+          .update({
+        'idCourse': FieldValue.arrayUnion([listRequest[i].id])
       }).then((value) {
         state.mergeRequest.value--;
       }).catchError((onError) {

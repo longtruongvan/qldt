@@ -13,11 +13,13 @@ import '../../widgets/button/back_button.dart';
 class StudentRegisterSubjectNextPage extends StatefulWidget {
   final SpecializedResponse specializedResponse;
   final List<SubjectResponse> listSubject;
+  final Function() callback;
 
   const StudentRegisterSubjectNextPage({
     Key? key,
     required this.specializedResponse,
     required this.listSubject,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -70,7 +72,7 @@ class _StudentRegisterSubjectNextPageState
     return Positioned(
       child: InkWell(
         onTap: () {
-          logic.submitButtonClickListener();
+          logic.submitButtonClickListener(widget.callback);
         },
         child: Container(
           alignment: Alignment.center,

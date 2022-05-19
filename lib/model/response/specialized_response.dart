@@ -3,8 +3,11 @@ part 'specialized_response.g.dart';
 
 @JsonSerializable()
 class SpecializedResponse {
+  @JsonKey(name: 'id')
   String? id;
+  @JsonKey(name: 'name')
   String? name;
+  @JsonKey(name: 'displayName')
   String? displayName;
   String? icon;
 

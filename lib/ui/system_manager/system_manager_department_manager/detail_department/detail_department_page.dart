@@ -18,6 +18,7 @@ class DetailDepartmentPage extends StatefulWidget {
   final BuildingResponse buildingResponse;
   final List<BuildingResponse> listBuildingResponse;
   final Function() callback;
+  final bool isSystemManager;
 
   const DetailDepartmentPage({
     Key? key,
@@ -25,6 +26,7 @@ class DetailDepartmentPage extends StatefulWidget {
     required this.buildingResponse,
     required this.listBuildingResponse,
     required this.callback,
+    required this.isSystemManager,
   }) : super(key: key);
 
   @override
@@ -59,7 +61,7 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
         backgroundColor: AppColors.whiteColor,
         elevation: 0,
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
+          preferredSize: const Size.fromHeight(0),
           child: _buildAppbarWidget(),
         ),
       ),
@@ -238,7 +240,7 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
           child: Text('P: ${widget.departmentResponse.name}',
               style: AppTextStyle.colorDarkS24W500),
         ),
-        DropdownButton<String>(
+        Visibility(child: DropdownButton<String>(
           items: <String>['Update', 'Delete'].map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -265,7 +267,7 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
           },
           icon: const Icon(Icons.more_vert),
           underline: Container(),
-        ),
+        ),visible: widget.isSystemManager,),
         const SizedBox(width: AppDimens.spacingNormal,),
       ],
     );

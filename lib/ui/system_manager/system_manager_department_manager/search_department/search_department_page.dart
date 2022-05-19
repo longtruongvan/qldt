@@ -13,7 +13,12 @@ import '../detail_department/detail_department_page.dart';
 import 'search_department_logic.dart';
 
 class SearchDepartmentPage extends StatefulWidget {
-  const SearchDepartmentPage({Key? key}) : super(key: key);
+  final bool isSystemManager;
+
+  const SearchDepartmentPage({
+    Key? key,
+    required this.isSystemManager,
+  }) : super(key: key);
 
   @override
   State<SearchDepartmentPage> createState() => _SearchDepartmentPageState();
@@ -23,7 +28,7 @@ class _SearchDepartmentPageState extends State<SearchDepartmentPage> {
   final logic = Get.put(SearchDepartmentLogic());
   final state = Get.find<SearchDepartmentLogic>().state;
 
-  Future<void> _refresh() async{
+  Future<void> _refresh() async {
     logic.fetchData();
   }
 
@@ -33,7 +38,7 @@ class _SearchDepartmentPageState extends State<SearchDepartmentPage> {
       body: SafeArea(
         child: Container(
           padding:
-          const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+              const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
           child: Stack(
             children: [
               Column(
@@ -62,9 +67,10 @@ class _SearchDepartmentPageState extends State<SearchDepartmentPage> {
             departmentResponse: departmentResponse,
             buildingResponse: buildingResponse,
             listBuildingResponse: state.listBuilding,
-            callback: (){
+            callback: () {
               // logic.fetchData();
             },
+            isSystemManager: widget.isSystemManager,
           ),
         );
       },

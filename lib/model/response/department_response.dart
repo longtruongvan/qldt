@@ -4,11 +4,17 @@ part 'department_response.g.dart';
 
 @JsonSerializable()
 class DepartmentResponse {
+  @JsonKey(name: 'id')
   String? id;
+  @JsonKey(name: 'idBuilding')
   String? idBuilding;
+  @JsonKey(name: 'description')
   String? description;
+  @JsonKey(name: 'location')
   String? location;
+  @JsonKey(name: 'name')
   String? name;
+  @JsonKey(name: 'status')
   bool? status;
   String? nameBuilding;
 

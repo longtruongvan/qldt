@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/services/auth_service.dart';
+import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_manager_page.dart';
 import 'package:qldt/ui/teacher/teacher_home/teacher_home_logic.dart';
 import 'package:qldt/ui/teacher/teacher_main/teacher_main_logic.dart';
 
@@ -67,8 +68,17 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             ),
             Row(
               children: [
-                _buildItemTopicWidget('Điểm', () {}),
-                _buildItemTopicWidget('Đăng ký học', () {}),
+                _buildItemTopicWidget('Score', () {
+                  Get.to(const SystemManagerDepartmentManagerPage(
+                    isSystemManager: false,
+                  ));
+                }),
+                // _buildItemTopicWidget('Đăng ký học', () {}),
+                _buildItemTopicWidget('Exam schedule', () {
+                  Get.to(const SystemManagerDepartmentManagerPage(
+                    isSystemManager: false,
+                  ));
+                }),
               ],
             ),
             const SizedBox(
@@ -76,19 +86,24 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             ),
             Row(
               children: [
-                _buildItemTopicWidget('Lịch thi', () {}),
-                _buildItemTopicWidget('Học phí', () {}),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                _buildItemTopicWidget('Lộ trình', () {}),
+                _buildItemTopicWidget('Department', () {
+                  Get.to(const SystemManagerDepartmentManagerPage(
+                    isSystemManager: false,
+                  ));
+                }),
                 const Spacer(),
+                // _buildItemTopicWidget('Học phí', () {}),
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            // Row(
+            //   children: [
+            //     _buildItemTopicWidget('Lộ trình', () {}),
+            //     const Spacer(),
+            //   ],
+            // ),
           ],
         ),
       ),
@@ -98,35 +113,38 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
   Widget _buildItemTopicWidget(String title, Function() event) {
     return Flexible(
       flex: 1,
-      child: Card(
-        elevation: 3,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              AppImages.imgDepartmentManager,
-              width: Get.width / 2,
-              fit: BoxFit.cover,
-              height: 150,
-            ),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimens.spacingNormal,
+      child: GestureDetector(
+        onTap: event,
+        child: Card(
+          elevation: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                AppImages.imgDepartmentManager,
+                width: Get.width / 2,
+                fit: BoxFit.cover,
+                height: 150,
               ),
-              child: Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.color3C3A36S18W500,
+              const SizedBox(
+                height: AppDimens.spacingNormal,
               ),
-            ),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-          ],
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimens.spacingNormal,
+                ),
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyle.color3C3A36S18W500,
+                ),
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -137,7 +155,9 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +201,9 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             ),
           ),
         ),
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
       ],
     );
   }

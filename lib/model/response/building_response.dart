@@ -4,7 +4,9 @@ part 'building_response.g.dart';
 
 @JsonSerializable()
 class BuildingResponse {
+  @JsonKey(name: 'id')
   String? id;
+  @JsonKey(name: 'name')
   String? name;
   bool? isSelected;
 
