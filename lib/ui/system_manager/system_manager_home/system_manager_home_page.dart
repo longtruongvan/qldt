@@ -5,6 +5,7 @@ import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_dimens.dart';
 import 'package:qldt/common/app_images.dart';
 import 'package:qldt/common/app_text_style.dart';
+import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_logic.dart';
 import 'package:qldt/ui/system_manager/specialized/specialized_page.dart';
 import 'package:qldt/ui/system_manager/subjects/subject_page.dart';
@@ -22,6 +23,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
     with AutomaticKeepAliveClientMixin {
   final logic = Get.put(SystemManagerHomeLogic());
   final systemManagerMainPageState = Get.find<SystemManagerMainLogic>().state;
+  final authService = Get.find<AuthService>();
 
   @override
   bool get wantKeepAlive => true;
@@ -81,7 +83,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
     );
   }
 
-  Widget _buildItemSubjectManager(){
+  Widget _buildItemSubjectManager() {
     return GestureDetector(
       onTap: () {
         Get.to(const SubjectPage());
@@ -192,7 +194,9 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,12 +206,14 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
               style: AppTextStyle.color3C3A36S16,
             ),
             Text(
-              'Juana Antonieta,',
+              authService.person.value?.name ?? '',
               style: AppTextStyle.color333333S32.copyWith(
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(width: AppDimens.spacingNormal,),
+            const SizedBox(
+              width: AppDimens.spacingNormal,
+            ),
           ],
         ),
         const Spacer(),
@@ -222,16 +228,23 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
               placeholder: AppImages.imgLoading1,
               placeholderScale: 1.5,
               thumbnail:
-                  'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
-              image:
-                  'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
+              (authService.user.value != null &&
+                  authService.user.value!.photoURL != null)
+                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+                  : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
+              image: (authService.user.value != null &&
+                      authService.user.value!.photoURL != null)
+                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+                  : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               fit: BoxFit.cover,
               width: 48,
               height: 48,
             ),
           ),
         ),
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
       ],
     );
   }

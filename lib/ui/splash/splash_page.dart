@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qldt/ui/student/student_main/student_main_page.dart';
-import 'package:qldt/ui/system_manager/main/system_manager_main_page.dart';
-import 'package:qldt/ui/teacher/teacher_main/teacher_main_page.dart';
+import 'package:qldt/ui/splash/splash_logic.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -12,18 +10,20 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final logic = Get.put(SplashLogic());
+  final state = Get.find<SplashLogic>().state;
+
+
+  @override
+  void dispose() {
+    Get.delete<SplashLogic>();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Get.offAll(
-        () => const StudentMainPage(),
-        //     () => (FirebaseAuth.instance.currentUser != null)
-        //     ? const HomePage()
-        //     : const LoginPage(),
-      ),
-    );
+    logic.checkLogin(context: context);
   }
 
   @override

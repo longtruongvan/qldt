@@ -9,7 +9,7 @@ class SubjectResponse {
   String? code;
   int? numberOffLesson;
   String? icon;
-  bool isSelected = false;
+  bool? isSelected;
 
   SubjectResponse({
     this.id,

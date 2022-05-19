@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progressive_image/progressive_image.dart';
+import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/student/student_home/student_home_logic.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
 import 'package:qldt/ui/student/student_register_subject/student_register_subject_page.dart';
@@ -21,6 +22,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
   final logic = Get.put(StudentHomeLogic());
   final state = Get.find<StudentHomeLogic>().state;
   final studentMainPageState = Get.find<StudentMainLogic>().state;
+  final authService = Get.find<AuthService>();
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +133,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
               style: AppTextStyle.color3C3A36S16,
             ),
             Text(
-              'Juana Antonieta,',
+              '${authService.user.value?.displayName??''},',
               style: AppTextStyle.color333333S32.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -150,9 +152,14 @@ class _StudentHomePageState extends State<StudentHomePage> {
               placeholder: AppImages.imgLoading1,
               placeholderScale: 1.5,
               thumbnail:
-                  'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
-              image:
-                  'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
+              (authService.user.value != null &&
+                  authService.user.value!.photoURL != null)
+                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+                  : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
+              image: (authService.user.value != null &&
+                  authService.user.value!.photoURL != null)
+                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+                  : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               fit: BoxFit.cover,
               width: 48,
               height: 48,

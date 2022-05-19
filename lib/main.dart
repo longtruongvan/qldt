@@ -5,16 +5,18 @@ import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_theme.dart';
 import 'package:qldt/router/router_config.dart';
+import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/utils/authentication.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Future(initService);
   runApp(const MyApp());
 }
 
-void initService() async{
+void initService() async {
   await Firebase.initializeApp();
+  await Get.putAsync(() => AuthService().init());
 }
 
 class MyApp extends StatelessWidget {

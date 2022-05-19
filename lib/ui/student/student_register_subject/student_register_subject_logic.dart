@@ -14,7 +14,8 @@ class StudentRegisterSubjectLogic {
   }
 
   void selectSubject(int index) {
-    state.listSubject[index].isSelected = !state.listSubject[index].isSelected;
+    state.listSubject[index].isSelected =
+        !(state.listSubject[index].isSelected ?? false);
     state.listSubject.refresh();
     int position = state.currentListSubject
         .indexWhere((element) => element.id == state.listSubject[index].id);
@@ -25,7 +26,7 @@ class StudentRegisterSubjectLogic {
 
     state.countSubjectSelected.value = 0;
     for (int i = 0; i < state.currentListSubject.length; i++) {
-      if (state.currentListSubject[i].isSelected) {
+      if (state.currentListSubject[i].isSelected ?? false) {
         state.countSubjectSelected.value++;
       }
     }

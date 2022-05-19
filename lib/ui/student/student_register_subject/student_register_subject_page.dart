@@ -95,7 +95,8 @@ class _StudentRegisterSubjectPageState
                   width: 25,
                   height: 25,
                   decoration: BoxDecoration(
-                      color: Colors.red, borderRadius: BorderRadius.circular(25)),
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(25)),
                   child: Obx(
                     () => Text(
                       '${state.countSubjectSelected.value}',
@@ -189,7 +190,7 @@ class _StudentRegisterSubjectPageState
                       logic.selectSubject(index);
                     },
                     child: Icon(
-                      (state.listSubject[index].isSelected)
+                      (state.listSubject[index].isSelected ?? false)
                           ? Icons.check_circle
                           : Icons.add_circle,
                       color: Colors.green,
