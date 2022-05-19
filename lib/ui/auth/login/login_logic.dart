@@ -29,6 +29,7 @@ class LoginLogic extends GetxController {
   void clickLoginGoogleListener({required BuildContext context}) async {
     var user = await Authentication.signInWithGoogle(context: context);
     if (user != null) {
+      state.statusLoading.value = true;
       String uid = user.uid;
       FirebaseFirestore.instance
           .collection('Person')
@@ -53,13 +54,13 @@ class LoginLogic extends GetxController {
               .collection('Person')
               .doc(uid)
               .set(PersonResponse(
-              id: uid,
-              uid: uid,
-              name: user.displayName ?? '',
-              email: user.email ?? '',
-              phone: '',
-              type: PersonType.SV.name)
-              .toJson())
+                      id: uid,
+                      uid: uid,
+                      name: user.displayName ?? '',
+                      email: user.email ?? '',
+                      phone: '',
+                      type: PersonType.SV.name)
+                  .toJson())
               .then((value) {
             FirebaseFirestore.instance
                 .collection('Person')
@@ -80,11 +81,15 @@ class LoginLogic extends GetxController {
                 }
               }
             }).catchError((onError) {
+              state.statusLoading.value=false;
               AppSnackBar.showError(title: 'Error', message: 'An error');
             });
-          }).catchError((onError) {});
+          }).catchError((onError) {
+            state.statusLoading.value=false;
+          });
         }
       }).catchError((onError) {
+        state.statusLoading.value=false;
         Get.offAll(const LoginPage());
       });
     } else {
