@@ -48,6 +48,10 @@ class AppTextStyle {
   static final colorGrayS16W500 =
       colorGrayS14.copyWith(fontWeight: FontWeight.w500, fontSize: 16);
 
+  /// S18 weight 500
+  static final colorGrayS18W500 =
+  colorGrayS14.copyWith(fontWeight: FontWeight.w500, fontSize: 18);
+
   static const colorDarkGray = TextStyle(color: AppColors.darkGrayColor);
 
   /// S14

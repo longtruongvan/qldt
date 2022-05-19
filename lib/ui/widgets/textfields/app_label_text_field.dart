@@ -10,6 +10,7 @@ class AppLabelTextField extends StatelessWidget {
   final double? spacingTitleAndTextField;
   final TextStyle? titleStyle;
   final TextStyle? hintStyle;
+  final TextStyle? textStyle;
   final String? hintText;
   final TextEditingController? controller;
   final Icon? iconSuffix;
@@ -25,6 +26,7 @@ class AppLabelTextField extends StatelessWidget {
     this.controller,
     this.iconSuffix,
     this.isEnable,
+    this.textStyle,
   }) : super(key: key);
 
   @override
@@ -46,6 +48,7 @@ class AppLabelTextField extends StatelessWidget {
           controller: controller,
           suffixIcon: iconSuffix,
           isEnable: isEnable,
+          textStyle: textStyle ?? AppTextStyle.color3C3A36S18W500,
         ),
       ],
     );
