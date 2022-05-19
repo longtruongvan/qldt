@@ -13,6 +13,7 @@ class AppImages {
   static const icSpecialized4 = 'assets/icons/ic_specialized_4.png';
   static const icSpecialized5 = 'assets/icons/ic_specialized_5.png';
   static const icSpecialized6 = 'assets/icons/ic_specialized_6.png';
+  static const icSubjectSelected = 'assets/icons/ic_subject_selected.png';
   static const imgDepartmentManager =
       'assets/images/img_department_manager.png';
   static const imgLoading = 'assets/images/img_loading.gif';

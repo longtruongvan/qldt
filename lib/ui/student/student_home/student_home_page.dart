@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:qldt/ui/student/student_home/student_home_logic.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
+import 'package:qldt/ui/student/student_register_subject/student_register_subject_page.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
@@ -51,7 +52,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
             Row(
               children: [
                 _buildItemTopicWidget('Điểm', (){}),
-                _buildItemTopicWidget('Đăng ký học', (){}),
+                _buildItemTopicWidget('Đăng ký học', (){
+                  Get.to(const StudentRegisterSubjectPage());
+                }),
               ],
             ),
             const SizedBox(height: 10,),
@@ -77,35 +80,38 @@ class _StudentHomePageState extends State<StudentHomePage> {
   Widget _buildItemTopicWidget(String title,Function() event){
     return Flexible(
       flex: 1,
-      child: Card(
-        elevation: 3,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              AppImages.imgDepartmentManager,
-              width: Get.width / 2,
-              fit: BoxFit.cover,
-              height: 150,
-            ),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimens.spacingNormal,
+      child: InkWell(
+        onTap: event,
+        child: Card(
+          elevation: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                AppImages.imgDepartmentManager,
+                width: Get.width / 2,
+                fit: BoxFit.cover,
+                height: 150,
               ),
-              child: Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.color3C3A36S18W500,
+              const SizedBox(
+                height: AppDimens.spacingNormal,
               ),
-            ),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-          ],
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimens.spacingNormal,
+                ),
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyle.color3C3A36S18W500,
+                ),
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+            ],
+          ),
         ),
       ),
     );
