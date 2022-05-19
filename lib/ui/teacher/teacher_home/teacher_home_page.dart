@@ -4,6 +4,7 @@ import 'package:progressive_image/progressive_image.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/teacher/teacher_home/teacher_home_logic.dart';
+import 'package:qldt/ui/teacher/teacher_main/teacher_main_logic.dart';
 
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
@@ -19,7 +20,7 @@ class TeacherHomePage extends StatefulWidget {
 class _TeacherHomePageState extends State<TeacherHomePage> {
   final logic = Get.put(TeacherHomeLogic());
   final state = Get.find<TeacherHomeLogic>().state;
-  final teacherHomeState = Get.find<TeacherHomeLogic>().state;
+  final teacherMainState = Get.find<TeacherMainLogic>().state;
   final authService = Get.find<AuthService>();
 
   @override
@@ -156,8 +157,8 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
         const Spacer(),
         InkWell(
           onTap: () {
-            teacherHomeState.itemSelected.value = 2;
-            teacherHomeState.pageController.jumpToPage(2);
+            teacherMainState.itemSelected.value = 2;
+            teacherMainState.pageController.jumpToPage(2);
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24),

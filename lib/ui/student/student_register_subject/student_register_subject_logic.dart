@@ -1,16 +1,37 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/ui/student/student_register_subject/student_register_subject_state.dart';
+import 'package:qldt/ui/student/student_register_subject_2/student_register_subject_next_page.dart';
 
 class StudentRegisterSubjectLogic {
   final state = StudentRegisterSubjectState();
 
   StudentRegisterSubjectLogic() {
     fetchData();
+  }
+
+  void clickNextButton() {
+    if (state.countSubjectSelected.value == 0) {
+      AppSnackBar.showWarning(
+          title: 'Warning', message: 'Please select a subject');
+      return;
+    }
+
+    List<SubjectResponse> arrSubject = [];
+    state.listSubject.map((element) {
+      if (element.isSelected ?? false) {
+        arrSubject.add(element);
+      }
+    }).toList();
+    Get.to(StudentRegisterSubjectNextPage(
+      specializedResponse: state.specializedSelected.value,
+      listSubject: arrSubject,
+    ));
   }
 
   void selectSubject(int index) {
@@ -94,7 +115,6 @@ class StudentRegisterSubjectLogic {
       if (state.currentListSubject[i].idSpecialized ==
           state.specializedSelected.value.id) {
         state.listSubject.add(state.currentListSubject[i]);
-        break;
       }
     }
     state.listSubject.refresh();

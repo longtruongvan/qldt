@@ -6,6 +6,7 @@ import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_page.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_text_style.dart';
+import '../../../services/fcm_service.dart';
 import '../teacher_notification/teacher_notification_page.dart';
 
 class TeacherMainPage extends StatefulWidget {
@@ -28,6 +29,14 @@ class _TeacherMainPageState extends State<TeacherMainPage> with AutomaticKeepAli
   void _onTapItem(int itemSelected) {
     state.itemSelected.value = itemSelected;
     logic.switchTab();
+  }
+
+
+  @override
+  void initState() {
+    FcmService.getToken();
+    FcmService.handlerMessageInForeground();
+    super.initState();
   }
 
   @override

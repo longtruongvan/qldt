@@ -7,6 +7,8 @@ import 'package:qldt/ui/system_manager/system_manager_home/system_manager_home_p
 import 'package:qldt/ui/system_manager/system_manager_notification/system_manager_notification_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_profile/system_manager_profile_page.dart';
 
+import '../../../services/fcm_service.dart';
+
 class SystemManagerMainPage extends StatefulWidget {
   const SystemManagerMainPage({Key? key}) : super(key: key);
 
@@ -23,6 +25,14 @@ class _SystemManagerMainPageState extends State<SystemManagerMainPage> {
     const SystemManagerNotification(),
     const SystemManagerProfilePage(),
   ];
+
+
+  @override
+  void initState() {
+    FcmService.getToken();
+    FcmService.handlerMessageInForeground();
+    super.initState();
+  }
 
   void _onTapItem(int itemSelected) {
     state.itemSelected.value = itemSelected;

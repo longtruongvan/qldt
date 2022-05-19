@@ -120,7 +120,9 @@ class _StudentRegisterSubjectPageState
       child: Container(
         color: AppColors.whiteColor,
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            logic.clickNextButton();
+          },
           child: Container(
             margin: const EdgeInsets.only(bottom: 20),
             decoration: BoxDecoration(
@@ -129,7 +131,7 @@ class _StudentRegisterSubjectPageState
             height: 60,
             child: Center(
                 child: Text(
-              "OK",
+              "Next",
               style: AppTextStyle.colorWhiteS16
                   .copyWith(fontWeight: FontWeight.w500),
             )),

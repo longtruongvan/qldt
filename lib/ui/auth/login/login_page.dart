@@ -172,8 +172,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoadingWidget() {
     return Obx(() {
       if (state.statusLoading.value) {
-        return const CircularProgressIndicator(
-          color: AppColors.primaryColor,
+        return const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.primaryColor,
+          ),
         );
       }
       return Container();
