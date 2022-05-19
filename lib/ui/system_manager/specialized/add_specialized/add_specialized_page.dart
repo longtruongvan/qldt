@@ -28,6 +28,14 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.whiteColor,
+        elevation: 0,
+        bottom: PreferredSize(
+          child: _buildAppbarWidget(),
+          preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           padding:
@@ -42,6 +50,7 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
           ),
         ),
       ),
+      backgroundColor: AppColors.whiteColor,
     );
   }
 
@@ -58,6 +67,7 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
             color: AppColors.primaryColor,
           ),
           padding: const EdgeInsets.symmetric(vertical: 20),
+          margin: const EdgeInsets.only(bottom: 20),
           child: Text(
             "OK",
             style: AppTextStyle.colorWhiteS16W500,
@@ -84,26 +94,28 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
   Widget _buildBodyWidget() {
     return SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      child: Column(
-        children: [
-          _buildAppbarWidget(),
-          const SizedBox(height: AppDimens.spacingNormal),
-          AppLabelTextField(
-            title: 'Name',
-            titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input name',
-            hintStyle: AppTextStyle.colorGrayS18W500,
-            controller: state.nameTextController,
-          ),
-          const SizedBox(height: AppDimens.spacingNormal),
-          AppLabelTextField(
-            title: 'Display name',
-            titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input display name',
-            hintStyle: AppTextStyle.colorGrayS18W500,
-            controller: state.displayNameTextController,
-          )
-        ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+        child: Column(
+          children: [
+            const SizedBox(height: AppDimens.spacingNormal),
+            AppLabelTextField(
+              title: 'Name',
+              titleStyle: AppTextStyle.color3C3A36S18W500,
+              hintText: 'input name',
+              hintStyle: AppTextStyle.colorGrayS18W500,
+              controller: state.nameTextController,
+            ),
+            const SizedBox(height: AppDimens.spacingNormal),
+            AppLabelTextField(
+              title: 'Display name',
+              titleStyle: AppTextStyle.color3C3A36S18W500,
+              hintText: 'input display name',
+              hintStyle: AppTextStyle.colorGrayS18W500,
+              controller: state.displayNameTextController,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -111,14 +123,16 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
   Widget _buildAppbarWidget() {
     return Row(
       children: [
+        const SizedBox(width: AppDimens.spacingNormal,),
         AppBackButton(eventHandler: () {
           Get.back();
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text(
-          "Add department",
+          "Add specialized",
           style: AppTextStyle.colorDarkS24W500,
         ),
+        const SizedBox(width: AppDimens.spacingNormal,),
       ],
     );
   }

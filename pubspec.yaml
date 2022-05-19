@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^3.1.15
   progressive_image: ^2.0.0
 
+  # flutter pub run build_runner build --delete-conflicting-outputs
   # muốn chạy lệnh flutter pub run build_runner build thì import build_runner
   build_runner: ^2.1.10
   json_serializable: ^6.2.0
@@ -88,6 +89,13 @@ flutter:
     - assets/images/img_user_manager_item.png
     - assets/images/img_classroom.jpeg
     - assets/images/img_specialized.png
+    - assets/icons/ic_specialized.png
+    - assets/icons/ic_specialized_1.png
+    - assets/icons/ic_specialized_2.png
+    - assets/icons/ic_specialized_3.png
+    - assets/icons/ic_specialized_4.png
+    - assets/icons/ic_specialized_5.png
+    - assets/icons/ic_specialized_6.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

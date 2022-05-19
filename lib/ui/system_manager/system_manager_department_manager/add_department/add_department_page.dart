@@ -29,6 +29,15 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.whiteColor,
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
+          child: _buildAppbarWidget(),
+        ),
+      ),
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
@@ -47,7 +56,7 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
       child: Container(
         color: AppColors.whiteColor,
         child: GestureDetector(
-          onTap: (){
+          onTap: () {
             logic.addDepartmentHandel();
           },
           child: Container(
@@ -88,7 +97,6 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildAppbarWidget(),
             const SizedBox(
               height: AppDimens.spacingNormal,
             ),
@@ -189,6 +197,7 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
   Widget _buildAppbarWidget() {
     return Row(
       children: [
+        const SizedBox(width: AppDimens.spacingNormal,),
         AppBackButton(eventHandler: () {
           Get.back();
         }),
@@ -197,6 +206,7 @@ class _AddDepartmentPageState extends State<AddDepartmentPage> {
           "Add department",
           style: AppTextStyle.colorDarkS24W500,
         ),
+        const SizedBox(width: AppDimens.spacingNormal,),
       ],
     );
   }

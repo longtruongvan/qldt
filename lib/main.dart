@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       getPages: RouterConfig.getPages,
       theme: ThemeData(
         fontFamily: AppTheme.fontFamily,
+        backgroundColor: AppColors.whiteColor,
         primarySwatch: Colors.blue,
       ),
       home: Container(),

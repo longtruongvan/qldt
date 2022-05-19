@@ -34,6 +34,15 @@ class _SystemManagerDepartmentManagerState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.whiteColor,
+        elevation: 0,
+        bottom:  PreferredSize(
+          preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
+          child: _buildAppbarWidget(),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(
@@ -42,7 +51,6 @@ class _SystemManagerDepartmentManagerState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildAppbarWidget(),
               const SizedBox(height: AppDimens.spacingNormal),
               _buildSearchWidget(),
               const SizedBox(height: AppDimens.spacingNormal * 2),
@@ -241,11 +249,13 @@ class _SystemManagerDepartmentManagerState
   Widget _buildAppbarWidget() {
     return Row(
       children: [
+        const SizedBox(width: AppDimens.spacingNormal,),
         AppBackButton(eventHandler: () {
           Get.back(closeOverlays: true);
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text("Department manager", style: AppTextStyle.colorDarkS24W500),
+        const SizedBox(width: AppDimens.spacingNormal,),
       ],
     );
   }

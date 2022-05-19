@@ -28,6 +28,15 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.whiteColor,
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
+          child: _buildHeaderWidget(),
+        ),
+      ),
       body: SafeArea(
         child: _buildBodyWidget(),
       ),
@@ -45,7 +54,6 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeaderWidget(),
             const SizedBox(
               height: AppDimens.spacingNormal,
             ),
@@ -125,6 +133,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const SizedBox(width: AppDimens.spacingNormal,),
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,6 +148,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 fontWeight: FontWeight.w700,
               ),
             ),
+            const SizedBox(width: AppDimens.spacingNormal,),
           ],
         ),
         const Spacer(),
@@ -161,7 +171,8 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
               height: 48,
             ),
           ),
-        )
+        ),
+        const SizedBox(width: AppDimens.spacingNormal,),
       ],
     );
   }

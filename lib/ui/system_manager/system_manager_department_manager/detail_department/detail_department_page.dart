@@ -54,18 +54,23 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.whiteColor,
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
+          child: _buildAppbarWidget(),
+        ),
+      ),
       body: SafeArea(
         child: Container(
+          color: AppColors.whiteColor,
           padding:
               const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
           child: Stack(
             children: [
-              Column(
-                children: [
-                  _buildAppbarWidget(),
-                  _buildBodyWidget(),
-                ],
-              ),
+              _buildBodyWidget(),
               _buildLoadingWidget(),
             ],
           ),
@@ -224,6 +229,7 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
   Widget _buildAppbarWidget() {
     return Row(
       children: [
+        const SizedBox(width: AppDimens.spacingNormal,),
         AppBackButton(eventHandler: () {
           Get.back(closeOverlays: true);
         }),
@@ -259,7 +265,8 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
           },
           icon: const Icon(Icons.more_vert),
           underline: Container(),
-        )
+        ),
+        const SizedBox(width: AppDimens.spacingNormal,),
       ],
     );
   }
