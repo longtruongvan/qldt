@@ -14,6 +14,7 @@ PersonResponse _$PersonResponseFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       phone: json['phone'] as String?,
       type: json['type'] as String?,
+      location: json['location'] as String?,
     );
 
 Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
       'email': instance.email,
       'phone': instance.phone,
       'type': instance.type,
+      'location': instance.location,
     };

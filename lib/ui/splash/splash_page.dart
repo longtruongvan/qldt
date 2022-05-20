@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/ui/splash/splash_logic.dart';
 
 class SplashPage extends StatefulWidget {
@@ -29,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
+      color: AppColors.whiteColor,
     );
   }
 }

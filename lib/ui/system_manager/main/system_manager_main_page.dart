@@ -6,6 +6,8 @@ import 'package:qldt/ui/system_manager/main/system_manager_main_logic.dart';
 import 'package:qldt/ui/system_manager/system_manager_home/system_manager_home_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_notification/system_manager_notification_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_profile/system_manager_profile_page.dart';
+import 'package:qldt/ui/teacher/teacher_notification/teacher_notification_page.dart';
+import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_page.dart';
 
 import '../../../services/fcm_service.dart';
 
@@ -22,8 +24,8 @@ class _SystemManagerMainPageState extends State<SystemManagerMainPage> {
 
   final List<Widget> _pages = [
     const SystemManagerHomePage(),
-    const SystemManagerNotification(),
-    const SystemManagerProfilePage(),
+    const TeacherNotificationPage(),
+    const TeacherProfilePage(),
   ];
 
 

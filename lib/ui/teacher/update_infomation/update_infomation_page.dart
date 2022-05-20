@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progressive_image/progressive_image.dart';
-import 'package:qldt/common/app_colors.dart';
-import 'package:qldt/services/auth_service.dart';
-import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_logic.dart';
-import 'package:qldt/ui/teacher/update_infomation/update_infomation_page.dart';
-import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
+import 'package:qldt/ui/teacher/update_infomation/update_infomation_logic.dart';
 
+import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
-import '../../../utils/authentication.dart';
-import '../../auth/login/login_page.dart';
+import '../../../services/auth_service.dart';
 import '../../widgets/button/app_button.dart';
+import '../../widgets/textfields/app_text_field.dart';
 
-class TeacherProfilePage extends StatefulWidget {
-  const TeacherProfilePage({Key? key}) : super(key: key);
+class UpdateInfomationPage extends StatefulWidget {
+  final Function() callback;
+  const UpdateInfomationPage({Key? key,required this.callback}) : super(key: key);
 
   @override
-  State<TeacherProfilePage> createState() => _TeacherProfilePageState();
+  State<UpdateInfomationPage> createState() => _UpdateInfomationState();
 }
 
-class _TeacherProfilePageState extends State<TeacherProfilePage> {
-  final logic = Get.put(TeacherProfileLogic());
-  final state = Get.find<TeacherProfileLogic>().state;
+class _UpdateInfomationState extends State<UpdateInfomationPage> {
+  final logic = Get.put(UpdateInfomationLogic());
+  final state = Get.find<UpdateInfomationLogic>().state;
   final authService = Get.find<AuthService>();
 
   @override
   void dispose() {
-    Get.delete<TeacherProfileLogic>();
+    Get.delete<UpdateInfomationLogic>();
     super.dispose();
   }
 
@@ -39,19 +37,24 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
         fit: StackFit.expand,
         children: [
           _buildBodyWidget(),
-          _buildButtonLogout(),
+          _buildLoadingWidget(),
         ],
       ),
     );
   }
 
-  Widget _buildButtonLogout() {
+  Widget _buildLoadingWidget(){
+    return Container();
+  }
+
+  Widget _buildButtonSave() {
     return Positioned(
       child: AppButton(
-        title: 'Logout',
+        title: 'Save',
         onPress: () {
-          Authentication.signOut();
-          Get.offAll(const LoginPage());
+          logic.save((){
+            widget.callback();
+          });
         },
       ),
       bottom: AppDimens.spacingNormal,
@@ -83,57 +86,43 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
             left: AppDimens.spacingNormal,
             right: AppDimens.spacingNormal,
           ),
-          child: Obx(() => Column(
-                children: [
-                  AppTextField(
-                    textStyle: AppTextStyle.colorGrayS16W500,
-                    hintText: (authService.user.value?.phoneNumber) ??
-                        (authService.person.value?.phone) ??
-                        'Add phone number',
-                    prefixIcon: const Icon(Icons.phone),
-                    isEnable: false,
-                  ),
-                  const SizedBox(
-                    height: AppDimens.spacingNormal,
-                  ),
-                  AppTextField(
-                    textStyle: AppTextStyle.colorGrayS16W500,
-                    hintText: (authService.user.value?.email) ??
-                        (authService.person.value?.email),
-                    prefixIcon: const Icon(Icons.email),
-                    isEnable: false,
-                  ),
-                  const SizedBox(
-                    height: AppDimens.spacingNormal,
-                  ),
-                  AppTextField(
-                    textStyle: AppTextStyle.colorGrayS16W500,
-                    hintText:
-                        (authService.person.value?.location) ?? 'Add location',
-                    prefixIcon: const Icon(Icons.location_pin),
-                    isEnable: false,
-                  ),
-                  const SizedBox(
-                    height: AppDimens.spacingNormal,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(UpdateInfomationPage(
-                        callback: () {
-                          authService.person.refresh();
-                          authService.user.refresh();
-                        },
-                      ));
-                    },
-                    child: Text(
-                      'Update infomation',
-                      style: AppTextStyle.colorPrimaryS16.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  )
-                ],
-              )),
+          child: Column(
+            children: [
+              AppTextField(
+                controller: state.phoneTextController,
+                textStyle: AppTextStyle.colorGrayS16W500,
+                hintText: (authService.user.value?.phoneNumber) ??
+                    (authService.person.value?.phone) ??
+                    'Add phone number',
+                keyboardType: TextInputType.phone,
+                prefixIcon: const Icon(Icons.phone),
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+              AppTextField(
+                textStyle: AppTextStyle.colorGrayS16W500,
+                hintText: (authService.user.value?.email) ??
+                    (authService.person.value?.email),
+                prefixIcon: const Icon(Icons.email),
+                isEnable: false,
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+              AppTextField(
+                controller: state.locationTextController,
+                textStyle: AppTextStyle.colorGrayS16W500,
+                hintText: (authService.person.value?.location) ??
+                    'Add location',
+                prefixIcon: const Icon(Icons.location_pin),
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+              _buildButtonSave(),
+            ],
+          ),
         )
       ],
     );
@@ -187,14 +176,14 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                     placeholder: AppImages.imgLoading1,
                     placeholderScale: 1.5,
                     thumbnail: (authService.user.value != null &&
-                            authService.user.value!.photoURL != null)
+                        authService.user.value!.photoURL != null)
                         ? authService.user.value!.photoURL ??
-                            'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+                        'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                         : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
                     image: (authService.user.value != null &&
-                            authService.user.value!.photoURL != null)
+                        authService.user.value!.photoURL != null)
                         ? authService.user.value!.photoURL ??
-                            'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+                        'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                         : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
                     fit: BoxFit.cover,
                     width: 48,

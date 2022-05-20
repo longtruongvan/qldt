@@ -17,6 +17,7 @@ class AppTextField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final TextInputType? keyboardType;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final TextInputAction? textInputAction;
   final Function(String value)? onChanged;
   /// properties text input password
@@ -48,6 +49,7 @@ class AppTextField extends StatelessWidget {
     this.errorColor,
     this.errorText,
     this.onChanged,
+    this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -103,6 +105,7 @@ class AppTextField extends StatelessWidget {
           ),
         ),
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
       ),
     );
   }

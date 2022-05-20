@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class TeacherProfileState{
+class UpdateInfomationState {
+  RxBool statusLoading = false.obs;
   late TextEditingController phoneTextController;
   late TextEditingController locationTextController;
 
-  TeacherProfileState(){
+  UpdateInfomationState(){
     phoneTextController = TextEditingController(text: '');
     locationTextController = TextEditingController(text: '');
   }

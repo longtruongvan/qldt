@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:qldt/common/app_snack_bar.dart';
 
 class Authentication {
   static Future<void> initializeFirebase() async {
@@ -50,10 +51,9 @@ class Authentication {
     required String password,
     required Function(User) callback,
   }) async {
-
-
     FirebaseAuth.instance.authStateChanges().listen((event) {
-      if (event != null && event.emailVerified) {//event.emailVerified check email real
+      if (event != null && event.emailVerified) {
+        //event.emailVerified check email real
       } else {}
     });
 
@@ -64,8 +64,12 @@ class Authentication {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
+        AppSnackBar.showError(
+            title: 'Error', message: 'No user found for that email.`');
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        AppSnackBar.showError(
+            title: 'Error', message: 'Wrong password provided for that user.');
       }
     }
   }

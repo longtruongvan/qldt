@@ -4,6 +4,7 @@ import 'package:progressive_image/progressive_image.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_manager_page.dart';
+import 'package:qldt/ui/teacher/exam_schedule/exam_schedule_page.dart';
 import 'package:qldt/ui/teacher/teacher_home/teacher_home_logic.dart';
 import 'package:qldt/ui/teacher/teacher_main/teacher_main_logic.dart';
 
@@ -75,9 +76,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
                 }),
                 // _buildItemTopicWidget('Đăng ký học', () {}),
                 _buildItemTopicWidget('Exam schedule', () {
-                  Get.to(const SystemManagerDepartmentManagerPage(
-                    isSystemManager: false,
-                  ));
+                  Get.to(const ExamSchedulePage());
                 }),
               ],
             ),

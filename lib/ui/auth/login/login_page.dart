@@ -37,13 +37,7 @@ class _LoginPageState extends State<LoginPage> {
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            _buildBodyWidget(context),
-            _buildLoadingWidget(),
-          ],
-        ),
+        child: _buildBodyWidget(context),
       ),
     );
   }
@@ -155,18 +149,18 @@ class _LoginPageState extends State<LoginPage> {
                 logic.loginClickListener();
               },
             ),
-            GestureDetector(
-              onTap: () {
-                logic.goToSignUpScreen();
-              },
-              child: Container(
-                margin: const EdgeInsets.all(AppDimens.spacingNormal),
-                child: Text(
-                  'Sign up',
-                  style: AppTextStyle.colorDarkGrayS14W500,
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     logic.goToSignUpScreen();
+            //   },
+            //   child: Container(
+            //     margin: const EdgeInsets.all(AppDimens.spacingNormal),
+            //     child: Text(
+            //       'Sign up',
+            //       style: AppTextStyle.colorDarkGrayS14W500,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/student/student_home/student_home_logic.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
 import 'package:qldt/ui/student/student_register_subject/student_register_subject_page.dart';
+import 'package:qldt/ui/teacher/exam_schedule/list_exam/list_exam_page.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
@@ -62,17 +63,19 @@ class _StudentHomePageState extends State<StudentHomePage> {
             const SizedBox(height: 10,),
             Row(
               children: [
-                _buildItemTopicWidget('Lịch thi', (){}),
+                _buildItemTopicWidget('Lịch thi', (){
+                  Get.to(const ListExamPage());
+                }),
                 _buildItemTopicWidget('Học phí', (){}),
               ],
             ),
-            const SizedBox(height: 10,),
-            Row(
-              children: [
-                _buildItemTopicWidget('Lộ trình', (){}),
-                const Spacer(),
-              ],
-            ),
+            // const SizedBox(height: 10,),
+            // Row(
+            //   children: [
+            //     _buildItemTopicWidget('Lộ trình', (){}),
+            //     const Spacer(),
+            //   ],
+            // ),
           ],
         ),
       ),

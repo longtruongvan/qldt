@@ -5,6 +5,8 @@ import 'package:qldt/ui/student/student_home/student_home_page.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
 import 'package:qldt/ui/student/student_notification/student_notification_page.dart';
 import 'package:qldt/ui/student/student_profile/student_profile_page.dart';
+import 'package:qldt/ui/teacher/teacher_notification/teacher_notification_page.dart';
+import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_page.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_text_style.dart';
@@ -22,8 +24,8 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
 
   final List<Widget> _pages = [
     const StudentHomePage(),
-    const StudentNotificationPage(),
-    const StudentProfilePage(),
+    const TeacherNotificationPage(),
+    const TeacherProfilePage(),
   ];
 
   void _onTapItem(int itemSelected) {
