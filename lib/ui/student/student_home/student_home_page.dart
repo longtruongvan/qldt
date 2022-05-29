@@ -54,10 +54,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
             ),
             Row(
               children: [
-                _buildItemTopicWidget('Điểm', (){}),
+                _buildItemTopicWidget('Điểm', (){},AppImages.imgSpecialized1),
                 _buildItemTopicWidget('Đăng ký học', (){
                   Get.to(const StudentRegisterSubjectPage());
-                }),
+                },AppImages.imgDepartmentManager),
               ],
             ),
             const SizedBox(height: 10,),
@@ -65,8 +65,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
               children: [
                 _buildItemTopicWidget('Lịch thi', (){
                   Get.to(const ListExamPage());
-                }),
-                _buildItemTopicWidget('Học phí', (){}),
+                },AppImages.imgSpecialized),
+                _buildItemTopicWidget('Học phí', (){},AppImages.imgCoruse),
               ],
             ),
             // const SizedBox(height: 10,),
@@ -82,7 +82,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
     );
   }
 
-  Widget _buildItemTopicWidget(String title,Function() event){
+  Widget _buildItemTopicWidget(String title,Function() event,String image){
     return Flexible(
       flex: 1,
       child: InkWell(
@@ -93,7 +93,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                AppImages.imgDepartmentManager,
+                image,
                 width: Get.width / 2,
                 fit: BoxFit.cover,
                 height: 150,
