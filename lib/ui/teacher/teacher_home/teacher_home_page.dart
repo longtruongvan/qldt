@@ -8,6 +8,7 @@ import 'package:qldt/ui/teacher/exam_schedule/exam_schedule_page.dart';
 import 'package:qldt/ui/teacher/teacher_home/teacher_home_logic.dart';
 import 'package:qldt/ui/teacher/teacher_main/teacher_main_logic.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_page.dart';
+import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page.dart';
 
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
@@ -71,7 +72,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             Row(
               children: [
                 _buildItemTopicWidget('Score', () {
-                  Get.to(const TeacherScoreManagerPage());
+                  Get.to(const ViewScorePage(students: []));
                 }),
                 // _buildItemTopicWidget('Đăng ký học', () {}),
                 _buildItemTopicWidget('Exam schedule', () {

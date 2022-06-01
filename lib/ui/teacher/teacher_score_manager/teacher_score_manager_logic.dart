@@ -14,11 +14,13 @@ class TeacherScoreManagerLogic {
     fetchData();
   }
 
-  void clickButtonNextHandler(){
-    if(!state.spec1Active.value&&!state.spec2Active.value){
+  void clickButtonNextHandler() {
+    if (!state.spec1Active.value && !state.spec2Active.value) {
       return;
     }
-    Get.to(const ViewScorePage());
+    Get.to(ViewScorePage(
+      students: state.listPersonResponse,
+    ));
   }
 
   void clearHandler() {
@@ -60,8 +62,9 @@ class TeacherScoreManagerLogic {
     }
     // map data student to class
     state.listPersonResponse.clear();
-    for(int i=0;i<state.currentListPersonResponse.length;i++){
-      if(state.currentListPersonResponse[i].idClass == state.classResponseSelected.value.id){
+    for (int i = 0; i < state.currentListPersonResponse.length; i++) {
+      if (state.currentListPersonResponse[i].idClass ==
+          state.classResponseSelected.value.id) {
         state.listPersonResponse.add(state.currentListPersonResponse[i]);
       }
     }
@@ -80,14 +83,14 @@ class TeacherScoreManagerLogic {
 
     // map data class to specialized
     state.listClassResponse.clear();
-    for(int i=0;i<state.currentListClassResponse.length;i++){
-      if(state.currentListClassResponse[i].specializedID==state.specializedSelected.value.id){
+    for (int i = 0; i < state.currentListClassResponse.length; i++) {
+      if (state.currentListClassResponse[i].specializedID ==
+          state.specializedSelected.value.id) {
         state.listClassResponse.add(state.currentListClassResponse[i]);
       }
     }
 
     state.spec1Active.value = true;
-
   }
 
   void fetchData() {
