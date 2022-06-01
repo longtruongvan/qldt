@@ -11,7 +11,7 @@ ScoreResponse _$ScoreResponseFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       idStudent: json['idStudent'] as String?,
       idSubject: json['idSubject'] as String?,
-      scoreNumber: json['scoreNumber'] as String?,
+      scoreNumber: (json['scoreNumber'] as num?)?.toDouble(),
       typeScore: json['typeScore'] as int?,
       diligence: (json['diligence'] as num?)?.toDouble(),
       test: (json['test'] as num?)?.toDouble(),

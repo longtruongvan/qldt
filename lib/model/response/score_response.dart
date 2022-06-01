@@ -7,7 +7,7 @@ class ScoreResponse {
   String? id;
   String? idStudent;
   String? idSubject;
-  String? scoreNumber;
+  double? scoreNumber;
   int? typeScore;
   double? diligence; // Điểm chuyên cần
   double? test; // Điểm kiểm tra giữa kỳ

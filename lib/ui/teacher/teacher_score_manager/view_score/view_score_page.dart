@@ -2,6 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
+import 'package:qldt/services/auth_service.dart';
+import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_logic.dart';
 
 import '../../../../common/app_dimens.dart';
@@ -19,10 +21,12 @@ enum ScoreViewType {
 
 class ViewScorePage extends StatefulWidget {
   final List<PersonResponse> students;
+  final ScoreViewType viewType;
 
   const ViewScorePage({
     Key? key,
     required this.students,
+    required this.viewType,
   }) : super(key: key);
 
   @override
@@ -32,10 +36,11 @@ class ViewScorePage extends StatefulWidget {
 class _ViewScorePageState extends State<ViewScorePage> {
   final logic = Get.put(ViewScoreLogic());
   final state = Get.find<ViewScoreLogic>().state;
+  final authService = Get.find<AuthService>();
 
   @override
   void initState() {
-    logic.fetchData(widget.students);
+    logic.fetchData(widget.students, widget.viewType);
     super.initState();
   }
 
@@ -115,11 +120,8 @@ class _ViewScorePageState extends State<ViewScorePage> {
     );
   }
 
-  TableRow _buildInfoStudentWidget(
-    String title,
-    String value,
-    bool isEditText,
-  ) {
+  TableRow _buildInfoStudentWidget(String title, String value, bool isEditText,
+      {TextEditingController? controller, TextInputType? textInputType}) {
     return TableRow(children: [
       Container(
         margin: const EdgeInsets.only(left: 10, top: 8, bottom: 8),
@@ -133,8 +135,9 @@ class _ViewScorePageState extends State<ViewScorePage> {
         margin: const EdgeInsets.only(left: 10, top: 8, bottom: 8),
         child: (isEditText)
             ? TextField(
-                controller: TextEditingController(text: value),
+                controller: controller,
                 enableSuggestions: false,
+                keyboardType: textInputType ?? TextInputType.text,
                 decoration: const InputDecoration(
                   isDense: true,
                   contentPadding: EdgeInsets.all(0),
@@ -157,38 +160,107 @@ class _ViewScorePageState extends State<ViewScorePage> {
     ]);
   }
 
-  Widget _buildActionInfoStudentWidget() {
+  Widget _buildActionInfoStudentWidget(int index) {
     return Row(children: [
       const Spacer(),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.grayColor),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.edit, size: 18, color: AppColors.grayColor),
-            const SizedBox(width: 5),
-            Text('Edit', style: AppTextStyle.colorGrayS14W500),
-          ],
+      InkWell(
+        onTap: () {
+          if (state.listScoreEntity[index].isEdit ?? false) {
+            state.listScoreEntity[index].isEdit = false;
+            state.listScoreEntity.refresh();
+            logic.updateScore(index, () {});
+            return;
+          }
+          state.listScoreEntity[index].isEdit = true;
+          state.listScoreEntity.refresh();
+        },
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: (state.listScoreEntity[index].isEdit ?? false)
+                  ? AppColors.primaryColor
+                  : AppColors.grayColor,
+            ),
+            borderRadius: BorderRadius.circular(10),
+            color: (state.listScoreEntity[index].isEdit ?? false)
+                ? AppColors.primaryColor
+                : Colors.transparent,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                (state.listScoreEntity[index].isEdit ?? false)
+                    ? Icons.save
+                    : Icons.edit,
+                size: 18,
+                color: (state.listScoreEntity[index].isEdit ?? false)
+                    ? AppColors.whiteColor
+                    : AppColors.grayColor,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                  (state.listScoreEntity[index].isEdit ?? false)
+                      ? 'Save'
+                      : 'Edit',
+                  style: AppTextStyle.colorGrayS14W500.copyWith(
+                    color: (state.listScoreEntity[index].isEdit ?? false)
+                        ? AppColors.whiteColor
+                        : AppColors.grayColor,
+                  )),
+            ],
+          ),
         ),
       ),
       const SizedBox(width: AppDimens.spacingNormal),
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.grayColor),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.remove, size: 18, color: AppColors.grayColor),
-            const SizedBox(width: 5),
-            Text('Remove', style: AppTextStyle.colorGrayS14W500),
-          ],
+      InkWell(
+        onTap: () {
+          Get.dialog(AlertDialog(
+            title: Text(
+              'Do you really want to delete?',
+              style: AppTextStyle.color3C3A36S16W500,
+            ),
+            content: Text(
+              'The points will return to the value 0. Please confirm',
+              style: AppTextStyle.color3C3A36S16,
+            ),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: AppTextStyle.colorPrimaryS16,
+                  )),
+              FlatButton(
+                  onPressed: () {
+                    Get.back();
+                    logic.deleteScore(index, (){
+                    });
+                  },
+                  child: Text(
+                    'OK',
+                    style: AppTextStyle.colorPrimaryS16,
+                  ))
+            ],
+          ));
+        },
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.grayColor),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.remove, size: 18, color: AppColors.grayColor),
+              const SizedBox(width: 5),
+              Text('Remove', style: AppTextStyle.colorGrayS14W500),
+            ],
+          ),
         ),
       ),
       const SizedBox(width: AppDimens.spacingNormal),
@@ -201,83 +273,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
         return ListView.builder(
           shrinkWrap: true,
           itemBuilder: (c, index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                  horizontal: AppDimens.spacingNormal),
-              child: Card(
-                child: ExpansionTile(
-                  children: [
-                    Table(
-                      border: const TableBorder(
-                        horizontalInside: BorderSide(
-                          width: 0.5,
-                          color: AppColors.grayColor,
-                          style: BorderStyle.solid,
-                        ),
-                        verticalInside: BorderSide(
-                          width: 0.5,
-                          color: AppColors.grayColor,
-                          style: BorderStyle.solid,
-                        ),
-                      ),
-                      columnWidths: const {
-                        0: FlexColumnWidth(4),
-                        1: FlexColumnWidth(6),
-                      },
-                      children: state.viewType.value == ScoreViewType.all
-                          ? [
-                              _buildInfoStudentWidget(
-                                  'Code:',
-                                  state.listScoreEntity[index].personResponse
-                                          ?.idClass ??
-                                      '',
-                                  false),
-                              _buildInfoStudentWidget(
-                                  'Birthday:',
-                                  state.listScoreEntity[index].personResponse
-                                          ?.birthday ??
-                                      '',
-                                  false),
-                              _buildInfoStudentWidget(
-                                  'TBTL Hệ 10 N1:', '10', true),
-                              _buildInfoStudentWidget(
-                                  'TBTL Hệ4 N1:', '10', true),
-                              _buildInfoStudentWidget(
-                                  'Số TCTL N1:', '10', true),
-                              _buildInfoStudentWidget('Số TC N1:', '10', true),
-                            ]
-                          : [
-                              _buildInfoStudentWidget(
-                                  'Code:',
-                                  state.listScoreEntity[index].personResponse
-                                          ?.idClass ??
-                                      '',
-                                  false),
-                              _buildInfoStudentWidget(
-                                  'Birthday:',
-                                  state.listScoreEntity[index].personResponse
-                                          ?.birthday ??
-                                      '',
-                                  false),
-                              _buildInfoStudentWidget('CC:', '10', true),
-                              _buildInfoStudentWidget('KT:', '10', true),
-                              _buildInfoStudentWidget('THI:', '10', true),
-                              _buildInfoStudentWidget('KTHP:', '10', true),
-                              _buildInfoStudentWidget('Chữ:', 'A', true),
-                              _buildInfoStudentWidget('Đánh giá:', 'Đạt', true),
-                            ],
-                    ),
-                    const SizedBox(height: AppDimens.spacingNormal),
-                    _buildActionInfoStudentWidget(),
-                    const SizedBox(height: AppDimens.spacingNormal),
-                  ],
-                  title: Text(
-                    '#${index + 1}. Truơng Văn Long',
-                    style: AppTextStyle.color3C3A36S18W500,
-                  ),
-                ),
-              ),
-            );
+            return _buildScoreItemWidget(index);
           },
           itemCount: state.listScoreEntity.length,
         );
@@ -285,104 +281,153 @@ class _ViewScorePageState extends State<ViewScorePage> {
     );
   }
 
-  Widget _buildWidgetSelectSemester() {
+  Widget _buildScoreItemWidget(int index) {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          border: Border.all(color: AppColors.grayColor, width: 1),
-        ),
-        child: DropdownButton2(
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            color: AppColors.grayColor,
-          ),
-          underline: Container(
-            color: AppColors.whiteColor,
-          ),
-          value: 'All',
-          hint: Text('Select year', style: AppTextStyle.colorGrayS14W500),
-          onChanged: (value) {
-            // logic.checkPersonSelected(value as String);
-          },
-          dropdownDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          ),
-          offset: const Offset(0, -AppDimens.spacingNormal),
-          items: [
-            DropdownMenuItem<String>(
-              child: Text(
-                'All',
-                style: AppTextStyle.color3C3A36S14W500,
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+      child: Card(
+        child: ExpansionTile(
+          children: [
+            Table(
+              border: const TableBorder(
+                horizontalInside: BorderSide(
+                  width: 0.5,
+                  color: AppColors.grayColor,
+                  style: BorderStyle.solid,
+                ),
+                verticalInside: BorderSide(
+                  width: 0.5,
+                  color: AppColors.grayColor,
+                  style: BorderStyle.solid,
+                ),
               ),
-              value: 'All',
+              columnWidths: const {
+                0: FlexColumnWidth(4),
+                1: FlexColumnWidth(6),
+              },
+              // children: state.viewType.value == ScoreViewType.all
+              //     ? [
+              //         _buildInfoStudentWidget(
+              //             'Code:',
+              //             state.listScoreEntity[index].personResponse
+              //                     ?.idClass ??
+              //                 '',
+              //             false),
+              //         _buildInfoStudentWidget(
+              //             'Birthday:',
+              //             state.listScoreEntity[index].personResponse
+              //                     ?.birthday ??
+              //                 '',
+              //             false),
+              //         _buildInfoStudentWidget(
+              //             'TBTL Hệ 10 N1:', '10', true),
+              //         _buildInfoStudentWidget(
+              //             'TBTL Hệ4 N1:', '10', true),
+              //         _buildInfoStudentWidget(
+              //             'Số TCTL N1:', '10', true),
+              //         _buildInfoStudentWidget('Số TC N1:', '10', true),
+              //       ]
+              //     : [
+              //         _buildInfoStudentWidget(
+              //             'Code:',
+              //             state.listScoreEntity[index].personResponse
+              //                     ?.idClass ??
+              //                 '',
+              //             false),
+              //         _buildInfoStudentWidget(
+              //             'Birthday:',
+              //             state.listScoreEntity[index].personResponse
+              //                     ?.birthday ??
+              //                 '',
+              //             false),
+              //         _buildInfoStudentWidget('CC:', '10', true),
+              //         _buildInfoStudentWidget('KT:', '10', true),
+              //         _buildInfoStudentWidget('THI:', '10', true),
+              //         _buildInfoStudentWidget('KTHP:', '10', true),
+              //         _buildInfoStudentWidget('Chữ:', 'A', true),
+              //         _buildInfoStudentWidget('Đánh giá:', 'Đạt', true),
+              //       ],
+              children: [
+                _buildInfoStudentWidget(
+                    'Code:',
+                    state.listScoreEntity[index].personResponse?.idClass ?? '',
+                    false),
+                _buildInfoStudentWidget(
+                    'Birthday:',
+                    state.listScoreEntity[index].personResponse?.birthday ?? '',
+                    false),
+                _buildInfoStudentWidget(
+                  'CC:',
+                  '${state.listScoreEntity[index].diligenceTextController?.text}',
+                  (authService.person.value?.type == PersonType.GV.name &&
+                      (state.listScoreEntity[index].isEdit ?? false)),
+                  controller:
+                      state.listScoreEntity[index].diligenceTextController,
+                  textInputType: TextInputType.number,
+                ),
+                _buildInfoStudentWidget(
+                  'KT:',
+                  '${state.listScoreEntity[index].testTextController?.text}',
+                  (authService.person.value?.type == PersonType.GV.name &&
+                      (state.listScoreEntity[index].isEdit ?? false)),
+                  controller: state.listScoreEntity[index].testTextController,
+                  textInputType: TextInputType.number,
+                ),
+                _buildInfoStudentWidget(
+                  'THI:',
+                  '${state.listScoreEntity[index].examTextController?.text}',
+                  (authService.person.value?.type == PersonType.GV.name &&
+                      (state.listScoreEntity[index].isEdit ?? false)),
+                  controller: state.listScoreEntity[index].examTextController,
+                  textInputType: TextInputType.number,
+                ),
+                _buildInfoStudentWidget(
+                  'KTHP:',
+                  '${state.listScoreEntity[index].endOfCourseTextController?.text}',
+                  (authService.person.value?.type == PersonType.GV.name &&
+                      (state.listScoreEntity[index].isEdit ?? false)),
+                  controller:
+                      state.listScoreEntity[index].endOfCourseTextController,
+                  textInputType: TextInputType.number,
+                ),
+                _buildInfoStudentWidget(
+                  'Chữ:',
+                  '${state.listScoreEntity[index].letterTextController?.text}',
+                  (authService.person.value?.type == PersonType.GV.name &&
+                      (state.listScoreEntity[index].isEdit ?? false)),
+                  controller: state.listScoreEntity[index].letterTextController,
+                ),
+                _buildInfoStudentWidget(
+                  'Đánh giá:',
+                  '${state.listScoreEntity[index].evaluateTextController?.text}',
+                  (authService.person.value?.type == PersonType.GV.name &&
+                      (state.listScoreEntity[index].isEdit ?? false)),
+                  controller:
+                      state.listScoreEntity[index].evaluateTextController,
+                ),
+              ],
             ),
-            DropdownMenuItem<String>(
-              child: Text(
-                '1',
-                style: AppTextStyle.color3C3A36S14W500,
-              ),
-              value: '1',
+            SizedBox(
+              height: authService.person.value?.type == PersonType.GV.name
+                  ? AppDimens.spacingNormal
+                  : 0,
             ),
-            DropdownMenuItem<String>(
-              child: Text(
-                '2',
-                style: AppTextStyle.color3C3A36S14W500,
-              ),
-              value: '2',
+            Visibility(
+              visible: authService.person.value?.type == PersonType.GV.name,
+              child: _buildActionInfoStudentWidget(index),
+            ),
+            SizedBox(
+              height: authService.person.value?.type == PersonType.GV.name
+                  ? AppDimens.spacingNormal
+                  : 0,
             ),
           ],
-        ));
-  }
-
-  Widget _buildWidgetSelectYear() {
-    return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          border: Border.all(color: AppColors.grayColor, width: 1),
+          title: Text(
+            '#${index + 1}. ${state.listScoreEntity[index].personResponse?.name}',
+            style: AppTextStyle.color3C3A36S18W500,
+          ),
         ),
-        child: DropdownButton2(
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            color: AppColors.grayColor,
-          ),
-          underline: Container(
-            color: AppColors.whiteColor,
-          ),
-          value: 'All',
-          hint: Text('Select year', style: AppTextStyle.colorGrayS14W500),
-          onChanged: (value) {
-            // logic.checkPersonSelected(value as String);
-          },
-          dropdownDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          ),
-          offset: const Offset(0, -AppDimens.spacingNormal),
-          items: [
-            DropdownMenuItem<String>(
-              child: Text(
-                'All',
-                style: AppTextStyle.color3C3A36S14W500,
-              ),
-              value: 'All',
-            ),
-            DropdownMenuItem<String>(
-              child: Text(
-                '2019',
-                style: AppTextStyle.color3C3A36S14W500,
-              ),
-              value: '2019',
-            ),
-            DropdownMenuItem<String>(
-              child: Text(
-                '2018',
-                style: AppTextStyle.color3C3A36S14W500,
-              ),
-              value: '2018',
-            ),
-          ],
-        ));
+      ),
+    );
   }
 
   Widget _buildAppbarWidget() {

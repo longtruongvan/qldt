@@ -14,8 +14,17 @@ class TeacherScoreManagerLogic {
     fetchData();
   }
 
+  void checkSemester(String value) {
+    int index = state.listSemester.indexWhere((element) => element == value);
+    if (index <= 0) {
+      return;
+    }
+    state.semesterPositionSelected.value = index;
+  }
+
   void checkTimeSchoolYear(String value) {
     state.yearSchoolSelected.value = value;
+    state.semesterPositionSelected.value = 0;
   }
 
   void clickButtonNextHandler() {
@@ -24,6 +33,9 @@ class TeacherScoreManagerLogic {
     }
     Get.to(ViewScorePage(
       students: state.listPersonResponse,
+      viewType: (state.yearSchoolSelected.value == 'All')
+          ? ScoreViewType.all
+          : ScoreViewType.subject,
     ));
   }
 
@@ -39,6 +51,9 @@ class TeacherScoreManagerLogic {
     state.classResponseSelected.value = ClassResponse();
     state.listClassResponse.clear();
     state.listClassResponse.addAll(state.currentListClassResponse);
+
+    state.yearSchoolSelected.value = 'All';
+    state.yearSchool.clear();
 
     state.personResponseSelected.value = PersonResponse();
     state.listPersonResponse.clear();
@@ -64,7 +79,7 @@ class TeacherScoreManagerLogic {
         // state.nameSpecializedTextController.text =
         //     state.specializedSelected.value.id ?? '';
         state.yearSchool.clear();
-        state.yearSchoolSelected.value ='All';
+        state.yearSchoolSelected.value = 'All';
         state.yearSchool
             .addAll(state.currentListClassResponse[i].schoolYear ?? []);
       }
@@ -83,7 +98,7 @@ class TeacherScoreManagerLogic {
   void checkSpecializedSelected(String id) {
     state.personResponseSelected.value = PersonResponse();
     state.classResponseSelected.value = ClassResponse();
-    state.yearSchoolSelected.value ='All';
+    state.yearSchoolSelected.value = 'All';
     state.yearSchool.clear();
 
     state.listClassResponse.clear();

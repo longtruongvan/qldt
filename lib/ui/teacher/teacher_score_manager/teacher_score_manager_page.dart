@@ -29,6 +29,14 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.whiteColor,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(24),
+          child: _buildAppbarWidget(),
+        ),
+      ),
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Stack(
@@ -51,7 +59,7 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
                 logic.clickButtonNextHandler();
               },
               child: Container(
-                margin: const EdgeInsets.only(bottom: 20),
+                margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
                     color: (state.spec1Active.value && state.spec2Active.value)
                         ? AppColors.primaryColor
@@ -74,52 +82,114 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
   }
 
   Widget _buildBodyWidget() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildAppbarWidget(),
-        Container(
-          margin:
-              const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildSpecWidget(),
-                const SizedBox(height: AppDimens.spacingNormal),
-                Text(
-                  'Select Specialized',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const SizedBox(height: 10),
-                _buildSelectSpecializedDropdownWidget(),
-                const SizedBox(height: AppDimens.spacingNormal),
-                Text(
-                  'Select class',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const SizedBox(height: 10),
-                _buildSelectClassDropdownWidget(),
-                const SizedBox(height: AppDimens.spacingNormal),
-                Text(
-                  'Select student',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const SizedBox(height: 10),
-                _buildSelectStudentDropdownWidget(),
-                const SizedBox(height: AppDimens.spacingNormal),
-                Text(
-                  'Select Time',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const SizedBox(height: 10),
-                _buildSelectTimeDropdownWidget(),
-              ],
-            ),
+    return Container(
+      margin: const EdgeInsets.only(
+          left: AppDimens.spacingNormal,
+          right: AppDimens.spacingNormal,
+          bottom: 100),
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          const SizedBox(height: AppDimens.spacingNormal),
+          _buildSpecWidget(),
+          const SizedBox(height: AppDimens.spacingNormal),
+          Text(
+            'Select Specialized',
+            style: AppTextStyle.color3C3A36S18W500,
           ),
-        ),
-      ],
+          const SizedBox(height: 10),
+          _buildSelectSpecializedDropdownWidget(),
+          const SizedBox(height: AppDimens.spacingNormal),
+          Text(
+            'Select class',
+            style: AppTextStyle.color3C3A36S18W500,
+          ),
+          const SizedBox(height: 10),
+          _buildSelectClassDropdownWidget(),
+          const SizedBox(height: AppDimens.spacingNormal),
+          Text(
+            'Select student',
+            style: AppTextStyle.color3C3A36S18W500,
+          ),
+          const SizedBox(height: 10),
+          _buildSelectStudentDropdownWidget(),
+          const SizedBox(height: AppDimens.spacingNormal),
+          Text(
+            'Select time',
+            style: AppTextStyle.color3C3A36S18W500,
+          ),
+          const SizedBox(height: 10),
+          _buildSelectTimeDropdownWidget(),
+          const SizedBox(height: AppDimens.spacingNormal),
+          Obx(() {
+            if (state.yearSchoolSelected.value == 'All') {
+              return Container();
+            }
+            return Text('Select semester', style: AppTextStyle.color3C3A36S18W500);
+          }),
+          const SizedBox(height: 10),
+          _buildSelectSemesterWidget(),
+        ],
+      ),
     );
+  }
+
+  Widget _buildSelectSemesterWidget() {
+    return Obx(() {
+      if (state.yearSchoolSelected.value == 'All') {
+        return Container();
+      }
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+          border: Border.all(color: AppColors.grayColor, width: 1),
+        ),
+        child: DropdownButton2(
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.grayColor,
+            ),
+            isExpanded: true,
+            underline: Container(
+              color: AppColors.whiteColor,
+            ),
+            value: state.listSemester[state.semesterPositionSelected.value],
+            hint: Text(
+                (state.listPersonResponse.isNotEmpty &&
+                        state.listClassResponse.isNotEmpty)
+                    ? 'All'
+                    : 'No data',
+                style: AppTextStyle.color3C3A36S18W500),
+            onChanged: (value) {
+              logic.checkSemester(value as String);
+            },
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            ),
+            dropdownWidth: Get.width - 32,
+            buttonWidth: Get.width - 32,
+            offset: const Offset(-11, -AppDimens.spacingNormal),
+            items: state.listSemester.map((element) {
+              return DropdownMenuItem(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      element,
+                      style: AppTextStyle.color3C3A36S18W500,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                value: element,
+              );
+            }).toList()),
+      );
+    });
   }
 
   Widget _buildSpecWidget() {
@@ -394,38 +464,44 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
   }
 
   Widget _buildAppbarWidget() {
-    return Container(
-      padding: const EdgeInsets.only(
-          bottom: AppDimens.spacingNormal, top: AppDimens.spacingNormal),
-      child: Row(
-        children: [
-          const SizedBox(
-            width: AppDimens.spacingNormal,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.only(top: AppDimens.spacingNormal),
+          child: Row(
+            children: [
+              const SizedBox(
+                width: AppDimens.spacingNormal,
+              ),
+              AppBackButton(eventHandler: () {
+                Get.back();
+              }),
+              const SizedBox(width: AppDimens.spacingNormal),
+              Text(
+                "Score manager",
+                style: AppTextStyle.colorDarkS24W500,
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () {
+                  logic.clearHandler();
+                },
+                child: Text(
+                  "Clear",
+                  style: AppTextStyle.colorDarkS16W500
+                      .copyWith(color: AppColors.primaryColor),
+                ),
+              ),
+              const SizedBox(
+                width: AppDimens.spacingNormal,
+              ),
+            ],
           ),
-          AppBackButton(eventHandler: () {
-            Get.back();
-          }),
-          const SizedBox(width: AppDimens.spacingNormal),
-          Text(
-            "Score manager",
-            style: AppTextStyle.colorDarkS24W500,
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () {
-              logic.clearHandler();
-            },
-            child: Text(
-              "Clear",
-              style: AppTextStyle.colorDarkS16W500
-                  .copyWith(color: AppColors.primaryColor),
-            ),
-          ),
-          const SizedBox(
-            width: AppDimens.spacingNormal,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppDimens.spacingNormal),
+      ],
     );
   }
 }

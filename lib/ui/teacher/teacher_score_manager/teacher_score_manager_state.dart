@@ -19,6 +19,12 @@ class TeacherScoreManagerState {
   RxList<PersonResponse> listPersonResponse = <PersonResponse>[].obs;
   Rx<PersonResponse> personResponseSelected = PersonResponse().obs;
 
+  RxList<String> listSemester = <String>[
+    "1",
+    "2",
+  ].obs;
+  RxInt semesterPositionSelected = 0.obs;
+
   RxBool spec1Active = false.obs;
   RxBool spec2Active = false.obs;
   RxBool spec3Active = false.obs;
