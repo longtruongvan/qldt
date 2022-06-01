@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:qldt/services/auth_service.dart';
+import 'package:qldt/ui/student/student_home/list_register/list_register_page.dart';
 import 'package:qldt/ui/student/student_home/student_home_logic.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
 import 'package:qldt/ui/student/student_register_subject/student_register_subject_page.dart';
@@ -54,19 +55,19 @@ class _StudentHomePageState extends State<StudentHomePage> {
             ),
             Row(
               children: [
-                _buildItemTopicWidget('Điểm', (){},AppImages.imgSpecialized1),
-                _buildItemTopicWidget('Đăng ký học', (){
-                  Get.to(const StudentRegisterSubjectPage());
+                _buildItemTopicWidget('Score', (){},AppImages.imgSpecialized1),
+                _buildItemTopicWidget('Course', (){
+                  Get.to(const ListRegisterPage());
                 },AppImages.imgDepartmentManager),
               ],
             ),
             const SizedBox(height: 10,),
             Row(
               children: [
-                _buildItemTopicWidget('Lịch thi', (){
+                _buildItemTopicWidget('Exam schedule', (){
                   Get.to(const ListExamPage());
                 },AppImages.imgSpecialized),
-                _buildItemTopicWidget('Học phí', (){},AppImages.imgCoruse),
+                _buildItemTopicWidget('Tuition', (){},AppImages.imgCoruse),
               ],
             ),
             // const SizedBox(height: 10,),

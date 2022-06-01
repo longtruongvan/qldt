@@ -18,6 +18,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
   );
 
+  /// S14 Weight bold
+  static final colorDarkS14Bold = colorDark.copyWith(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
+
   /// S16 Weight 500
   static final colorDarkS16W500 = colorDark.copyWith(
     fontSize: 16,

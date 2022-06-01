@@ -6,6 +6,7 @@ class AppImages {
   static const logoGoogle = 'assets/icons/google_logo.png';
   static const logoSignUp = 'assets/icons/logo_sign_up.png';
   static const icBack = 'assets/icons/ic_back.png';
+  static const icBook = 'assets/icons/ic_book.png';
   static const icSpecialized = 'assets/icons/ic_specialized.png';
   static const icSpecialized1 = 'assets/icons/ic_specialized.png';
   static const icSpecialized2 = 'assets/icons/ic_specialized_2.png';
