@@ -46,7 +46,7 @@ class _DetailSubjectPageState extends State<DetailSubjectPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
-        elevation: 0,
+        elevation: 1,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(AppDimens.spacingNormal),
           child: _buildAppbarWidget(),
@@ -236,50 +236,59 @@ class _DetailSubjectPageState extends State<DetailSubjectPage> {
   }
 
   Widget _buildAppbarWidget() {
-    return Row(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          width: AppDimens.spacingNormal,
-        ),
-        AppBackButton(eventHandler: () {
-          Get.back();
-        }),
-        const SizedBox(width: AppDimens.spacingNormal),
-        Image.asset(
-          widget.subjectResponse.icon ?? AppImages.icSpecialized1,
-          width: 24,
-          height: 24,
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            "${widget.subjectResponse.name}",
-            style: AppTextStyle.colorDarkS24W500,
-          ),
-        ),
-        DropdownButton<String>(
-          items: <String>['Update', 'Delete'].map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
+        Row(
+          children: [
+            const SizedBox(
+              width: AppDimens.spacingNormal,
+            ),
+            AppBackButton(eventHandler: () {
+              Get.back();
+            }),
+            const SizedBox(width: AppDimens.spacingNormal),
+            Image.asset(
+              widget.subjectResponse.icon ?? AppImages.icSpecialized1,
+              width: 24,
+              height: 24,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
               child: Text(
-                value,
-                style: AppTextStyle.colorDarkS16W500,
+                "${widget.subjectResponse.name}",
+                style: AppTextStyle.colorDarkS24W500,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-            );
-          }).toList(),
-          onChanged: (_) {
-            if (_ == 'Delete') {
-              _showDialogDelete();
-            } else {
-              state.isEdit.value = true;
-            }
-          },
-          icon: const Icon(Icons.more_vert),
-          underline: Container(),
+            ),
+            DropdownButton<String>(
+              items: <String>['Update', 'Delete'].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: AppTextStyle.colorDarkS16W500,
+                  ),
+                );
+              }).toList(),
+              onChanged: (_) {
+                if (_ == 'Delete') {
+                  _showDialogDelete();
+                } else {
+                  state.isEdit.value = true;
+                }
+              },
+              icon: const Icon(Icons.more_vert),
+              underline: Container(),
+            ),
+            const SizedBox(
+              width: AppDimens.spacingNormal,
+            ),
+          ],
         ),
-        const SizedBox(
-          width: AppDimens.spacingNormal,
-        ),
+        const SizedBox(height: 16),
       ],
     );
   }

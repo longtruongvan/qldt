@@ -61,7 +61,7 @@ class AppTextField extends StatelessWidget {
       keyboardType: keyboardType ?? TextInputType.text,
       style: textStyle ?? AppTextStyle.color10182BS14w500,
       autocorrect: autoCorrect ?? true,
-      enableSuggestions: enableSuggestions ?? true,
+      enableSuggestions: false,
       obscureText: obscureText ?? false,
       // obscuringCharacter: obscuringCharacter ?? '',
       onChanged: onChanged,

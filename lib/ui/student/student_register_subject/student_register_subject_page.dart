@@ -25,7 +25,9 @@ class StudentRegisterSubjectPage extends StatefulWidget {
 class _StudentRegisterSubjectPageState
     extends State<StudentRegisterSubjectPage> {
   final logic = Get.put(StudentRegisterSubjectLogic());
-  final state = Get.find<StudentRegisterSubjectLogic>().state;
+  final state = Get
+      .find<StudentRegisterSubjectLogic>()
+      .state;
 
   @override
   void dispose() {
@@ -103,13 +105,14 @@ class _StudentRegisterSubjectPageState
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(25)),
                   child: Obx(
-                    () => Text(
-                      '${state.countSubjectSelected.value}',
-                      style: const TextStyle(
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                        () =>
+                        Text(
+                          '${state.countSubjectSelected.value}',
+                          style: const TextStyle(
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                   ),
                 ),
               ),
@@ -126,7 +129,7 @@ class _StudentRegisterSubjectPageState
         color: AppColors.whiteColor,
         child: GestureDetector(
           onTap: () {
-            logic.clickNextButton((){
+            logic.clickNextButton(() {
               widget.callback();
             });
           },
@@ -138,10 +141,10 @@ class _StudentRegisterSubjectPageState
             height: 60,
             child: Center(
                 child: Text(
-              "Next",
-              style: AppTextStyle.colorWhiteS16
-                  .copyWith(fontWeight: FontWeight.w500),
-            )),
+                  "Next",
+                  style: AppTextStyle.colorWhiteS16
+                      .copyWith(fontWeight: FontWeight.w500),
+                )),
           ),
         ),
       ),
@@ -172,117 +175,128 @@ class _StudentRegisterSubjectPageState
   }
 
   Widget _buildListSubject() {
-    return Obx(() => ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: (c, index) {
-            return Container(
-              padding: const EdgeInsets.all(AppDimens.spacingNormal),
-              child: Row(
-                children: [
-                  Image.asset(
-                    state.listSubject[index].icon ?? AppImages.icSpecialized6,
-                    width: 24,
-                    height: 24,
+    return Obx(() =>
+        Expanded(
+          child: ListView.separated(
+            shrinkWrap: true,
+            itemBuilder: (c, index) {
+              return InkWell(
+                onTap: () {
+                  logic.selectSubject(index);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(AppDimens.spacingNormal),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        state.listSubject[index].icon ??
+                            AppImages.icSpecialized6,
+                        width: 24,
+                        height: 24,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Text(state.listSubject[index].name ?? '',
+                            style: AppTextStyle.color3C3A36S18W500),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        (state.listSubject[index].isSelected ?? false)
+                            ? Icons.check_circle
+                            : Icons.add_circle,
+                        color: Colors.green,
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Text(state.listSubject[index].name ?? '',
-                        style: AppTextStyle.color3C3A36S18W500),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      logic.selectSubject(index);
-                    },
-                    child: Icon(
-                      (state.listSubject[index].isSelected ?? false)
-                          ? Icons.check_circle
-                          : Icons.add_circle,
-                      color: Colors.green,
-                    ),
-                  )
-                ],
-              ),
-            );
-          },
-          itemCount: state.listSubject.length,
+                ),
+              );
+            },
+            itemCount: state.listSubject.length,
+            separatorBuilder: (c, index) {
+              return const Divider(height: 1, color: AppColors.grayColor,);
+            },
+          ),
         ));
   }
 
   Widget _buildSelectSpecializedWidget() {
     return Obx(
-      () => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-          Text('Specialized', style: AppTextStyle.color3C3A36S18W500),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-              border: Border.all(color: AppColors.grayColor, width: 1),
-            ),
-            child: DropdownButton2(
-              icon: const Icon(
-                Icons.arrow_drop_down,
-                color: AppColors.grayColor,
+          () =>
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: AppDimens.spacingNormal,
               ),
-              isExpanded: true,
-              underline: Container(
-                color: AppColors.whiteColor,
-              ),
-              value: state.specializedSelected.value.displayName,
-              hint: Text('Select specialized',
-                  style: AppTextStyle.colorGrayS18W500),
-              onChanged: (value) {
-                logic.checkSpecializedSelected(value as String);
-              },
-              dropdownDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-              ),
-              dropdownWidth: Get.width - 32,
-              buttonWidth: Get.width - 32,
-              offset: const Offset(-11, -AppDimens.spacingNormal),
-              items: state.listSpecialized.map((element) {
-                return DropdownMenuItem<String>(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Spacer(),
-                      Text(
-                        element.displayName ?? '',
-                        style: AppTextStyle.color3C3A36S18W500,
-                      ),
-                      const Spacer(),
-                    ],
+              Text('Specialized', style: AppTextStyle.color3C3A36S18W500),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+                  border: Border.all(color: AppColors.grayColor, width: 1),
+                ),
+                child: DropdownButton2(
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    color: AppColors.grayColor,
                   ),
-                  value: element.displayName,
-                );
-              }).toList(),
-            ),
+                  isExpanded: true,
+                  underline: Container(
+                    color: AppColors.whiteColor,
+                  ),
+                  value: state.specializedSelected.value.displayName,
+                  hint: Text('Select specialized',
+                      style: AppTextStyle.colorGrayS18W500),
+                  onChanged: (value) {
+                    logic.checkSpecializedSelected(value as String);
+                  },
+                  dropdownDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        AppDimens.spacingNormal),
+                  ),
+                  dropdownWidth: Get.width - 32,
+                  buttonWidth: Get.width - 32,
+                  offset: const Offset(-11, -AppDimens.spacingNormal),
+                  items: state.listSpecialized.map((element) {
+                    return DropdownMenuItem<String>(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Spacer(),
+                          Text(
+                            element.displayName ?? '',
+                            style: AppTextStyle.color3C3A36S18W500,
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
+                      value: element.displayName,
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
   Widget _buildLoadingWidget() {
     return Obx(
-      () => Visibility(
-        visible: state.stateLoading.value,
-        child: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+          () =>
+          Visibility(
+            visible: state.stateLoading.value,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
     );
   }
 
