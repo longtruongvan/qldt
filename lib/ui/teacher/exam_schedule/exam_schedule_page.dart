@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/ui/teacher/exam_schedule/add/add_exam_schedule_page.dart';
 import 'package:qldt/ui/teacher/exam_schedule/exam_schedule_logic.dart';
-import 'package:qldt/ui/teacher/exam_schedule/exam_schedule_state.dart';
 import 'package:qldt/ui/teacher/exam_schedule/list_exam/list_exam_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -46,33 +45,43 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
         child: SafeArea(
           child: Column(
             children: [
-              Obx(() => TableCalendar(
-                    focusedDay: state.focusDay.value,
-                    firstDay: DateTime(DateTime.now().year - 1, 1, 1),
-                    lastDay: DateTime.now(),
-                    calendarFormat: CalendarFormat.month,
-                    availableCalendarFormats: const {
-                      CalendarFormat.month: 'Month',
-                      CalendarFormat.week: 'Week',
-                    },
-                    selectedDayPredicate: (date) {
-                      return date.isAtSameMomentAs(DateTime.now());
-                    },
-                    onDaySelected: (selectedDay, focusDay) {
-                      // state.focusDay.value = focusDay;
-                      // state.focusDay.refresh();
-                    },
-                  )),
+              Obx(
+                () => TableCalendar(
+                  focusedDay: state.focusDay.value,
+                  firstDay: DateTime(DateTime.now().year - 1, 1, 1),
+                  lastDay: DateTime(
+                      DateTime.now().year, DateTime.now().month + 1, 30),
+                  calendarFormat: CalendarFormat.month,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  availableCalendarFormats: const {
+                    CalendarFormat.month: 'Month',
+                    CalendarFormat.week: 'Week',
+                  },
+                  selectedDayPredicate: (date) {
+                    // return date.isAtSameMomentAs(DateTime.now());
+                    return isSameDay(state.focusDay.value, date);
+                  },
+                  onPageChanged: (focusDay) {
+                    logic.changeMonth(focusDay);
+                  },
+                  onDaySelected: (selectedDay, focusDay) {
+                    logic.changeDay(focusDay);
+                  },
+                ),
+              ),
               const Spacer(),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GestureDetector(
-                    onTap: (){
-                      Get.to(const CreateExamSchedulePage());
+                    onTap: () {
+                      Get.to(CreateExamSchedulePage(
+                        dateTime: state.focusDay.value,
+                      ));
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: AppDimens.spacingNormal),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(35.0),
@@ -81,13 +90,20 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
                         child: Container(
                           width: Get.width,
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.grayColor,width: 1,),
+                            border: Border.all(
+                              color: AppColors.grayColor,
+                              width: 1,
+                            ),
                             borderRadius: BorderRadius.circular(35.0),
                           ),
                           padding: EdgeInsets.all(16),
                           child: Row(
                             children: [
-                              Text('Create exam schedule',style: AppTextStyle.color3C3A36S18W500.copyWith(color: AppColors.primaryColor),),
+                              Text(
+                                'Create exam schedule',
+                                style: AppTextStyle.color3C3A36S18W500
+                                    .copyWith(color: AppColors.primaryColor),
+                              ),
                               const Spacer(),
                               const Icon(Icons.navigate_next_sharp)
                             ],
@@ -97,11 +113,12 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(const ListExamPage());
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: AppDimens.spacingNormal),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(35.0),
@@ -110,13 +127,20 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
                         child: Container(
                           width: Get.width,
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.grayColor,width: 1,),
+                            border: Border.all(
+                              color: AppColors.grayColor,
+                              width: 1,
+                            ),
                             borderRadius: BorderRadius.circular(35.0),
                           ),
                           padding: const EdgeInsets.all(16),
                           child: Row(
                             children: [
-                              Text('List of exam schedule',style: AppTextStyle.color3C3A36S18W500.copyWith(color: AppColors.primaryColor),),
+                              Text(
+                                'List of exam schedule',
+                                style: AppTextStyle.color3C3A36S18W500
+                                    .copyWith(color: AppColors.primaryColor),
+                              ),
                               const Spacer(),
                               const Icon(Icons.navigate_next_sharp)
                             ],
@@ -127,7 +151,6 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
                   )
                 ],
               ),
-
             ],
           ),
         ),
@@ -166,7 +189,9 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
           }).toList(),
           onChanged: (_) {
             if (_ == 'Create') {
-              Get.to(const CreateExamSchedulePage());
+              Get.to(CreateExamSchedulePage(
+                dateTime: state.focusDay.value,
+              ));
               // _showDialogDelete();
             }
           },

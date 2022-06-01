@@ -24,7 +24,6 @@ class Authentication {
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
-
       final AuthCredential authCredential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,

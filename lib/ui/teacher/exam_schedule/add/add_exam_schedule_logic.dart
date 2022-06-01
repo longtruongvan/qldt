@@ -17,7 +17,7 @@ class CreateExamScheduleLogic extends GetxController {
     fetchData();
   }
 
-  void submit() {
+  void submit(DateTime dayCreate) {
     if (state.specializedSelected.value.id == null ||
         state.classSelected.value.id == null ||
         state.subjectSelected.value.id == null ||
@@ -59,7 +59,7 @@ class CreateExamScheduleLogic extends GetxController {
           idLecturers: [],
           title: state.titleTextController.text,
           description: state.locationTextController.text,
-          dayStart: DateTime.now().toString(),
+          dayStart: dayCreate.toString(),
         ).toJson())
         .then((value) {
       Get.back(closeOverlays: true);

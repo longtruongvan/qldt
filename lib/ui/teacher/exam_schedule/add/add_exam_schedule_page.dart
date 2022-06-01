@@ -10,7 +10,12 @@ import '../../../../common/app_text_style.dart';
 import '../../../widgets/button/back_button.dart';
 
 class CreateExamSchedulePage extends StatefulWidget {
-  const CreateExamSchedulePage({Key? key}) : super(key: key);
+  final DateTime dateTime;
+
+  const CreateExamSchedulePage({
+    Key? key,
+    required this.dateTime,
+  }) : super(key: key);
 
   @override
   State<CreateExamSchedulePage> createState() => _CreateExamSchedulePageState();
@@ -57,7 +62,7 @@ class _CreateExamSchedulePageState extends State<CreateExamSchedulePage> {
     return Positioned(
       child: InkWell(
         onTap: () {
-          logic.submit();
+          logic.submit(widget.dateTime);
         },
         child: Container(
           alignment: Alignment.center,
@@ -107,59 +112,75 @@ class _CreateExamSchedulePageState extends State<CreateExamSchedulePage> {
                 hintStyle: AppTextStyle.colorGrayS18W500,
                 textStyle: AppTextStyle.color3C3A36S18W500,
               ),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
               Text('Specialized', style: AppTextStyle.color3C3A36S18W500),
               const SizedBox(height: 10),
               _buildWidgetSelectSpecialized(),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
               Text('Class', style: AppTextStyle.color3C3A36S18W500),
               const SizedBox(height: 10),
               _buildWidgetSelectClass(),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
               Text('Subject', style: AppTextStyle.color3C3A36S18W500),
               const SizedBox(height: 10),
               _buildWidgetSelectSubject(),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
               Text('Type exam', style: AppTextStyle.color3C3A36S18W500),
               const SizedBox(height: 10),
               _buildWidgetSelectTypeExam(),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
               Text('Time start', style: AppTextStyle.color3C3A36S18W500),
               const SizedBox(height: 10),
               GestureDetector(
-                onTap: (){
-                  _selectTime(context,(timeOfDay){
-                    var x=timeOfDay.format(context);
+                onTap: () {
+                  _selectTime(context, (timeOfDay) {
+                    var x = timeOfDay.format(context);
                     state.timeStartTextController.text = x;
                   });
                 },
                 child: AppTextField(
                   controller: state.timeStartTextController,
-                  hintText: '${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}',
+                  hintText:
+                      '${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}',
                   hintStyle: AppTextStyle.colorGrayS18W500,
                   textStyle: AppTextStyle.color3C3A36S18W500,
                   isEnable: false,
                 ),
               ),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
               Text('Time end', style: AppTextStyle.color3C3A36S18W500),
               const SizedBox(height: 10),
               GestureDetector(
-                onTap: (){
-                  _selectTime(context,(timeOfDay){
-                    var x=timeOfDay.format(context);
+                onTap: () {
+                  _selectTime(context, (timeOfDay) {
+                    var x = timeOfDay.format(context);
                     state.timeEndTextController.text = x;
                   });
                 },
                 child: AppTextField(
                   controller: state.timeEndTextController,
-                  hintText: '${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}',
+                  hintText:
+                      '${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}',
                   hintStyle: AppTextStyle.colorGrayS18W500,
                   textStyle: AppTextStyle.color3C3A36S18W500,
                   isEnable: false,
                 ),
               ),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
               Text('Location', style: AppTextStyle.color3C3A36S18W500),
               const SizedBox(height: 10),
               AppTextField(
@@ -168,10 +189,18 @@ class _CreateExamSchedulePageState extends State<CreateExamSchedulePage> {
                 hintStyle: AppTextStyle.colorGrayS18W500,
                 textStyle: AppTextStyle.color3C3A36S18W500,
               ),
-              const SizedBox(height: AppDimens.spacingNormal,),
-              const SizedBox(height: AppDimens.spacingNormal,),
-              const SizedBox(height: AppDimens.spacingNormal,),
-              const SizedBox(height: AppDimens.spacingNormal,),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
+              const SizedBox(
+                height: AppDimens.spacingNormal,
+              ),
             ],
           ),
         ),
@@ -179,216 +208,213 @@ class _CreateExamSchedulePageState extends State<CreateExamSchedulePage> {
     );
   }
 
-  Future _selectTime(BuildContext context,Function(TimeOfDay) callback) async {
+  Future _selectTime(BuildContext context, Function(TimeOfDay) callback) async {
     final TimeOfDay? timeOfDay = await showTimePicker(
       context: context,
       initialTime: state.selectedTime.value,
       initialEntryMode: TimePickerEntryMode.dial,
     );
-    if(timeOfDay != null && timeOfDay != state.selectedTime.value)
-    {
+    if (timeOfDay != null && timeOfDay != state.selectedTime.value) {
       callback(timeOfDay);
     }
   }
 
-  Widget _buildWidgetSelectTypeExam(){
+  Widget _buildWidgetSelectTypeExam() {
     return Obx(() => Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        border: Border.all(color: AppColors.grayColor, width: 1),
-      ),
-      child: DropdownButton2(
-        icon: const Icon(
-          Icons.arrow_drop_down,
-          color: AppColors.grayColor,
-        ),
-        isExpanded: true,
-        underline: Container(
-          color: AppColors.whiteColor,
-        ),
-        value: state.typeExamSelected.value.name,
-        hint: Text('Select type exam',
-            style: AppTextStyle.colorGrayS18W500),
-        onChanged: (value) {
-          logic.checkTypeExamSelected(value as String);
-        },
-        dropdownDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        ),
-        dropdownWidth: Get.width - 32,
-        buttonWidth: Get.width - 32,
-        offset: const Offset(-11, -AppDimens.spacingNormal),
-        items: state.listTypeExam.map((element) {
-          return DropdownMenuItem<String>(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                Text(
-                  element.name ?? '',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const Spacer(),
-              ],
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            border: Border.all(color: AppColors.grayColor, width: 1),
+          ),
+          child: DropdownButton2(
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.grayColor,
             ),
-            value: element.name,
-          );
-        }).toList(),
-      ),
-    ));
+            isExpanded: true,
+            underline: Container(
+              color: AppColors.whiteColor,
+            ),
+            value: state.typeExamSelected.value.name,
+            hint:
+                Text('Select type exam', style: AppTextStyle.colorGrayS18W500),
+            onChanged: (value) {
+              logic.checkTypeExamSelected(value as String);
+            },
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            ),
+            dropdownWidth: Get.width - 32,
+            buttonWidth: Get.width - 32,
+            offset: const Offset(-11, -AppDimens.spacingNormal),
+            items: state.listTypeExam.map((element) {
+              return DropdownMenuItem<String>(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      element.name ?? '',
+                      style: AppTextStyle.color3C3A36S18W500,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                value: element.name,
+              );
+            }).toList(),
+          ),
+        ));
   }
 
-  Widget _buildWidgetSelectSubject(){
+  Widget _buildWidgetSelectSubject() {
     return Obx(() => Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        border: Border.all(color: AppColors.grayColor, width: 1),
-      ),
-      child: DropdownButton2(
-        icon: const Icon(
-          Icons.arrow_drop_down,
-          color: AppColors.grayColor,
-        ),
-        isExpanded: true,
-        underline: Container(
-          color: AppColors.whiteColor,
-        ),
-        value: state.subjectSelected.value.name,
-        hint: Text('Select subject',
-            style: AppTextStyle.colorGrayS18W500),
-        onChanged: (value) {
-          logic.checkSubjectSelected(value as String);
-        },
-        dropdownDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        ),
-        dropdownWidth: Get.width - 32,
-        buttonWidth: Get.width - 32,
-        offset: const Offset(-11, -AppDimens.spacingNormal),
-        items: state.listSubject.map((element) {
-          return DropdownMenuItem<String>(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                Text(
-                  element.name ?? '',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const Spacer(),
-              ],
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            border: Border.all(color: AppColors.grayColor, width: 1),
+          ),
+          child: DropdownButton2(
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.grayColor,
             ),
-            value: element.name,
-          );
-        }).toList(),
-      ),
-    ));
+            isExpanded: true,
+            underline: Container(
+              color: AppColors.whiteColor,
+            ),
+            value: state.subjectSelected.value.name,
+            hint: Text('Select subject', style: AppTextStyle.colorGrayS18W500),
+            onChanged: (value) {
+              logic.checkSubjectSelected(value as String);
+            },
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            ),
+            dropdownWidth: Get.width - 32,
+            buttonWidth: Get.width - 32,
+            offset: const Offset(-11, -AppDimens.spacingNormal),
+            items: state.listSubject.map((element) {
+              return DropdownMenuItem<String>(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      element.name ?? '',
+                      style: AppTextStyle.color3C3A36S18W500,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                value: element.name,
+              );
+            }).toList(),
+          ),
+        ));
   }
 
-  Widget _buildWidgetSelectClass(){
+  Widget _buildWidgetSelectClass() {
     return Obx(() => Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        border: Border.all(color: AppColors.grayColor, width: 1),
-      ),
-      child: DropdownButton2(
-        icon: const Icon(
-          Icons.arrow_drop_down,
-          color: AppColors.grayColor,
-        ),
-        isExpanded: true,
-        underline: Container(
-          color: AppColors.whiteColor,
-        ),
-        value: state.classSelected.value.name,
-        hint: Text('Select class',
-            style: AppTextStyle.colorGrayS18W500),
-        onChanged: (value) {
-          logic.checkClassSelected(value as String);
-        },
-        dropdownDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        ),
-        dropdownWidth: Get.width - 32,
-        buttonWidth: Get.width - 32,
-        offset: const Offset(-11, -AppDimens.spacingNormal),
-        items: state.listClassResponse.map((element) {
-          return DropdownMenuItem<String>(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                Text(
-                  element.name ?? '',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const Spacer(),
-              ],
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            border: Border.all(color: AppColors.grayColor, width: 1),
+          ),
+          child: DropdownButton2(
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.grayColor,
             ),
-            value: element.name,
-          );
-        }).toList(),
-      ),
-    ));
+            isExpanded: true,
+            underline: Container(
+              color: AppColors.whiteColor,
+            ),
+            value: state.classSelected.value.name,
+            hint: Text('Select class', style: AppTextStyle.colorGrayS18W500),
+            onChanged: (value) {
+              logic.checkClassSelected(value as String);
+            },
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            ),
+            dropdownWidth: Get.width - 32,
+            buttonWidth: Get.width - 32,
+            offset: const Offset(-11, -AppDimens.spacingNormal),
+            items: state.listClassResponse.map((element) {
+              return DropdownMenuItem<String>(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      element.name ?? '',
+                      style: AppTextStyle.color3C3A36S18W500,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                value: element.name,
+              );
+            }).toList(),
+          ),
+        ));
   }
 
-  Widget _buildWidgetSelectSpecialized(){
+  Widget _buildWidgetSelectSpecialized() {
     return Obx(() => Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        border: Border.all(color: AppColors.grayColor, width: 1),
-      ),
-      child: DropdownButton2(
-        icon: const Icon(
-          Icons.arrow_drop_down,
-          color: AppColors.grayColor,
-        ),
-        isExpanded: true,
-        underline: Container(
-          color: AppColors.whiteColor,
-        ),
-        value: state.specializedSelected.value.displayName,
-        hint: Text('Select specialized',
-            style: AppTextStyle.colorGrayS18W500),
-        onChanged: (value) {
-          logic.checkSpecializedSelected(value as String);
-        },
-        dropdownDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-        ),
-        dropdownWidth: Get.width - 32,
-        buttonWidth: Get.width - 32,
-        offset: const Offset(-11, -AppDimens.spacingNormal),
-        items: state.listSpecialized.map((element) {
-          return DropdownMenuItem<String>(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                Text(
-                  element.displayName ?? '',
-                  style: AppTextStyle.color3C3A36S18W500,
-                ),
-                const Spacer(),
-              ],
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            border: Border.all(color: AppColors.grayColor, width: 1),
+          ),
+          child: DropdownButton2(
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.grayColor,
             ),
-            value: element.displayName,
-          );
-        }).toList(),
-      ),
-    ));
+            isExpanded: true,
+            underline: Container(
+              color: AppColors.whiteColor,
+            ),
+            value: state.specializedSelected.value.displayName,
+            hint: Text('Select specialized',
+                style: AppTextStyle.colorGrayS18W500),
+            onChanged: (value) {
+              logic.checkSpecializedSelected(value as String);
+            },
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+            ),
+            dropdownWidth: Get.width - 32,
+            buttonWidth: Get.width - 32,
+            offset: const Offset(-11, -AppDimens.spacingNormal),
+            items: state.listSpecialized.map((element) {
+              return DropdownMenuItem<String>(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      element.displayName ?? '',
+                      style: AppTextStyle.color3C3A36S18W500,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                value: element.displayName,
+              );
+            }).toList(),
+          ),
+        ));
   }
 
   Widget _buildAppbarWidget() {

@@ -18,6 +18,7 @@ PersonResponse _$PersonResponseFromJson(Map<String, dynamic> json) =>
       idCourse: (json['idCourse'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      idClass: json['idClass'] as String?,
     );
 
 Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
       'type': instance.type,
       'location': instance.location,
       'idCourse': instance.idCourse,
+      'idClass': instance.idClass,
     };
