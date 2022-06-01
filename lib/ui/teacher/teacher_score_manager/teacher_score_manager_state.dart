@@ -12,6 +12,8 @@ class TeacherScoreManagerState {
   RxList<ClassResponse> currentListClassResponse = <ClassResponse>[].obs;
   RxList<ClassResponse> listClassResponse = <ClassResponse>[].obs;
   Rx<ClassResponse> classResponseSelected = ClassResponse().obs;
+  RxList<String> yearSchool = <String>[].obs;
+  Rx<String> yearSchoolSelected = 'All'.obs;
 
   RxList<PersonResponse> currentListPersonResponse = <PersonResponse>[].obs;
   RxList<PersonResponse> listPersonResponse = <PersonResponse>[].obs;

@@ -14,6 +14,10 @@ class TeacherScoreManagerLogic {
     fetchData();
   }
 
+  void checkTimeSchoolYear(String value) {
+    state.yearSchoolSelected.value = value;
+  }
+
   void clickButtonNextHandler() {
     if (!state.spec1Active.value && !state.spec2Active.value) {
       return;
@@ -53,11 +57,16 @@ class TeacherScoreManagerLogic {
   }
 
   void checkClassSelected(String id) {
+    state.personResponseSelected.value = PersonResponse();
     for (int i = 0; i < state.currentListClassResponse.length; i++) {
       if (state.currentListClassResponse[i].name == id) {
         state.classResponseSelected.value = state.currentListClassResponse[i];
         // state.nameSpecializedTextController.text =
         //     state.specializedSelected.value.id ?? '';
+        state.yearSchool.clear();
+        state.yearSchoolSelected.value ='All';
+        state.yearSchool
+            .addAll(state.currentListClassResponse[i].schoolYear ?? []);
       }
     }
     // map data student to class
@@ -72,6 +81,11 @@ class TeacherScoreManagerLogic {
   }
 
   void checkSpecializedSelected(String id) {
+    state.personResponseSelected.value = PersonResponse();
+    state.classResponseSelected.value = ClassResponse();
+    state.yearSchoolSelected.value ='All';
+    state.yearSchool.clear();
+
     state.listClassResponse.clear();
     for (int i = 0; i < state.currentListSpecialized.length; i++) {
       if (state.currentListSpecialized[i].displayName == id) {

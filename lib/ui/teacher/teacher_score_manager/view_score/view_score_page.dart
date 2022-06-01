@@ -34,6 +34,12 @@ class _ViewScorePageState extends State<ViewScorePage> {
   final state = Get.find<ViewScoreLogic>().state;
 
   @override
+  void initState() {
+    logic.fetchData(widget.students);
+    super.initState();
+  }
+
+  @override
   void dispose() {
     Get.delete<ViewScoreLogic>();
     super.dispose();
@@ -48,10 +54,24 @@ class _ViewScorePageState extends State<ViewScorePage> {
           fit: StackFit.expand,
           children: [
             _buildBodyWidget(),
+            _buildLoadingWidget(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildLoadingWidget() {
+    return Obx(() {
+      if (state.statusLoading.value) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.primaryColor,
+          ),
+        );
+      }
+      return Container();
+    });
   }
 
   Widget _buildBodyWidget() {
@@ -177,69 +197,91 @@ class _ViewScorePageState extends State<ViewScorePage> {
 
   Widget _buildListStudentWidget() {
     return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (c, index) {
-          return Container(
-            margin:
-                const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
-            child: Card(
-              child: ExpansionTile(
-                children: [
-                  Table(
-                    border: const TableBorder(
-                      horizontalInside: BorderSide(
-                        width: 0.5,
-                        color: AppColors.grayColor,
-                        style: BorderStyle.solid,
+      child: Obx(() {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: (c, index) {
+            return Container(
+              margin: const EdgeInsets.symmetric(
+                  horizontal: AppDimens.spacingNormal),
+              child: Card(
+                child: ExpansionTile(
+                  children: [
+                    Table(
+                      border: const TableBorder(
+                        horizontalInside: BorderSide(
+                          width: 0.5,
+                          color: AppColors.grayColor,
+                          style: BorderStyle.solid,
+                        ),
+                        verticalInside: BorderSide(
+                          width: 0.5,
+                          color: AppColors.grayColor,
+                          style: BorderStyle.solid,
+                        ),
                       ),
-                      verticalInside: BorderSide(
-                        width: 0.5,
-                        color: AppColors.grayColor,
-                        style: BorderStyle.solid,
-                      ),
+                      columnWidths: const {
+                        0: FlexColumnWidth(4),
+                        1: FlexColumnWidth(6),
+                      },
+                      children: state.viewType.value == ScoreViewType.all
+                          ? [
+                              _buildInfoStudentWidget(
+                                  'Code:',
+                                  state.listScoreEntity[index].personResponse
+                                          ?.idClass ??
+                                      '',
+                                  false),
+                              _buildInfoStudentWidget(
+                                  'Birthday:',
+                                  state.listScoreEntity[index].personResponse
+                                          ?.birthday ??
+                                      '',
+                                  false),
+                              _buildInfoStudentWidget(
+                                  'TBTL Hệ 10 N1:', '10', true),
+                              _buildInfoStudentWidget(
+                                  'TBTL Hệ4 N1:', '10', true),
+                              _buildInfoStudentWidget(
+                                  'Số TCTL N1:', '10', true),
+                              _buildInfoStudentWidget('Số TC N1:', '10', true),
+                            ]
+                          : [
+                              _buildInfoStudentWidget(
+                                  'Code:',
+                                  state.listScoreEntity[index].personResponse
+                                          ?.idClass ??
+                                      '',
+                                  false),
+                              _buildInfoStudentWidget(
+                                  'Birthday:',
+                                  state.listScoreEntity[index].personResponse
+                                          ?.birthday ??
+                                      '',
+                                  false),
+                              _buildInfoStudentWidget('CC:', '10', true),
+                              _buildInfoStudentWidget('KT:', '10', true),
+                              _buildInfoStudentWidget('THI:', '10', true),
+                              _buildInfoStudentWidget('KTHP:', '10', true),
+                              _buildInfoStudentWidget('Chữ:', 'A', true),
+                              _buildInfoStudentWidget('Đánh giá:', 'Đạt', true),
+                            ],
                     ),
-                    columnWidths: const {
-                      0: FlexColumnWidth(4),
-                      1: FlexColumnWidth(6),
-                    },
-                    children: state.viewType.value == ScoreViewType.all
-                        ? [
-                            _buildInfoStudentWidget('Code:', '69DCHT21', false),
-                            _buildInfoStudentWidget(
-                                'Birthday:', '25/10/2000', false),
-                            _buildInfoStudentWidget(
-                                'TBTL Hệ 10 N1:', '10', true),
-                            _buildInfoStudentWidget('TBTL Hệ4 N1:', '10', true),
-                            _buildInfoStudentWidget('Số TCTL N1:', '10', true),
-                            _buildInfoStudentWidget('Số TC N1:', '10', true),
-                          ]
-                        : [
-                            _buildInfoStudentWidget('Code:', '69DCHT21', false),
-                            _buildInfoStudentWidget(
-                                'Birthday:', '25/10/2000', false),
-                            _buildInfoStudentWidget('CC:', '10', true),
-                            _buildInfoStudentWidget('KT:', '10', true),
-                            _buildInfoStudentWidget('THI:', '10', true),
-                            _buildInfoStudentWidget('KTHP:', '10', true),
-                            _buildInfoStudentWidget('Chữ:', 'A', true),
-                            _buildInfoStudentWidget('Đánh giá:', 'Đạt', true),
-                          ],
+                    const SizedBox(height: AppDimens.spacingNormal),
+                    _buildActionInfoStudentWidget(),
+                    const SizedBox(height: AppDimens.spacingNormal),
+                  ],
+                  title: Text(
+                    '#${index + 1}. Truơng Văn Long',
+                    style: AppTextStyle.color3C3A36S18W500,
                   ),
-                  const SizedBox(height: AppDimens.spacingNormal),
-                  _buildActionInfoStudentWidget(),
-                  const SizedBox(height: AppDimens.spacingNormal),
-                ],
-                title: Text(
-                  '#${index + 1}. Truơng Văn Long',
-                  style: AppTextStyle.color3C3A36S18W500,
                 ),
               ),
-            ),
-          );
-        },
-        itemCount: 10,
-      ),
+            );
+          },
+          itemCount: state.listScoreEntity.length,
+        );
+      }),
     );
   }
 

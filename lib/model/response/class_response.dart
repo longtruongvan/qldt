@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'class_response.g.dart';
+
 @JsonSerializable()
 class ClassResponse {
   String? id;
@@ -8,6 +10,7 @@ class ClassResponse {
   int? countMember;
   String? specializedID;
   List<String>? idStudent;
+  List<String>? schoolYear;
 
   ClassResponse({
     this.id,
@@ -16,10 +19,11 @@ class ClassResponse {
     this.countMember,
     this.specializedID,
     this.idStudent,
+    this.schoolYear,
   });
 
   factory ClassResponse.fromJson(Map<String, dynamic> json) =>
       _$ClassResponseFromJson(json);
 
-  Map<String,dynamic> toJson() => _$ClassResponseToJson(this);
+  Map<String, dynamic> toJson() => _$ClassResponseToJson(this);
 }

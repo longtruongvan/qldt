@@ -72,7 +72,8 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             Row(
               children: [
                 _buildItemTopicWidget('Score', () {
-                  Get.to(const ViewScorePage(students: []));
+                  // Get.to(const ViewScorePage(students: []));
+                  Get.to(const TeacherScoreManagerPage());
                 }),
                 // _buildItemTopicWidget('Đăng ký học', () {}),
                 _buildItemTopicWidget('Exam schedule', () {

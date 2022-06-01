@@ -16,6 +16,9 @@ ClassResponse _$ClassResponseFromJson(Map<String, dynamic> json) =>
       idStudent: (json['idStudent'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      schoolYear: (json['schoolYear'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$ClassResponseToJson(ClassResponse instance) =>
@@ -26,4 +29,5 @@ Map<String, dynamic> _$ClassResponseToJson(ClassResponse instance) =>
       'countMember': instance.countMember,
       'specializedID': instance.specializedID,
       'idStudent': instance.idStudent,
+      'schoolYear': instance.schoolYear,
     };
