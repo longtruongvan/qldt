@@ -37,6 +37,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
 
   Widget _buildBodyWidget() {
     return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       physics: const AlwaysScrollableScrollPhysics(),
       child: Container(
         height: Get.height,

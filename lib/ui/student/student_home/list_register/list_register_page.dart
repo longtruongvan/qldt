@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_images.dart';
 import 'package:qldt/ui/student/student_home/list_register/list_register_logic.dart';
+import 'package:qldt/ui/student/student_register_subject/student_register_subject_page.dart';
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
@@ -39,16 +40,12 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
       ),
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
-        child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              _buildBodyWidget(),
-              _buildLoadingWidget(),
-            ],
-          ),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            _buildBodyWidget(),
+            _buildLoadingWidget(),
+          ],
         ),
       ),
     );
@@ -64,79 +61,84 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
       child: Obx(() => ListView.builder(
             padding: const EdgeInsets.only(top: AppDimens.spacingNormal),
             itemBuilder: (c, index) {
-              return Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: AppColors.primaryColor,
-                ),
-                width: Get.width - 72,
-                child: Container(
-                  padding: const EdgeInsets.only(
-                    left: AppDimens.spacingNormal,
-                    top: AppDimens.spacingNormal,
-                    bottom: AppDimens.spacingNormal,
-                    right: AppDimens.spacingNormal,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Table(
-                        columnWidths: const {
-                          0:FlexColumnWidth(2.2),
-                          1:FlexColumnWidth(3),
-                        },
-                        children: [
-                          TableRow(children: [
-                            Text(
-                              'Name course: ',
-                              style: AppTextStyle.colorWhiteS16W500,
-                            ),
-                            Text(
-                              '${state.listCourse[index].subjectResponse?.name}',
-                              style: AppTextStyle.colorDarkS14Bold,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              'Specialized',
-                              style: AppTextStyle.colorWhiteS16W500,
-                            ),
-                            Text(
-                              '${state.listCourse[index].specializedResponse?.name}',
-                              style: AppTextStyle.colorDarkS14Bold,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              'Time payment:',
-                              style: AppTextStyle.colorWhiteS16W500,
-                            ),
-                            Text(
-                              '${state.listCourse[index].subjectRegisterRequest?.timePayment}',
-                              style: AppTextStyle.colorDarkS14Bold,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              'Status:',
-                              style: AppTextStyle.colorWhiteS16W500,
-                            ),
-                            Text(
-                              '${state.listCourse[index].subjectRegisterRequest?.isAccept}',
-                              style: AppTextStyle.colorDarkS14Bold,
-                            ),
-                          ])
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return _buildItemCourse(index);
             },
             itemCount: state.listCourse.length,
           )),
+    );
+  }
+
+  Widget _buildItemCourse(int index) {
+    return Container(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      margin: const EdgeInsets.only(top: 10, left: 16, right: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: AppColors.primaryColor,
+      ),
+      width: Get.width - 72,
+      child: Container(
+        padding: const EdgeInsets.only(
+          left: AppDimens.spacingNormal,
+          top: AppDimens.spacingNormal,
+          bottom: AppDimens.spacingNormal,
+          right: AppDimens.spacingNormal,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Table(
+              columnWidths: const {
+                0: FlexColumnWidth(2.2),
+                1: FlexColumnWidth(3),
+              },
+              children: [
+                TableRow(children: [
+                  Text(
+                    'Name course: ',
+                    style: AppTextStyle.colorWhiteS16W500,
+                  ),
+                  Text(
+                    '${state.listCourse[index].subjectResponse?.name}',
+                    style: AppTextStyle.colorDarkS14Bold,
+                  ),
+                ]),
+                TableRow(children: [
+                  Text(
+                    'Specialized',
+                    style: AppTextStyle.colorWhiteS16W500,
+                  ),
+                  Text(
+                    '${state.listCourse[index].specializedResponse?.name}',
+                    style: AppTextStyle.colorDarkS14Bold,
+                  ),
+                ]),
+                TableRow(children: [
+                  Text(
+                    'Time payment:',
+                    style: AppTextStyle.colorWhiteS16W500,
+                  ),
+                  Text(
+                    '${state.listCourse[index].subjectRegisterRequest?.timePayment}',
+                    style: AppTextStyle.colorDarkS14Bold,
+                  ),
+                ]),
+                TableRow(children: [
+                  Text(
+                    'Status:',
+                    style: AppTextStyle.colorWhiteS16W500,
+                  ),
+                  Text(
+                    '${state.listCourse[index].subjectRegisterRequest?.isAccept}',
+                    style: AppTextStyle.colorDarkS14Bold,
+                  ),
+                ])
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -167,6 +169,20 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
           Text(
             "Courses",
             style: AppTextStyle.colorDarkS24W500,
+          ),
+          const Spacer(),
+          InkWell(
+            onTap: () {
+              Get.to(StudentRegisterSubjectPage(
+                callback: () {
+                  Get.back(closeOverlays: true);
+                },
+              ));
+            },
+            child: const Icon(
+              Icons.add_circle,
+              color: AppColors.successColor,
+            ),
           ),
           const SizedBox(
             width: AppDimens.spacingNormal,

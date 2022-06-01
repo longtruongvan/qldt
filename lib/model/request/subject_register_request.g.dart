@@ -31,6 +31,6 @@ Map<String, dynamic> _$SubjectRegisterRequestToJson(
       'timeRequest': instance.timeRequest,
       'timePayment': instance.timePayment,
       'subjectIds': instance.subjectIds,
-      'propossedTime': instance.propossedTime,
+      'propossedTime': instance.propossedTime?.toJson(),
       'isAccept': instance.isAccept,
     };

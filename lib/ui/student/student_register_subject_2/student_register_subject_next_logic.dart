@@ -60,7 +60,7 @@ class StudentRegisterSubjectNextLogic extends GetxController {
     }
   }
 
-  void submitButtonClickListener(Function() callback) async{
+  void submitButtonClickListener(Function() callback) {
     state.statusLoading.value = true;
 
     int count = 0;
@@ -146,7 +146,7 @@ class StudentRegisterSubjectNextLogic extends GetxController {
 
     for (int i = 0; i < listRequest.length; i++) {
       state.mergeRequest.value++;
-      await FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection('Course')
           .doc(listRequest[i].id)
           .set(listRequest[i].toJson())
@@ -159,7 +159,7 @@ class StudentRegisterSubjectNextLogic extends GetxController {
       });
 
       state.mergeRequest.value++;
-      await FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection('Person')
           .doc(authService.user.value?.uid ?? '')
           .update({
@@ -169,7 +169,7 @@ class StudentRegisterSubjectNextLogic extends GetxController {
       }).catchError((onError) {
         state.mergeRequest.value--;
         isFailure = true;
-        AppSnackBar.showError(title: 'Error', message: 'Register failure');
+        // AppSnackBar.showError(title: 'Error', message: 'Register failure');
       });
     }
   }

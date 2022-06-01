@@ -11,7 +11,7 @@ class SubjectRegisterRequest {
   String? timeRequest;
   String? timePayment;
   String? subjectIds;
-  @JsonKey()
+  @JsonKey(name: 'propossedTime')
   PropossedTimeRequest? propossedTime;
   bool? isAccept;
 

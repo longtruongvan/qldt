@@ -10,7 +10,12 @@ import '../../../common/app_text_style.dart';
 import '../../widgets/button/back_button.dart';
 
 class StudentRegisterSubjectPage extends StatefulWidget {
-  const StudentRegisterSubjectPage({Key? key}) : super(key: key);
+  final Function() callback;
+
+  const StudentRegisterSubjectPage({
+    Key? key,
+    required this.callback,
+  }) : super(key: key);
 
   @override
   State<StudentRegisterSubjectPage> createState() =>
@@ -121,7 +126,9 @@ class _StudentRegisterSubjectPageState
         color: AppColors.whiteColor,
         child: GestureDetector(
           onTap: () {
-            logic.clickNextButton();
+            logic.clickNextButton((){
+              widget.callback();
+            });
           },
           child: Container(
             margin: const EdgeInsets.only(bottom: 20),

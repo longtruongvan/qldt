@@ -18,6 +18,7 @@ class ListRegisterLogic extends GetxController {
   }
 
   void fetchData() {
+    state.stateLoading.value = true;
     state.mergeRequest.listen((value) {
       if (value <= 0) {}
     });
@@ -36,9 +37,11 @@ class ListRegisterLogic extends GetxController {
         state.mergeRequest.value++;
         String idCourse = state.personResponse.value.idCourse![i];
         getCourseById(idCourse);
+        state.stateLoading.value = false;
       }
     }).catchError((onError) {
       AppSnackBar.showError(title: 'Error', message: 'Fetch data error');
+      state.stateLoading.value = false;
     });
   }
 

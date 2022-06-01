@@ -38,49 +38,72 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
         ),
       ),
       backgroundColor: AppColors.whiteColor,
-      body: Container(
-        padding: const EdgeInsets.all(AppDimens.spacingNormal),
-        color: AppColors.whiteColor,
-        child: SafeArea(
-          child: Obx(() {
-            return RefreshIndicator(
-                child: ListView.builder(
-                  itemBuilder: (c, index) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      elevation: 3,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                          padding:
-                              const EdgeInsets.all(AppDimens.spacingNormal),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                state.listNotification[index].title ?? '',
-                                style: AppTextStyle.colorDarkS16W500,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.parse((state.listNotification[index].time ?? ''))),
-                                style: AppTextStyle.colorGrayS14W500,
-                              ),
-                            ],
-                          )),
-                    );
-                  },
-                  itemCount: state.listNotification.length,
-                ),
-                onRefresh: _onRefresh);
-          }),
-        ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          _buildBodyWidget(),
+          _buildLoadingWidget(),
+        ],
       ),
     );
+  }
+
+  Widget _buildBodyWidget(){
+    return Container(
+      padding: const EdgeInsets.all(AppDimens.spacingNormal),
+      color: AppColors.whiteColor,
+      child: SafeArea(
+        child: Obx(() {
+          return RefreshIndicator(
+              child: ListView.builder(
+                itemBuilder: (c, index) {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    elevation: 3,
+                    child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        padding:
+                        const EdgeInsets.all(AppDimens.spacingNormal),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              state.listNotification[index].title ?? '',
+                              style: AppTextStyle.colorDarkS16W500,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.parse((state.listNotification[index].time ?? ''))),
+                              style: AppTextStyle.colorGrayS14W500,
+                            ),
+                          ],
+                        )),
+                  );
+                },
+                itemCount: state.listNotification.length,
+              ),
+              onRefresh: _onRefresh);
+        }),
+      ),
+    );
+  }
+
+  Widget _buildLoadingWidget() {
+    return Obx(() {
+      if (state.statusLoading.value) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.primaryColor,
+          ),
+        );
+      }
+      return Container();
+    });
   }
 
   Future _onRefresh() async {

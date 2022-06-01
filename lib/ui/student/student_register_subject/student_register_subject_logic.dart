@@ -15,7 +15,7 @@ class StudentRegisterSubjectLogic {
     fetchData();
   }
 
-  void clickNextButton() {
+  void clickNextButton(Function() callback) {
     if (state.countSubjectSelected.value == 0) {
       AppSnackBar.showWarning(
           title: 'Warning', message: 'Please select a subject');
@@ -43,6 +43,8 @@ class StudentRegisterSubjectLogic {
 
         state.listSubject.refresh();
         state.currentListSubject.refresh();
+        // back to screen list course
+        callback();
       },
     ));
   }
@@ -112,6 +114,11 @@ class StudentRegisterSubjectLogic {
   }
 
   void checkSpecializedSelected(String id) {
+    state.countSubjectSelected.value = 0;
+    for(int i=0;i<state.currentListSubject.length;i++){
+      state.currentListSubject[i].isSelected = false;
+    }
+
     for (int i = 0; i < state.listSpecialized.length; i++) {
       if (state.listSpecialized[i].displayName == id) {
         state.specializedSelected.value = state.listSpecialized[i];
