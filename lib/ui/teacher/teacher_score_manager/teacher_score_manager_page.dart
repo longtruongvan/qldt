@@ -168,11 +168,7 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             color: AppColors.whiteColor,
           ),
           value: state.subjectResponseSelected.value.name,
-          hint: Text(
-              (state.specializedSelected.value.id != null &&
-                      state.listSubjectResponse.isNotEmpty)
-                  ? 'Select subject'
-                  : 'No data',
+          hint: Text('Select subject',
               style: AppTextStyle.color3C3A36S18W500),
           onChanged: (value) {
             logic.checkSubjectSelected(value as String);
