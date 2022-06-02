@@ -7,6 +7,7 @@ import 'package:qldt/common/app_images.dart';
 import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_logic.dart';
+import 'package:qldt/ui/system_manager/manager_user/manager_user_page.dart';
 import 'package:qldt/ui/system_manager/specialized/specialized_page.dart';
 import 'package:qldt/ui/system_manager/subjects/subject_page.dart';
 
@@ -303,49 +304,54 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
   }
 
   Widget _buildItemManagerUser() {
-    return Container(
-      width: Get.width - 32,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColors.grayColor,
-          width: 1,
+    return GestureDetector(
+      onTap: (){
+        Get.to(const ManagerUserPage());
+      },
+      child: Container(
+        width: Get.width - 32,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: AppColors.grayColor,
+            width: 1,
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            AppImages.imgManagerUserItem,
-            fit: BoxFit.cover,
-            height: 194,
-            width: Get.width,
-          ),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.spacingNormal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              AppImages.imgManagerUserItem,
+              fit: BoxFit.cover,
+              height: 194,
+              width: Get.width,
             ),
-            child: Text(
-              "User Manager",
-              style: AppTextStyle.color3C3A36S24W500,
+            const SizedBox(
+              height: AppDimens.spacingNormal,
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.spacingNormal,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                "User Manager",
+                style: AppTextStyle.color3C3A36S24W500,
+              ),
             ),
-            child: Text(
-              "You can add or level permissions for user, ...",
-              style: AppTextStyle.color3C3A36S14W400,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                "You can add or level permissions for user, ...",
+                style: AppTextStyle.color3C3A36S14W400,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-        ],
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+          ],
+        ),
       ),
     );
   }

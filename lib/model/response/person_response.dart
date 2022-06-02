@@ -18,6 +18,7 @@ class PersonResponse {
   String? code;
   String? birthday;
   List<String>? idTuition;
+  String? avatar;
 
   PersonResponse({
     this.id,
@@ -34,6 +35,7 @@ class PersonResponse {
     this.code,
     this.birthday,
     this.idTuition,
+    this.avatar,
   });
 
   factory PersonResponse.fromJson(Map<String, dynamic> json) =>

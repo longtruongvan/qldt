@@ -66,6 +66,7 @@ class SplashLogic extends GetxController {
                 idScores: [],
                 idCourse: [],
                 idTuition: [],
+                avatar: user.photoURL,
               ).toJson())
               .then((value) {
             FirebaseFirestore.instance

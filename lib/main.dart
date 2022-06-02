@@ -12,6 +12,8 @@ import 'package:qldt/router/router_config.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'services/notification_service.dart';
+
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
   'High Importance Notifications', // title
@@ -38,6 +40,7 @@ Future<void> saveTokenToDatabase(String token) async {
 void initService() async {
   await Firebase.initializeApp();
   await Get.putAsync(() => AuthService().init());
+  await NotificationService().init(); // <----
 
   if (Platform.isIOS) {
     await FirebaseMessaging.instance.requestPermission();

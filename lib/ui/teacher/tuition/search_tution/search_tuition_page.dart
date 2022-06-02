@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
+import 'package:qldt/ui/teacher/tuition/detail_tution/detail_tuition_page.dart';
 import 'package:qldt/ui/teacher/tuition/search_tution/search_tuition_logic.dart';
 import 'package:qldt/ui/teacher/tuition/tuition_logic.dart';
 
@@ -95,6 +96,7 @@ class _SearchTuitionPageState extends State<SearchTuitionPage> {
         // logic.clickNextButton(() {
         //   widget.callback();
         // });
+        Get.to(DetailTuitionPage(personResponse: state.personResponseSelected.value));
       },
       child: Container(
         margin: const EdgeInsets.only(
