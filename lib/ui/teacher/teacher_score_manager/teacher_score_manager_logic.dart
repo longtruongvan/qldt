@@ -4,6 +4,7 @@ import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/class_response.dart';
 import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/model/response/specialized_response.dart';
+import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_state.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page.dart';
 
@@ -43,6 +44,7 @@ class TeacherScoreManagerLogic {
     state.spec1Active.value = false;
     state.spec2Active.value = false;
     state.spec3Active.value = false;
+    state.spec4Active.value = false;
 
     state.specializedSelected.value = SpecializedResponse();
     state.listSpecialized.clear();
@@ -58,14 +60,25 @@ class TeacherScoreManagerLogic {
     state.personResponseSelected.value = PersonResponse();
     state.listPersonResponse.clear();
     state.listPersonResponse.addAll(state.currentListPersonResponse);
+
+    state.subjectResponseSelected.value = SubjectResponse();
+    state.listSubjectResponse.clear();
+    state.listSubjectResponse.addAll(state.currentListSubjectResponse);
+  }
+
+  void checkSubjectSelected(String value){
+    for (int i = 0; i < state.currentListSubjectResponse.length; i++) {
+      if (state.currentListSubjectResponse[i].name == value) {
+        state.subjectResponseSelected.value = state.currentListSubjectResponse[i];
+      }
+    }
+    state.spec4Active.value = true;
   }
 
   void checkPersonSelected(String id) {
     for (int i = 0; i < state.currentListPersonResponse.length; i++) {
       if (state.currentListPersonResponse[i].name == id) {
         state.personResponseSelected.value = state.currentListPersonResponse[i];
-        // state.nameSpecializedTextController.text =
-        //     state.specializedSelected.value.id ?? '';
       }
     }
     state.spec3Active.value = true;
@@ -76,8 +89,6 @@ class TeacherScoreManagerLogic {
     for (int i = 0; i < state.currentListClassResponse.length; i++) {
       if (state.currentListClassResponse[i].name == id) {
         state.classResponseSelected.value = state.currentListClassResponse[i];
-        // state.nameSpecializedTextController.text =
-        //     state.specializedSelected.value.id ?? '';
         state.yearSchool.clear();
         state.yearSchoolSelected.value = 'All';
         state.yearSchool
@@ -100,6 +111,9 @@ class TeacherScoreManagerLogic {
     state.classResponseSelected.value = ClassResponse();
     state.yearSchoolSelected.value = 'All';
     state.yearSchool.clear();
+    state.spec2Active.value = false;
+    state.spec3Active.value = false;
+    state.spec4Active.value = false;
 
     state.listClassResponse.clear();
     for (int i = 0; i < state.currentListSpecialized.length; i++) {
@@ -120,6 +134,13 @@ class TeacherScoreManagerLogic {
     }
 
     state.spec1Active.value = true;
+    state.listSubjectResponse.clear();
+    state.subjectResponseSelected.value = SubjectResponse();
+    for(int i=0;i<state.currentListSubjectResponse.length;i++){
+      if(state.currentListSubjectResponse[i].idSpecialized==state.specializedSelected.value.id){
+        state.listSubjectResponse.add(state.currentListSubjectResponse[i]);
+      }
+    }
   }
 
   void fetchData() {
@@ -162,6 +183,20 @@ class TeacherScoreManagerLogic {
     }).catchError((onError) {
       AppSnackBar.showError(
           title: 'Error', message: 'Get data student failure');
+    });
+
+    // Get subject
+    FirebaseFirestore.instance.collection('Subject').get().then((value) {
+      state.currentListSubjectResponse.clear();
+      state.listSubjectResponse.clear();
+      value.docs.map((e) {
+        var response = SubjectResponse.fromJson(e.data());
+        state.currentListSubjectResponse.add(response);
+        state.listSubjectResponse.add(response);
+      }).toList();
+    }).catchError((onError) {
+      AppSnackBar.showError(
+          title: 'Error', message: 'Get data subject failure');
     });
   }
 }

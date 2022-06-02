@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,7 +63,9 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
               child: Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
-                    color: (state.spec1Active.value && state.spec2Active.value)
+                    color: (state.spec1Active.value &&
+                            state.spec2Active.value &&
+                            state.spec4Active.value)
                         ? AppColors.primaryColor
                         : AppColors.grayColor,
                     borderRadius: BorderRadius.circular(20)),
@@ -125,13 +129,84 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             if (state.yearSchoolSelected.value == 'All') {
               return Container();
             }
-            return Text('Select semester', style: AppTextStyle.color3C3A36S18W500);
+            return Text('Select semester',
+                style: AppTextStyle.color3C3A36S18W500);
           }),
-          const SizedBox(height: 10),
+          Obx(() => SizedBox(
+              height: (state.yearSchoolSelected.value == 'All') ? 0 : 10)),
           _buildSelectSemesterWidget(),
+          Obx(() => SizedBox(
+              height: (state.yearSchoolSelected.value == 'All')
+                  ? 0
+                  : AppDimens.spacingNormal)),
+          Text(
+            'Select subject',
+            style: AppTextStyle.color3C3A36S18W500,
+          ),
+          const SizedBox(height: 10),
+          _buildSelectSubjectDropdownWidget(),
         ],
       ),
     );
+  }
+
+  Widget _buildSelectSubjectDropdownWidget() {
+    return Obx(() {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+          border: Border.all(color: AppColors.grayColor, width: 1),
+        ),
+        child: DropdownButton2(
+          icon: const Icon(
+            Icons.arrow_drop_down,
+            color: AppColors.grayColor,
+          ),
+          isExpanded: true,
+          underline: Container(
+            color: AppColors.whiteColor,
+          ),
+          value: state.subjectResponseSelected.value.name,
+          hint: Text(
+              (state.specializedSelected.value.id != null &&
+                      state.listSubjectResponse.isNotEmpty)
+                  ? 'Select subject'
+                  : 'No data',
+              style: AppTextStyle.color3C3A36S18W500),
+          onChanged: (value) {
+            logic.checkSubjectSelected(value as String);
+          },
+          dropdownDecoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
+          ),
+          dropdownWidth: Get.width - 32,
+          buttonWidth: Get.width - 32,
+          offset: const Offset(-11, -AppDimens.spacingNormal),
+          items: (state.listSubjectResponse.isNotEmpty &&
+                  state.specializedSelected.value.id != null)
+              ? state.listSubjectResponse.map((element) {
+                  return DropdownMenuItem(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Spacer(),
+                        Text(
+                          element.name ?? '',
+                          style: AppTextStyle.color3C3A36S18W500,
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                    value: element.name,
+                  );
+                }).toList()
+              : null,
+        ),
+      );
+    });
   }
 
   Widget _buildSelectSemesterWidget() {
@@ -231,6 +306,22 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             Icon(
               Icons.check_circle,
               color: (state.spec3Active.value)
+                  ? AppColors.successColor
+                  : AppColors.grayColor,
+            ),
+            const SizedBox(
+              width: 3,
+            ),
+            Container(
+              width: 10,
+              color: (state.spec4Active.value)
+                  ? AppColors.successColor
+                  : AppColors.grayColor,
+              height: 1,
+            ),
+            Icon(
+              Icons.check_circle,
+              color: (state.spec4Active.value)
                   ? AppColors.successColor
                   : AppColors.grayColor,
             ),
