@@ -6,12 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:qldt/common/app_snack_bar.dart';
 
 class Authentication {
-  static final GoogleSignIn googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+  static final GoogleSignIn googleSignIn = GoogleSignIn();
 
   static Future<void> initializeFirebase() async {
     await Firebase.initializeApp();

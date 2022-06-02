@@ -54,13 +54,16 @@ class LoginLogic extends GetxController {
               .collection('Person')
               .doc(uid)
               .set(PersonResponse(
-                      id: uid,
-                      uid: uid,
-                      name: user.displayName ?? '',
-                      email: user.email ?? '',
-                      phone: '',
-                      type: PersonType.SV.name)
-                  .toJson())
+                id: uid,
+                uid: uid,
+                name: user.displayName ?? '',
+                email: user.email ?? '',
+                phone: '',
+                type: PersonType.SV.name,
+                idScores: [],
+                idCourse: [],
+                idTuition: [],
+              ).toJson())
               .then((value) {
             FirebaseFirestore.instance
                 .collection('Person')
@@ -81,15 +84,15 @@ class LoginLogic extends GetxController {
                 }
               }
             }).catchError((onError) {
-              state.statusLoading.value=false;
+              state.statusLoading.value = false;
               AppSnackBar.showError(title: 'Error', message: 'An error');
             });
           }).catchError((onError) {
-            state.statusLoading.value=false;
+            state.statusLoading.value = false;
           });
         }
       }).catchError((onError) {
-        state.statusLoading.value=false;
+        state.statusLoading.value = false;
         Get.offAll(const LoginPage());
       });
     } else {

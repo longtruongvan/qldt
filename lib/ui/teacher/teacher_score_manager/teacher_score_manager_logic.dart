@@ -5,6 +5,7 @@ import 'package:qldt/model/response/class_response.dart';
 import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/model/response/subject_response.dart';
+import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_page.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_state.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page.dart';
 
@@ -28,12 +29,13 @@ class TeacherScoreManagerLogic {
     state.semesterPositionSelected.value = 0;
   }
 
-  void clickButtonNextHandler() {
+  void clickButtonNextHandler(TypeScoreManager typeScoreManager) {
     if (!state.spec1Active.value && !state.spec2Active.value) {
       return;
     }
     Get.to(ViewScorePage(
       students: state.listPersonResponse,
+      typeScoreManager: typeScoreManager,
       viewType: (state.yearSchoolSelected.value == 'All')
           ? ScoreViewType.all
           : ScoreViewType.subject,

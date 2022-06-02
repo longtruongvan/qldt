@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_dimens.dart';
 import 'package:qldt/common/app_text_style.dart';
@@ -26,6 +27,7 @@ class AppTextField extends StatelessWidget {
   final bool? autoCorrect;
   final bool? isEnable;
   final String? obscuringCharacter;
+  final List<TextInputFormatter>? textInputFormatter;
 
   const AppTextField({
     Key? key,
@@ -50,6 +52,7 @@ class AppTextField extends StatelessWidget {
     this.errorText,
     this.onChanged,
     this.prefixIcon,
+    this.textInputFormatter,
   }) : super(key: key);
 
   @override
@@ -63,6 +66,7 @@ class AppTextField extends StatelessWidget {
       autocorrect: autoCorrect ?? true,
       enableSuggestions: false,
       obscureText: obscureText ?? false,
+      inputFormatters: textInputFormatter,
       // obscuringCharacter: obscuringCharacter ?? '',
       onChanged: onChanged,
       textInputAction: textInputAction ?? TextInputAction.done,

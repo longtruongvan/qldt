@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qldt/common/app_dimens.dart';
+import 'package:qldt/common/app_images.dart';
 import 'package:qldt/ui/teacher/teacher_notification/teacher_notification_logic.dart';
 
 import '../../../common/app_colors.dart';
@@ -30,7 +31,7 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(0),
@@ -48,46 +49,85 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
     );
   }
 
-  Widget _buildBodyWidget(){
+  Widget _buildBodyWidget() {
     return Container(
-      padding: const EdgeInsets.all(AppDimens.spacingNormal),
       color: AppColors.whiteColor,
       child: SafeArea(
         child: Obx(() {
           return RefreshIndicator(
-              child: ListView.builder(
-                itemBuilder: (c, index) {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    elevation: 3,
-                    child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        padding:
-                        const EdgeInsets.all(AppDimens.spacingNormal),
+            child: ListView.separated(
+              itemBuilder: (c, index) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  color: AppColors.primaryColor.withOpacity(0.2),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: AppDimens.spacingNormal),
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: (state.listNotification[index].avatarUrl !=
+                                  null)
+                              ? Image.network(
+                                  state.listNotification[index].avatarUrl ?? '',
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  AppImages.imgUser,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                      const SizedBox(width: AppDimens.spacingNormal),
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               state.listNotification[index].title ?? '',
-                              style: AppTextStyle.colorDarkS16W500,
+                              style: AppTextStyle.colorDarkGrayS14W500.copyWith(
+                                fontSize: 16,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             Text(
-                              DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.parse((state.listNotification[index].time ?? ''))),
-                              style: AppTextStyle.colorGrayS14W500,
+                              DateFormat('yyyy-MM-dd hh:mm:ss').format(
+                                  DateTime.parse(
+                                      (state.listNotification[index].time ??
+                                          ''))),
+                              style: AppTextStyle.colorGrayS14W500.copyWith(
+                                fontSize: 12,
+                                color: AppColors.primaryColor,
+                              ),
                             ),
                           ],
-                        )),
-                  );
-                },
-                itemCount: state.listNotification.length,
-              ),
-              onRefresh: _onRefresh);
+                        ),
+                      ),
+                      const SizedBox(width: AppDimens.spacingNormal),
+                    ],
+                  ),
+                );
+              },
+              itemCount: state.listNotification.length,
+              separatorBuilder: (c, index) {
+                return const Divider(
+                  height: 2,
+                  color: AppColors.whiteColor,
+                );
+              },
+            ),
+            onRefresh: _onRefresh,
+          );
         }),
       ),
     );
@@ -111,15 +151,30 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
   }
 
   Widget _buildAppbarWidget() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          "Notifications",
-          style: AppTextStyle.colorDarkS24W500,
-        )
-      ],
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(width: AppDimens.spacingNormal),
+          Text(
+            "Notifications",
+            style: AppTextStyle.colorDarkS24W500.copyWith(
+              color: AppColors.whiteColor,
+            ),
+          ),
+          const Spacer(),
+          // Text(
+          //   "Clear",
+          //   style: AppTextStyle.colorDarkS24W500.copyWith(
+          //     color: AppColors.whiteColor,
+          //     fontSize: 16,
+          //   ),
+          // ),
+          const SizedBox(width: AppDimens.spacingNormal),
+        ],
+      ),
     );
   }
 }

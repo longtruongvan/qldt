@@ -7,11 +7,13 @@ import 'package:qldt/model/response/example_schedule_response.dart';
 import 'package:qldt/model/response/notification_response.dart';
 import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/model/response/subject_response.dart';
+import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/teacher/exam_schedule/add/add_exam_schedule_state.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateExamScheduleLogic extends GetxController {
   final state = CreateExamScheduleState();
+  final authService = Get.find<AuthService>();
 
   CreateExamScheduleLogic() {
     fetchData();
@@ -43,6 +45,9 @@ class CreateExamScheduleLogic extends GetxController {
           idExamSchedule: id,
           title: 'Đã có: ${state.titleTextController.text}',
           time: DateTime.now().toString(),
+          idSender: authService.person.value?.id,
+          avatarUrl: authService.user.value?.photoURL,
+          typeNotification: 'LICH_THI',
         ).toJson())
         .then((value) {})
         .catchError((onError) {});
@@ -60,6 +65,7 @@ class CreateExamScheduleLogic extends GetxController {
           title: state.titleTextController.text,
           description: state.locationTextController.text,
           dayStart: dayCreate.toString(),
+          timeCreate: DateTime.now().toString(),
         ).toJson())
         .then((value) {
       Get.back(closeOverlays: true);

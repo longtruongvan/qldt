@@ -20,6 +20,7 @@ ExampleScheduleResponse _$ExampleScheduleResponseFromJson(
       title: json['title'] as String?,
       description: json['description'] as String?,
       dayStart: json['dayStart'] as String?,
+      timeCreate: json['timeCreate'] as String?,
     );
 
 Map<String, dynamic> _$ExampleScheduleResponseToJson(
@@ -34,4 +35,5 @@ Map<String, dynamic> _$ExampleScheduleResponseToJson(
       'title': instance.title,
       'description': instance.description,
       'dayStart': instance.dayStart,
+      'timeCreate': instance.timeCreate,
     };

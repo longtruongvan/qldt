@@ -13,6 +13,7 @@ class ExampleScheduleResponse {
   String? title;
   String? description;
   String? dayStart;
+  String? timeCreate;
 
   ExampleScheduleResponse({
     this.id,
@@ -24,6 +25,7 @@ class ExampleScheduleResponse {
     this.title,
     this.description,
     this.dayStart,
+    this.timeCreate,
   });
 
   factory ExampleScheduleResponse.fromJson(Map<String,dynamic> json) => _$ExampleScheduleResponseFromJson(json);

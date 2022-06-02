@@ -1,217 +1,156 @@
-import 'dart:math';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:qldt/common/app_colors.dart';
-import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_logic.dart';
+import 'package:qldt/ui/teacher/tuition/create_tution/create_tuition_logic.dart';
+import 'package:qldt/ui/teacher/tuition/tuition_logic.dart';
 
-import '../../../common/app_dimens.dart';
-import '../../../common/app_text_style.dart';
-import '../../widgets/button/back_button.dart';
+import '../../../../common/app_dimens.dart';
+import '../../../../common/app_text_style.dart';
+import '../../../widgets/button/back_button.dart';
+import '../../../widgets/textfields/app_label_text_field.dart';
 
-enum TypeScoreManager {
-  teacher,
-  student,
-}
-
-class TeacherScoreManagerPage extends StatefulWidget {
-  final TypeScoreManager typeScoreManager;
-
-  const TeacherScoreManagerPage({
-    Key? key,
-    required this.typeScoreManager,
-  }) : super(key: key);
+class CreateTuitionPage extends StatefulWidget {
+  const CreateTuitionPage({Key? key}) : super(key: key);
 
   @override
-  State<TeacherScoreManagerPage> createState() =>
-      _TeacherScoreManagerPageState();
+  State<CreateTuitionPage> createState() => _CreateTuitionPageState();
 }
 
-class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
-  final logic = Get.put(TeacherScoreManagerLogic());
-  final state = Get.find<TeacherScoreManagerLogic>().state;
+class _CreateTuitionPageState extends State<CreateTuitionPage> {
+  final logic = Get.put(CreateTuitionLogic());
+  final state = Get.find<CreateTuitionLogic>().state;
+  static const _locale = 'en';
+
+  String _formatNumber(String s) =>
+      NumberFormat.decimalPattern(_locale).format(int.parse(s));
+
+  String get _currency =>
+      NumberFormat.compactSimpleCurrency(locale: _locale).currencySymbol;
 
   @override
   void dispose() {
-    Get.delete<TeacherScoreManagerLogic>();
+    Get.delete<CreateTuitionLogic>();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.whiteColor,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(24),
-          child: _buildAppbarWidget(),
-        ),
-      ),
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
           children: [
-            _buildBodyWidget(),
-            _buildButtonSubmitWidget(),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _buildAppbarWidget(),
+                Expanded(child: _buildBodyWidget()),
+              ],
+            ),
+            Positioned(
+              child: _buildButtonSubmitWidget(),
+              bottom: 0,
+              left: 0,
+              right: 0,
+            ),
+            _buildLoadingWidget(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildButtonSubmitWidget() {
-    return Positioned(
-      child: Obx(() => Container(
-            color: AppColors.whiteColor,
-            child: GestureDetector(
-              onTap: () {
-                logic.clickButtonNextHandler(widget.typeScoreManager);
-              },
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                    color: (state.spec1Active.value &&
-                            state.spec2Active.value &&
-                            state.spec4Active.value)
-                        ? AppColors.primaryColor
-                        : AppColors.grayColor,
-                    borderRadius: BorderRadius.circular(20)),
-                height: 60,
-                child: Center(
-                    child: Text(
-                  "Next",
-                  style: AppTextStyle.colorWhiteS16
-                      .copyWith(fontWeight: FontWeight.w500),
-                )),
-              ),
-            ),
-          )),
-      left: AppDimens.spacingNormal,
-      right: AppDimens.spacingNormal,
-      bottom: AppDimens.spacingNormal,
-    );
+  Widget _buildLoadingWidget() {
+    return Obx(() {
+      if (state.statusLoading.value) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.primaryColor,
+          ),
+        );
+      }
+      return Container();
+    });
   }
 
   Widget _buildBodyWidget() {
     return Container(
-      margin: const EdgeInsets.only(
-          left: AppDimens.spacingNormal,
-          right: AppDimens.spacingNormal,
-          bottom: 100),
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          const SizedBox(height: AppDimens.spacingNormal),
-          _buildSpecWidget(),
-          const SizedBox(height: AppDimens.spacingNormal),
-          Text(
-            'Select Specialized',
-            style: AppTextStyle.color3C3A36S18W500,
-          ),
-          const SizedBox(height: 10),
-          _buildSelectSpecializedDropdownWidget(),
-          const SizedBox(height: AppDimens.spacingNormal),
-          Text(
-            'Select class',
-            style: AppTextStyle.color3C3A36S18W500,
-          ),
-          const SizedBox(height: 10),
-          _buildSelectClassDropdownWidget(),
-          const SizedBox(height: AppDimens.spacingNormal),
-          Text(
-            'Select student',
-            style: AppTextStyle.color3C3A36S18W500,
-          ),
-          const SizedBox(height: 10),
-          _buildSelectStudentDropdownWidget(),
-          const SizedBox(height: AppDimens.spacingNormal),
-          Text(
-            'Select time',
-            style: AppTextStyle.color3C3A36S18W500,
-          ),
-          const SizedBox(height: 10),
-          _buildSelectTimeDropdownWidget(),
-          const SizedBox(height: AppDimens.spacingNormal),
-          Obx(() {
-            if (state.yearSchoolSelected.value == 'All') {
-              return Container();
-            }
-            return Text('Select semester',
-                style: AppTextStyle.color3C3A36S18W500);
-          }),
-          Obx(() => SizedBox(
-              height: (state.yearSchoolSelected.value == 'All') ? 0 : 10)),
-          _buildSelectSemesterWidget(),
-          Obx(() => SizedBox(
-              height: (state.yearSchoolSelected.value == 'All')
-                  ? 0
-                  : AppDimens.spacingNormal)),
-          Text(
-            'Select subject',
-            style: AppTextStyle.color3C3A36S18W500,
-          ),
-          const SizedBox(height: 10),
-          _buildSelectSubjectDropdownWidget(),
-        ],
+      height: Get.height,
+      padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: AppDimens.spacingNormal),
+            Text(
+              'Select Specialized',
+              style: AppTextStyle.color3C3A36S18W500,
+            ),
+            const SizedBox(height: 10),
+            _buildSelectSpecializedDropdownWidget(),
+            const SizedBox(height: AppDimens.spacingNormal),
+            Text(
+              'Select class',
+              style: AppTextStyle.color3C3A36S18W500,
+            ),
+            const SizedBox(height: 10),
+            _buildSelectClassDropdownWidget(),
+            const SizedBox(height: AppDimens.spacingNormal),
+            Text(
+              'Select student',
+              style: AppTextStyle.color3C3A36S18W500,
+            ),
+            const SizedBox(height: 10),
+            _buildSelectStudentDropdownWidget(),
+            const SizedBox(height: AppDimens.spacingNormal),
+            Text(
+              'Select time',
+              style: AppTextStyle.color3C3A36S18W500,
+            ),
+            const SizedBox(height: 10),
+            _buildSelectTimeDropdownWidget(),
+            const SizedBox(height: AppDimens.spacingNormal),
+            Obx(() {
+              if (state.yearSchoolSelected.value == 'All') {
+                return Container();
+              }
+              return Text('Select semester',
+                  style: AppTextStyle.color3C3A36S18W500);
+            }),
+            Obx(() => SizedBox(
+                height: (state.yearSchoolSelected.value == 'All') ? 0 : 10)),
+            _buildSelectSemesterWidget(),
+            Obx(() => SizedBox(
+                height: (state.yearSchoolSelected.value == 'All')
+                    ? 0
+                    : AppDimens.spacingNormal)),
+            AppLabelTextField(
+              title: 'Tuition (VND)',
+              titleStyle: AppTextStyle.color3C3A36S18W500,
+              hintText: 'Ex: 1000000',
+              hintStyle: AppTextStyle.colorGrayS18W500,
+              controller: state.tuitionTextController,
+              textInputType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              // textInputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),],
+              onChange: (text) {
+                // text = _formatNumber(text.replaceAll(',', ''));
+                // state.tuitionTextController.text = text;
+              },
+            ),
+            const SizedBox(
+              height: 90,
+            )
+          ],
+        ),
       ),
     );
-  }
-
-  Widget _buildSelectSubjectDropdownWidget() {
-    return Obx(() {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          border: Border.all(color: AppColors.grayColor, width: 1),
-        ),
-        child: DropdownButton2(
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            color: AppColors.grayColor,
-          ),
-          isExpanded: true,
-          underline: Container(
-            color: AppColors.whiteColor,
-          ),
-          value: state.subjectResponseSelected.value.name,
-          hint: Text('Select subject', style: AppTextStyle.color3C3A36S18W500),
-          onChanged: (value) {
-            logic.checkSubjectSelected(value as String);
-          },
-          dropdownDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          ),
-          dropdownWidth: Get.width - 32,
-          buttonWidth: Get.width - 32,
-          offset: const Offset(-11, -AppDimens.spacingNormal),
-          items: (state.listSubjectResponse.isNotEmpty &&
-                  state.specializedSelected.value.id != null)
-              ? state.listSubjectResponse.map((element) {
-                  return DropdownMenuItem(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Spacer(),
-                        Text(
-                          element.name ?? '',
-                          style: AppTextStyle.color3C3A36S18W500,
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
-                    value: element.name,
-                  );
-                }).toList()
-              : null,
-        ),
-      );
-    });
   }
 
   Widget _buildSelectSemesterWidget() {
@@ -272,68 +211,6 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
     });
   }
 
-  Widget _buildSpecWidget() {
-    return Obx(() => Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.check_circle,
-              color: (state.spec1Active.value)
-                  ? AppColors.successColor
-                  : AppColors.grayColor,
-            ),
-            const SizedBox(
-              width: 3,
-            ),
-            Container(
-              width: 10,
-              color: (state.spec2Active.value)
-                  ? AppColors.successColor
-                  : AppColors.grayColor,
-              height: 1,
-            ),
-            Icon(
-              Icons.check_circle,
-              color: (state.spec2Active.value)
-                  ? AppColors.successColor
-                  : AppColors.grayColor,
-            ),
-            const SizedBox(
-              width: 3,
-            ),
-            Container(
-              width: 10,
-              color: (state.spec3Active.value)
-                  ? AppColors.successColor
-                  : AppColors.grayColor,
-              height: 1,
-            ),
-            Icon(
-              Icons.check_circle,
-              color: (state.spec3Active.value)
-                  ? AppColors.successColor
-                  : AppColors.grayColor,
-            ),
-            const SizedBox(
-              width: 3,
-            ),
-            Container(
-              width: 10,
-              color: (state.spec4Active.value)
-                  ? AppColors.successColor
-                  : AppColors.grayColor,
-              height: 1,
-            ),
-            Icon(
-              Icons.check_circle,
-              color: (state.spec4Active.value)
-                  ? AppColors.successColor
-                  : AppColors.grayColor,
-            ),
-          ],
-        ));
-  }
-
   Widget _buildSelectTimeDropdownWidget() {
     return Obx(() {
       return Container(
@@ -390,6 +267,34 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
         ),
       );
     });
+  }
+
+  Widget _buildButtonSubmitWidget() {
+    return GestureDetector(
+      onTap: () {
+        logic.submitHandler();
+      },
+      child: Container(
+        color: AppColors.whiteColor,
+        child: Container(
+          margin: const EdgeInsets.only(
+            bottom: 20,
+            left: AppDimens.spacingNormal,
+            right: AppDimens.spacingNormal,
+          ),
+          decoration: BoxDecoration(
+              color: AppColors.primaryColor,
+              borderRadius: BorderRadius.circular(20)),
+          height: 60,
+          child: Center(
+              child: Text(
+            "OK",
+            style: AppTextStyle.colorWhiteS16
+                .copyWith(fontWeight: FontWeight.w500),
+          )),
+        ),
+      ),
+    );
   }
 
   Widget _buildSelectStudentDropdownWidget() {
@@ -560,44 +465,31 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
   }
 
   Widget _buildAppbarWidget() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.only(top: AppDimens.spacingNormal),
-          child: Row(
-            children: [
-              const SizedBox(
-                width: AppDimens.spacingNormal,
-              ),
-              AppBackButton(eventHandler: () {
-                Get.back();
-              }),
-              const SizedBox(width: AppDimens.spacingNormal),
-              Text(
-                "Score manager",
-                style: AppTextStyle.colorDarkS24W500,
-              ),
-              const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  logic.clearHandler();
-                },
-                child: Text(
-                  "Clear",
-                  style: AppTextStyle.colorDarkS16W500
-                      .copyWith(color: AppColors.primaryColor),
-                ),
-              ),
-              const SizedBox(
-                width: AppDimens.spacingNormal,
-              ),
-            ],
+    return Container(
+      padding: const EdgeInsets.only(
+          bottom: AppDimens.spacingNormal, top: AppDimens.spacingNormal),
+      child: Row(
+        children: [
+          const SizedBox(
+            width: AppDimens.spacingNormal,
           ),
-        ),
-        const SizedBox(height: AppDimens.spacingNormal),
-      ],
+          AppBackButton(eventHandler: () {
+            Get.back();
+          }),
+          const SizedBox(width: AppDimens.spacingNormal),
+          Expanded(
+            child: Text(
+              "Tuition manager",
+              style: AppTextStyle.colorDarkS24W500,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(
+            width: AppDimens.spacingNormal,
+          ),
+        ],
+      ),
     );
   }
 }

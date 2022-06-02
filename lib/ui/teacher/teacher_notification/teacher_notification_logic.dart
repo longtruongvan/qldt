@@ -13,7 +13,10 @@ class TeacherNotificationLogic extends GetxController {
 
   void fetchData() {
     state.statusLoading.value = true;
-    FirebaseFirestore.instance.collection('Notification').get().then((value) {
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .orderBy('time', descending: true)
+        .snapshots().listen((value) {
       state.listNotification.clear();
       value.docs.map((e) {
         var response = NotificationResponse.fromJson(e.data());
@@ -24,7 +27,7 @@ class TeacherNotificationLogic extends GetxController {
       }).toList();
       state.listNotification.refresh();
       state.statusLoading.value = false;
-    }).catchError((onError) {
+    }).onError((handleError) {
       AppSnackBar.showError(title: 'Error', message: 'Fetch data error');
       state.statusLoading.value = false;
     });

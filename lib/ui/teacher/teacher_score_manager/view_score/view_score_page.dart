@@ -11,6 +11,7 @@ import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
 import '../../../../model/response/person_response.dart';
 import '../../../widgets/button/back_button.dart';
+import '../teacher_score_manager_page.dart';
 
 enum ScoreViewType {
   /// xem diem tong ket
@@ -24,12 +25,14 @@ class ViewScorePage extends StatefulWidget {
   final List<PersonResponse> students;
   final ScoreViewType viewType;
   final SubjectResponse subjectResponse;
+  final TypeScoreManager typeScoreManager;
 
   const ViewScorePage({
     Key? key,
     required this.students,
     required this.viewType,
     required this.subjectResponse,
+    required this.typeScoreManager,
   }) : super(key: key);
 
   @override
@@ -164,6 +167,9 @@ class _ViewScorePageState extends State<ViewScorePage> {
   }
 
   Widget _buildActionInfoStudentWidget(int index) {
+    if(widget.typeScoreManager==TypeScoreManager.student){
+      return Container();
+    }
     return Row(children: [
       const Spacer(),
       InkWell(

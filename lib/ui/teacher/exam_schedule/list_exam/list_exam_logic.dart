@@ -13,15 +13,15 @@ class ListExamLogic extends GetxController {
 
   void fetchData() {
     state.mergeRequest.listen((p0) {
-      if(p0<=0){
+      if (p0 <= 0) {
         state.listExamSchedule.refresh();
       }
     });
 
-
     state.mergeRequest.value++;
     FirebaseFirestore.instance
         .collection('ExamSchedule')
+        .orderBy('timeCreate', descending: true)
         .get()
         .then((value) {
       state.listExamSchedule.clear();

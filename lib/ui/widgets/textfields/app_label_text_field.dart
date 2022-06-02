@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
@@ -17,6 +18,8 @@ class AppLabelTextField extends StatelessWidget {
   final bool? isEnable;
   final TextInputAction? textInputAction;
   final TextInputType? textInputType;
+  final Function(String text)? onChange;
+  final List<TextInputFormatter>? textInputFormatter;
 
   const AppLabelTextField({
     Key? key,
@@ -31,6 +34,8 @@ class AppLabelTextField extends StatelessWidget {
     this.textStyle,
     this.textInputAction,
     this.textInputType,
+    this.onChange,
+    this.textInputFormatter,
   }) : super(key: key);
 
   @override
@@ -52,9 +57,11 @@ class AppLabelTextField extends StatelessWidget {
           controller: controller,
           suffixIcon: iconSuffix,
           isEnable: isEnable,
+          textInputFormatter: textInputFormatter,
           textStyle: textStyle ?? AppTextStyle.color3C3A36S18W500,
           textInputAction: textInputAction ?? TextInputAction.done,
           keyboardType: textInputType,
+          onChanged: onChange,
         ),
       ],
     );

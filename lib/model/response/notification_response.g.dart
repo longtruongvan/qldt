@@ -13,6 +13,9 @@ NotificationResponse _$NotificationResponseFromJson(
       idExamSchedule: json['idExamSchedule'] as String?,
       title: json['title'] as String?,
       time: json['time'] as String?,
+      idSender: json['idSender'] as String?,
+      avatarUrl: json['avatarUrl'] as String?,
+      typeNotification: json['typeNotification'] as String?,
     );
 
 Map<String, dynamic> _$NotificationResponseToJson(
@@ -22,4 +25,7 @@ Map<String, dynamic> _$NotificationResponseToJson(
       'idExamSchedule': instance.idExamSchedule,
       'title': instance.title,
       'time': instance.time,
+      'idSender': instance.idSender,
+      'avatarUrl': instance.avatarUrl,
+      'typeNotification': instance.typeNotification,
     };

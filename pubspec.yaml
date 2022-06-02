@@ -99,6 +99,7 @@ flutter:
     - assets/images/img_subject_manage.png
     - assets/images/img_specialized_1.png
     - assets/images/img_course.png
+    - assets/images/img_user.png
     - assets/icons/ic_specialized.png
     - assets/icons/ic_specialized_1.png
     - assets/icons/ic_specialized_2.png

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progressive_image/progressive_image.dart';
+import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/student/student_home/list_register/list_register_page.dart';
 import 'package:qldt/ui/student/student_home/student_home_logic.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
 import 'package:qldt/ui/student/student_register_subject/student_register_subject_page.dart';
 import 'package:qldt/ui/teacher/exam_schedule/list_exam/list_exam_page.dart';
+import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_page.dart';
+import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page.dart';
+import 'package:qldt/ui/teacher/tuition/detail_tution/detail_tuition_page.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
@@ -56,19 +60,29 @@ class _StudentHomePageState extends State<StudentHomePage> {
             ),
             Row(
               children: [
-                _buildItemTopicWidget('Score', (){},AppImages.imgSpecialized1),
-                _buildItemTopicWidget('Course', (){
+                _buildItemTopicWidget('Score', () {
+                  Get.to(const TeacherScoreManagerPage(
+                    typeScoreManager: TypeScoreManager.student,
+                  ));
+                }, AppImages.imgSpecialized1),
+                _buildItemTopicWidget('Course', () {
                   Get.to(const ListRegisterPage());
-                },AppImages.imgDepartmentManager),
+                }, AppImages.imgDepartmentManager),
               ],
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
-                _buildItemTopicWidget('Exam schedule', (){
+                _buildItemTopicWidget('Exam schedule', () {
                   Get.to(const ListExamPage());
-                },AppImages.imgSpecialized),
-                _buildItemTopicWidget('Tuition', (){},AppImages.imgCoruse),
+                }, AppImages.imgSpecialized),
+                _buildItemTopicWidget('Tuition', () {
+                  Get.to(DetailTuitionPage(
+                    personResponse: authService.person.value!,
+                  ));
+                }, AppImages.imgCoruse),
               ],
             ),
             // const SizedBox(height: 10,),
@@ -84,7 +98,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
     );
   }
 
-  Widget _buildItemTopicWidget(String title,Function() event,String image){
+  Widget _buildItemTopicWidget(String title, Function() event, String image) {
     return Flexible(
       flex: 1,
       child: InkWell(
@@ -138,7 +152,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
               style: AppTextStyle.color3C3A36S16,
             ),
             Text(
-              '${authService.user.value?.displayName??''},',
+              '${authService.user.value?.displayName ?? ''},',
               style: AppTextStyle.color333333S32.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -156,14 +170,15 @@ class _StudentHomePageState extends State<StudentHomePage> {
             child: ProgressiveImage.assetNetwork(
               placeholder: AppImages.imgLoading1,
               placeholderScale: 1.5,
-              thumbnail:
-              (authService.user.value != null &&
-                  authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+              thumbnail: (authService.user.value != null &&
+                      authService.user.value!.photoURL != null)
+                  ? authService.user.value!.photoURL ??
+                      'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               image: (authService.user.value != null &&
-                  authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+                      authService.user.value!.photoURL != null)
+                  ? authService.user.value!.photoURL ??
+                      'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               fit: BoxFit.cover,
               width: 48,

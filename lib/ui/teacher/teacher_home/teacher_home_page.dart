@@ -9,6 +9,7 @@ import 'package:qldt/ui/teacher/teacher_home/teacher_home_logic.dart';
 import 'package:qldt/ui/teacher/teacher_main/teacher_main_logic.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_page.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page.dart';
+import 'package:qldt/ui/teacher/tuition/tuition_page.dart';
 
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
@@ -73,12 +74,14 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
               children: [
                 _buildItemTopicWidget('Score', () {
                   // Get.to(const ViewScorePage(students: []));
-                  Get.to(const TeacherScoreManagerPage());
-                }),
+                  Get.to(const TeacherScoreManagerPage(
+                    typeScoreManager: TypeScoreManager.teacher,
+                  ));
+                }, AppImages.imgSpecialized1),
                 // _buildItemTopicWidget('Đăng ký học', () {}),
                 _buildItemTopicWidget('Exam schedule', () {
                   Get.to(const ExamSchedulePage());
-                }),
+                }, AppImages.imgDepartmentManager),
               ],
             ),
             const SizedBox(
@@ -90,27 +93,22 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
                   Get.to(const SystemManagerDepartmentManagerPage(
                     isSystemManager: false,
                   ));
-                }),
-                const Spacer(),
-                // _buildItemTopicWidget('Học phí', () {}),
+                }, AppImages.imgSpecialized),
+                _buildItemTopicWidget('Tuition', () {
+                  Get.to(const TuitionPage());
+                }, AppImages.imgCoruse),
               ],
             ),
             const SizedBox(
               height: 10,
             ),
-            // Row(
-            //   children: [
-            //     _buildItemTopicWidget('Lộ trình', () {}),
-            //     const Spacer(),
-            //   ],
-            // ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildItemTopicWidget(String title, Function() event) {
+  Widget _buildItemTopicWidget(String title, Function() event, String image) {
     return Flexible(
       flex: 1,
       child: GestureDetector(
@@ -121,7 +119,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                AppImages.imgDepartmentManager,
+                image,
                 width: Get.width / 2,
                 fit: BoxFit.cover,
                 height: 150,
