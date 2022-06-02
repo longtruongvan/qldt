@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
+import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_logic.dart';
@@ -22,11 +23,13 @@ enum ScoreViewType {
 class ViewScorePage extends StatefulWidget {
   final List<PersonResponse> students;
   final ScoreViewType viewType;
+  final SubjectResponse subjectResponse;
 
   const ViewScorePage({
     Key? key,
     required this.students,
     required this.viewType,
+    required this.subjectResponse,
   }) : super(key: key);
 
   @override
@@ -40,7 +43,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
 
   @override
   void initState() {
-    logic.fetchData(widget.students, widget.viewType);
+    logic.fetchData(widget.students, widget.viewType,widget.subjectResponse);
     super.initState();
   }
 
@@ -237,8 +240,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
               FlatButton(
                   onPressed: () {
                     Get.back();
-                    logic.deleteScore(index, (){
-                    });
+                    logic.deleteScore(index, () {});
                   },
                   child: Text(
                     'OK',

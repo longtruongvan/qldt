@@ -6,7 +6,10 @@ import '../response/score_response.dart';
 class ScoreEntity {
   PersonResponse? personResponse;
   List<ScoreResponse>? listScore;
+  String? idSubject;
+  String? idStudent;
   bool? isEdit;
+  bool? isExist; // check isExist in database
   TextEditingController? diligenceTextController;
   TextEditingController? testTextController;
   TextEditingController? examTextController;
@@ -18,6 +21,9 @@ class ScoreEntity {
     this.personResponse,
     this.listScore,
     this.isEdit,
+    this.isExist,
+    this.idSubject,
+    this.idStudent,
     this.diligenceTextController,
     this.testTextController,
     this.examTextController,

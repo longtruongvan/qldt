@@ -8,6 +8,7 @@ import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_state.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../model/response/person_response.dart';
 
@@ -57,31 +58,86 @@ class ViewScoreLogic {
   }
 
   void updateScore(int index, Function() callback) {
+    List<ScoreResponse> listScore = state.listScoreEntity[index].listScore??[];
     state.statusLoading.value = true;
-    ScoreResponse? scoreResponse =
-        state.listScoreEntity[index].listScore?.first;
-    scoreResponse?.diligence = double.tryParse(
+    ScoreResponse scoreResponse =
+        (listScore.isNotEmpty) ? listScore.first : ScoreResponse();
+    scoreResponse.diligence = double.tryParse(
         state.listScoreEntity[index].diligenceTextController?.text ?? '');
 
-    scoreResponse?.test = double.tryParse(
+    scoreResponse.test = double.tryParse(
         state.listScoreEntity[index].testTextController?.text ?? '');
 
-    scoreResponse?.exam = double.tryParse(
+    scoreResponse.exam = double.tryParse(
         state.listScoreEntity[index].examTextController?.text ?? '');
 
-    scoreResponse?.endOfCourse = double.tryParse(
+    scoreResponse.endOfCourse = double.tryParse(
         state.listScoreEntity[index].endOfCourseTextController?.text ?? '');
 
-    scoreResponse?.letter =
+    scoreResponse.letter =
         state.listScoreEntity[index].letterTextController?.text;
 
-    scoreResponse?.evaluate =
+    scoreResponse.evaluate =
         state.listScoreEntity[index].evaluateTextController?.text;
+
+    if (scoreResponse.diligence == null ||
+        scoreResponse.test == null ||
+        scoreResponse.exam == null ||
+        scoreResponse.endOfCourse == null ||
+        scoreResponse.letter == null ||
+        scoreResponse.evaluate == null) {
+      state.statusLoading.value = false;
+      AppSnackBar.showWarning(
+          title: 'Warning', message: 'Please fill in all the information');
+      return;
+    }
+
+    // if not exist
+    if(!(state.listScoreEntity[index].isExist??false)){
+      String id = const Uuid().v1();
+      scoreResponse.idSubject = state.listScoreEntity[index].idSubject;
+      scoreResponse.idStudent = state.listScoreEntity[index].idStudent;
+      scoreResponse.id = id;
+
+      //add data score to table score
+      FirebaseFirestore.instance
+          .collection('Score')
+          .doc(id)
+          .set(scoreResponse.toJson() ?? {})
+          .then((value) {
+        AppSnackBar.showSuccess(
+            title: 'Success', message: 'Add score success');
+        state.statusLoading.value = false;
+        state.listScoreEntity.refresh();
+        (state.listScoreEntity[index].listScore??[]).clear();
+        (state.listScoreEntity[index].listScore??[]).add(scoreResponse);
+        state.listScoreEntity[index].isExist = true;
+        state.listScoreEntity.refresh();
+      }).catchError((onError) {
+        AppSnackBar.showError(title: 'Error', message: 'Add score failure');
+        state.statusLoading.value = false;
+      });
+
+      // add id score to list score in table person
+      FirebaseFirestore.instance
+          .collection('Person')
+          .doc(scoreResponse.idStudent)
+          .update({
+        'idScores':  FieldValue.arrayUnion([id])
+      })
+          .then((value) {
+        // AppSnackBar.showSuccess(
+        //     title: 'Success', message: 'Update score success');
+      }).catchError((onError) {
+        AppSnackBar.showError(title: 'Error', message: 'Update score failure');
+      });
+      return;
+    }
 
     FirebaseFirestore.instance
         .collection('Score')
-        .doc(scoreResponse?.id)
-        .update(scoreResponse?.toJson() ?? {})
+        .doc(scoreResponse.id)
+        .update(scoreResponse.toJson() ?? {})
         .then((value) {
       AppSnackBar.showSuccess(
           title: 'Success', message: 'Update score success');
@@ -93,7 +149,8 @@ class ViewScoreLogic {
     });
   }
 
-  void fetchData(List<PersonResponse> persons, ScoreViewType viewType) {
+  void fetchData(List<PersonResponse> persons, ScoreViewType viewType,
+      SubjectResponse subjectResponse) {
     state.statusLoading.value = true;
     state.mergeRequest.listen((value) {
       if (value <= 0) {
@@ -133,18 +190,30 @@ class ViewScoreLogic {
               personResponse: persons[u],
               listScore: listScore,
               isEdit: false,
-              diligenceTextController:
-                  TextEditingController(text: '${listScore.first.diligence}'),
-              testTextController:
-                  TextEditingController(text: '${listScore.first.test}'),
-              examTextController:
-                  TextEditingController(text: '${listScore.first.exam}'),
-              endOfCourseTextController:
-                  TextEditingController(text: '${listScore.first.endOfCourse}'),
-              letterTextController:
-                  TextEditingController(text: '${listScore.first.letter}'),
-              evaluateTextController:
-                  TextEditingController(text: '${listScore.first.evaluate}'),
+              isExist: listScore.isNotEmpty,
+              idSubject: subjectResponse.id,
+              idStudent: persons[u].id,
+              diligenceTextController: TextEditingController(
+                text:
+                    '${(listScore.isNotEmpty) ? listScore.first.diligence : ''}',
+              ),
+              testTextController: TextEditingController(
+                text: '${(listScore.isNotEmpty) ? listScore.first.test : ''}',
+              ),
+              examTextController: TextEditingController(
+                text: '${(listScore.isNotEmpty) ? listScore.first.exam : ''}',
+              ),
+              endOfCourseTextController: TextEditingController(
+                text:
+                    '${(listScore.isNotEmpty) ? listScore.first.endOfCourse : ''}',
+              ),
+              letterTextController: TextEditingController(
+                text: '${(listScore.isNotEmpty) ? listScore.first.letter : ''}',
+              ),
+              evaluateTextController: TextEditingController(
+                text:
+                    '${(listScore.isNotEmpty) ? listScore.first.evaluate : ''}',
+              ),
             ));
           }
         }
@@ -152,7 +221,9 @@ class ViewScoreLogic {
       for (int k = 0; k < (persons[u].idScores ?? []).length; k++) {
         dispatchGroup.value++;
         getScoreById(persons[u].idScores![k], (value) {
-          listScore.add(value);
+          if (value.id != null && value.idSubject == subjectResponse.id) {
+            listScore.add(value);
+          }
           dispatchGroup.value--;
         });
       }
@@ -170,6 +241,8 @@ class ViewScoreLogic {
       if (value.data() != null) {
         callback(response);
       }
-    }).onError((error, stackTrace) {});
+    }).onError((error, stackTrace) {
+      callback(ScoreResponse());
+    });
   }
 }

@@ -37,6 +37,7 @@ class TeacherScoreManagerLogic {
       viewType: (state.yearSchoolSelected.value == 'All')
           ? ScoreViewType.all
           : ScoreViewType.subject,
+      subjectResponse: state.subjectResponseSelected.value,
     ));
   }
 
