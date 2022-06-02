@@ -162,8 +162,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
         const Spacer(),
         InkWell(
           onTap: () {
-            studentMainPageState.itemSelected.value = 2;
-            studentMainPageState.pageController.jumpToPage(2);
+            studentMainPageState.itemSelected.value = 3;
+            studentMainPageState.pageController.jumpToPage(3);
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24),

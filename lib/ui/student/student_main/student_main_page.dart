@@ -5,6 +5,7 @@ import 'package:qldt/ui/student/student_home/student_home_page.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
 import 'package:qldt/ui/student/student_notification/student_notification_page.dart';
 import 'package:qldt/ui/student/student_profile/student_profile_page.dart';
+import 'package:qldt/ui/student/timetable/time_table_page.dart';
 import 'package:qldt/ui/teacher/teacher_notification/teacher_notification_page.dart';
 import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_page.dart';
 
@@ -24,6 +25,7 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
 
   final List<Widget> _pages = [
     const StudentHomePage(),
+    const TimeTablePage(),
     const TeacherNotificationPage(),
     const TeacherProfilePage(),
   ];
@@ -83,14 +85,19 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
               positionItem: 0,
             ),
             _buildBottomNavItem(
+              title: "Home",
+              icon: Icons.calendar_today,
+              positionItem: 1,
+            ),
+            _buildBottomNavItem(
               title: "Alert",
               icon: Icons.notifications_rounded,
-              positionItem: 1,
+              positionItem: 2,
             ),
             _buildBottomNavItem(
               title: "Profile",
               icon: Icons.person,
-              positionItem: 2,
+              positionItem: 3,
             )
           ],
         ),
@@ -109,7 +116,7 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
       },
       child: Container(
         height: 90,
-        width: (Get.width/3)-2,
+        width: (Get.width/4)-2,
         decoration: const BoxDecoration(
             color: Colors.transparent
         ),

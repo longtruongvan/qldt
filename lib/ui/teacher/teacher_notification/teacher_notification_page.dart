@@ -57,64 +57,69 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
           return RefreshIndicator(
             child: ListView.separated(
               itemBuilder: (c, index) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  color: AppColors.primaryColor.withOpacity(0.2),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: AppDimens.spacingNormal),
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                return GestureDetector(
+                  onTap: (){
+                    String targetViewType = state.listNotification[index].typeNotification??'LICH_THI';
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    color: AppColors.primaryColor.withOpacity(0.2),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: AppDimens.spacingNormal),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: (state.listNotification[index].avatarUrl !=
+                                    null)
+                                ? Image.network(
+                                    state.listNotification[index].avatarUrl ?? '',
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    AppImages.imgUser,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: (state.listNotification[index].avatarUrl !=
-                                  null)
-                              ? Image.network(
-                                  state.listNotification[index].avatarUrl ?? '',
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.asset(
-                                  AppImages.imgUser,
-                                  fit: BoxFit.cover,
+                        const SizedBox(width: AppDimens.spacingNormal),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                state.listNotification[index].title ?? '',
+                                style: AppTextStyle.colorDarkGrayS14W500.copyWith(
+                                  fontSize: 16,
                                 ),
-                        ),
-                      ),
-                      const SizedBox(width: AppDimens.spacingNormal),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              state.listNotification[index].title ?? '',
-                              style: AppTextStyle.colorDarkGrayS14W500.copyWith(
-                                fontSize: 16,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              DateFormat('yyyy-MM-dd hh:mm:ss').format(
-                                  DateTime.parse(
-                                      (state.listNotification[index].time ??
-                                          ''))),
-                              style: AppTextStyle.colorGrayS14W500.copyWith(
-                                fontSize: 12,
-                                color: AppColors.primaryColor,
+                              const SizedBox(
+                                height: 5,
                               ),
-                            ),
-                          ],
+                              Text(
+                                DateFormat('yyyy-MM-dd hh:mm:ss').format(
+                                    DateTime.parse(
+                                        (state.listNotification[index].time ??
+                                            ''))),
+                                style: AppTextStyle.colorGrayS14W500.copyWith(
+                                  fontSize: 12,
+                                  color: AppColors.primaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: AppDimens.spacingNormal),
-                    ],
+                        const SizedBox(width: AppDimens.spacingNormal),
+                      ],
+                    ),
                   ),
                 );
               },

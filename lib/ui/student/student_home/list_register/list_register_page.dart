@@ -90,54 +90,163 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
           children: [
             Table(
               columnWidths: const {
-                0: FlexColumnWidth(2.2),
-                1: FlexColumnWidth(3),
+                0: FlexColumnWidth(4),
+                1: FlexColumnWidth(6),
               },
+              border: const TableBorder(
+                horizontalInside: BorderSide(
+                  width: 1,
+                  color: AppColors.whiteColor,
+                  style: BorderStyle.solid,
+                ),
+                verticalInside: BorderSide(
+                  width: 1,
+                  color: AppColors.whiteColor,
+                  style: BorderStyle.solid,
+                ),
+              ),
               children: [
                 TableRow(children: [
-                  Text(
-                    'Name course: ',
-                    style: AppTextStyle.colorWhiteS16W500,
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      'Name course: ',
+                      style: AppTextStyle.colorWhiteS16W500,
+                    ),
                   ),
-                  Text(
-                    '${state.listCourse[index].subjectResponse?.name}',
-                    style: AppTextStyle.colorDarkS14Bold,
-                  ),
-                ]),
-                TableRow(children: [
-                  Text(
-                    'Specialized',
-                    style: AppTextStyle.colorWhiteS16W500,
-                  ),
-                  Text(
-                    '${state.listCourse[index].specializedResponse?.name}',
-                    style: AppTextStyle.colorDarkS14Bold,
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    child: Text(
+                      '${state.listCourse[index].subjectResponse?.name}',
+                      style: AppTextStyle.colorDarkS14Bold,
+                    ),
                   ),
                 ]),
                 TableRow(children: [
-                  Text(
-                    'Time payment:',
-                    style: AppTextStyle.colorWhiteS16W500,
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      'Specialized',
+                      style: AppTextStyle.colorWhiteS16W500,
+                    ),
                   ),
-                  Text(
-                    '${state.listCourse[index].subjectRegisterRequest?.timePayment}',
-                    style: AppTextStyle.colorDarkS14Bold,
+                  Container(
+                    margin:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    child: Text(
+                      '${state.listCourse[index].specializedResponse?.name}',
+                      style: AppTextStyle.colorDarkS14Bold,
+                    ),
                   ),
                 ]),
                 TableRow(children: [
-                  Text(
-                    'Status:',
-                    style: AppTextStyle.colorWhiteS16W500,
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      'Time payment:',
+                      style: AppTextStyle.colorWhiteS16W500,
+                    ),
                   ),
-                  Text(
-                    '${state.listCourse[index].subjectRegisterRequest?.isAccept}',
-                    style: AppTextStyle.colorDarkS14Bold,
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    child: Text(
+                      state.listCourse[index].subjectRegisterRequest
+                              ?.timePayment ??
+                          'Unknown',
+                      style: AppTextStyle.colorDarkS14Bold,
+                    ),
                   ),
-                ])
+                ]),
+                TableRow(children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      'Status:',
+                      style: AppTextStyle.colorWhiteS16W500,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    child: Text(
+                      '${state.listCourse[index].subjectRegisterRequest?.isAccept}',
+                      style: AppTextStyle.colorDarkS14Bold,
+                    ),
+                  ),
+                ]),
+                TableRow(children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      'Period:',
+                      style: AppTextStyle.colorWhiteS16W500,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    child: Text(
+                      state.listCourse[index].subjectRegisterRequest
+                              ?.propossedTime?.period ??
+                          'Unknown',
+                      style: AppTextStyle.colorDarkS14Bold,
+                    ),
+                  ),
+                ]),
+                TableRow(children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      'Number of period:',
+                      style: AppTextStyle.colorWhiteS16W500,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    child: Text(
+                      state.listCourse[index].subjectRegisterRequest
+                              ?.propossedTime?.numberOfPeriod ??
+                          'Unknown',
+                      style: AppTextStyle.colorDarkS14Bold,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ]),
               ],
             ),
+            const SizedBox(height: AppDimens.spacingNormal,),
+            _buildDayOfWeekWidget(index),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDayOfWeekWidget(int position) {
+    return SizedBox(
+      height: 40,
+      width: Get.width,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemBuilder: (c, index) {
+          return Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+              color: AppColors.successColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              state.listCourse[position].subjectRegisterRequest?.propossedTime
+                      ?.dayOfWeek?[index] ??
+                  '',
+              style: AppTextStyle.colorWhiteS14W500,
+            ),
+          );
+        },
+        itemCount: state.listCourse[position].subjectRegisterRequest
+            ?.propossedTime?.dayOfWeek?.length,
       ),
     );
   }
