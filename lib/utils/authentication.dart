@@ -6,6 +6,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:qldt/common/app_snack_bar.dart';
 
 class Authentication {
+  static final GoogleSignIn googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
   static Future<void> initializeFirebase() async {
     await Firebase.initializeApp();
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9090);
@@ -18,7 +25,6 @@ class Authentication {
     if (user != null) {
       return user;
     }
-    final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
     if (googleSignInAccount != null) {
@@ -74,9 +80,9 @@ class Authentication {
   }
 
   static Future<void> signOut() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       await FirebaseAuth.instance.signOut();
+      googleSignIn.signOut();
     } catch (e) {
       // TO DO
     }
