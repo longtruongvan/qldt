@@ -9,8 +9,10 @@ class NotificationResponse {
   String? title;
   String? time;
   String? idSender;
+  String? idReceiver;
   String? avatarUrl;
-  String? typeNotification; // hoc phi, lich thi,...
+  String? typeNotification; // hoc phi, lich thi,welcome...
+  bool? isRead;
 
   NotificationResponse({
     this.id,
@@ -18,8 +20,10 @@ class NotificationResponse {
     this.title,
     this.time,
     this.idSender,
+    this.idReceiver,
     this.avatarUrl,
     this.typeNotification,
+    this.isRead,
   });
 
   factory NotificationResponse.fromJson(Map<String, dynamic> json) =>

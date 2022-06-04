@@ -11,7 +11,9 @@ import 'package:qldt/ui/splash/splash_state.dart';
 import 'package:qldt/ui/student/student_main/student_main_page.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_page.dart';
 import 'package:qldt/ui/teacher/teacher_main/teacher_main_page.dart';
+import 'package:uuid/uuid.dart';
 
+import '../../model/response/notification_response.dart';
 import '../../utils/authentication.dart';
 import '../student/student_register_subject/student_register_subject_page.dart';
 
@@ -59,6 +61,7 @@ class SplashLogic extends GetxController {
             }
           });
         } else {
+          String idFirstNotification = const Uuid().v1();
           //checkFirstLogin
           FirebaseFirestore.instance
               .collection('Person')
@@ -73,9 +76,11 @@ class SplashLogic extends GetxController {
                 idScores: [],
                 idCourse: [],
                 idTuition: [],
-                avatar: user.photoURL??fakeAvatar,
+                idNotification: [idFirstNotification],
+                avatar: user.photoURL ?? fakeAvatar,
               ).toJson())
               .then((value) {
+            _createFirstNotification(idFirstNotification, uid);
             FirebaseFirestore.instance
                 .collection('Person')
                 .doc(uid)
@@ -105,5 +110,22 @@ class SplashLogic extends GetxController {
     } else {
       Get.offAll(const LoginPage());
     }
+  }
+
+  void _createFirstNotification(String idNotification,String idReceiver) {
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(idNotification)
+        .set(NotificationResponse(
+      id: idNotification,
+      isRead: false,
+      idReceiver: idReceiver,
+      title: 'Welcome to the training management system of University of Transport Technology',
+      time: DateTime.now().toString(),
+      avatarUrl: 'https://firebasestorage.googleapis.com/v0/b/flutter-app-151a6.appspot.com/o/eb3ef-logo-utt-noborder.png?alt=media&token=c2436ff4-a34c-4290-96fd-f61a1cb95dc0',
+      typeNotification: 'WELCOME',
+    ).toJson())
+        .then((value) {})
+        .catchError((onError) {});
   }
 }

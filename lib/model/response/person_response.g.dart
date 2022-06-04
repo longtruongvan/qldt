@@ -29,6 +29,9 @@ PersonResponse _$PersonResponseFromJson(Map<String, dynamic> json) =>
           ?.map((e) => e as String)
           .toList(),
       avatar: json['avatar'] as String?,
+      idNotification: (json['idNotification'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
@@ -48,4 +51,5 @@ Map<String, dynamic> _$PersonResponseToJson(PersonResponse instance) =>
       'birthday': instance.birthday,
       'idTuition': instance.idTuition,
       'avatar': instance.avatar,
+      'idNotification': instance.idNotification,
     };

@@ -14,8 +14,10 @@ NotificationResponse _$NotificationResponseFromJson(
       title: json['title'] as String?,
       time: json['time'] as String?,
       idSender: json['idSender'] as String?,
+      idReceiver: json['idReceiver'] as String?,
       avatarUrl: json['avatarUrl'] as String?,
       typeNotification: json['typeNotification'] as String?,
+      isRead: json['isRead'] as bool?,
     );
 
 Map<String, dynamic> _$NotificationResponseToJson(
@@ -26,6 +28,8 @@ Map<String, dynamic> _$NotificationResponseToJson(
       'title': instance.title,
       'time': instance.time,
       'idSender': instance.idSender,
+      'idReceiver': instance.idReceiver,
       'avatarUrl': instance.avatarUrl,
       'typeNotification': instance.typeNotification,
+      'isRead': instance.isRead,
     };

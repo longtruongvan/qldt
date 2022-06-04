@@ -80,6 +80,7 @@ class CreateTuitionLogic extends GetxController {
             .doc()
             .set(NotificationResponse(
               id: const Uuid().v1(),
+              isRead: false,
               title:
                   'Thông báo đóng học phí năm học ${state.yearSchoolSelected.value}',
               time: DateTime.now().toString(),

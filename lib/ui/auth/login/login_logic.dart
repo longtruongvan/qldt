@@ -6,8 +6,10 @@ import 'package:qldt/ui/auth/login/login_state.dart';
 import 'package:qldt/ui/auth/sign_up/sign_up_page.dart';
 import 'package:qldt/ui/home/home_page.dart';
 import 'package:qldt/utils/authentication.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../common/app_snack_bar.dart';
+import '../../../model/response/notification_response.dart';
 import '../../../model/response/person_response.dart';
 import '../../../services/auth_service.dart';
 import '../../splash/splash_logic.dart';
@@ -57,7 +59,7 @@ class LoginLogic extends GetxController {
         });
   }
 
-  void _handlerCreateDataPerson(User? user){
+  void _handlerCreateDataPerson(User? user) {
     if (user != null) {
       String fakeAvatar =
           'https://firebasestorage.googleapis.com/v0/b/flutter-app-151a6.appspot.com/o/leaves-7101716_1280.png?alt=media&token=7474428c-854f-4494-ad1f-ec60cc675415';
@@ -86,23 +88,26 @@ class LoginLogic extends GetxController {
             }
           });
         } else {
+          String idFirstNotification = const Uuid().v1();
           //checkFirstLogin
           FirebaseFirestore.instance
               .collection('Person')
               .doc(uid)
               .set(PersonResponse(
-            id: uid,
-            uid: uid,
-            name: user.displayName ?? '${user.email}',
-            email: user.email ?? '',
-            phone: '',
-            type: PersonType.SV.name,
-            idScores: [],
-            idCourse: [],
-            idTuition: [],
-            avatar: user.photoURL ?? fakeAvatar,
-          ).toJson())
+                id: uid,
+                uid: uid,
+                name: user.displayName ?? '${user.email}',
+                email: user.email ?? '',
+                phone: '',
+                type: PersonType.SV.name,
+                idScores: [],
+                idCourse: [],
+                idTuition: [],
+                idNotification: [idFirstNotification],
+                avatar: user.photoURL ?? fakeAvatar,
+              ).toJson())
               .then((value) {
+            _createFirstNotification(idFirstNotification, uid);
             FirebaseFirestore.instance
                 .collection('Person')
                 .doc(uid)
@@ -136,5 +141,24 @@ class LoginLogic extends GetxController {
     } else {
       Get.offAll(const LoginPage());
     }
+  }
+
+  void _createFirstNotification(String idNotification, String idReceiver) {
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(idNotification)
+        .set(NotificationResponse(
+          id: idNotification,
+          isRead: false,
+          idReceiver: idReceiver,
+          title:
+              'Welcome to the training management system of University of Transport Technology',
+          time: DateTime.now().toString(),
+          avatarUrl:
+              'https://firebasestorage.googleapis.com/v0/b/flutter-app-151a6.appspot.com/o/eb3ef-logo-utt-noborder.png?alt=media&token=c2436ff4-a34c-4290-96fd-f61a1cb95dc0',
+          typeNotification: 'WELCOME',
+        ).toJson())
+        .then((value) {})
+        .catchError((onError) {});
   }
 }

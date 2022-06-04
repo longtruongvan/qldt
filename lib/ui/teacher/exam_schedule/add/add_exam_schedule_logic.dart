@@ -42,6 +42,7 @@ class CreateExamScheduleLogic extends GetxController {
         .doc(id)
         .set(NotificationResponse(
           id: id,
+          isRead: false,
           idExamSchedule: id,
           title: 'Đã có: ${state.titleTextController.text}',
           time: DateTime.now().toString(),
