@@ -10,7 +10,7 @@ class LoginState {
   late TextEditingController passwordTextController;
 
   LoginState() {
-    emailTextController = TextEditingController(text: 'test@gmail.com');
-    passwordTextController = TextEditingController(text: '123456');
+    emailTextController = TextEditingController(text: '');
+    passwordTextController = TextEditingController(text: '');
   }
 }
