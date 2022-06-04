@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/services/fcm_service.dart';
+import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/student/student_home/student_home_page.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
 import 'package:qldt/ui/student/student_notification/student_notification_page.dart';
@@ -26,7 +27,7 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
   final List<Widget> _pages = [
     const StudentHomePage(),
     const TimeTablePage(),
-    const TeacherNotificationPage(),
+    const TeacherNotificationPage(personType: PersonType.SV),
     const TeacherProfilePage(),
   ];
 

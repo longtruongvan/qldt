@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_text_style.dart';
+import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_logic.dart';
 import 'package:qldt/ui/system_manager/system_manager_home/system_manager_home_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_notification/system_manager_notification_page.dart';
@@ -24,7 +25,7 @@ class _SystemManagerMainPageState extends State<SystemManagerMainPage> {
 
   final List<Widget> _pages = [
     const SystemManagerHomePage(),
-    const TeacherNotificationPage(),
+    const TeacherNotificationPage(personType: PersonType.QTHT),
     const TeacherProfilePage(),
   ];
 

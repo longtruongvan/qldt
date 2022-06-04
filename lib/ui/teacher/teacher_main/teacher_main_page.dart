@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/teacher/teacher_home/teacher_home_page.dart';
 import 'package:qldt/ui/teacher/teacher_main/teacher_main_logic.dart';
 import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_page.dart';
@@ -22,7 +23,7 @@ class _TeacherMainPageState extends State<TeacherMainPage> with AutomaticKeepAli
 
   final List<Widget> _pages = [
     const TeacherHomePage(),
-    const TeacherNotificationPage(),
+    const TeacherNotificationPage(personType: PersonType.GV),
     const TeacherProfilePage(),
   ];
 

@@ -55,29 +55,31 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
         right: AppDimens.spacingNormal,
       ),
       width: Get.size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-          _buildItemDepartmentManager(),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-          _buildItemManagerUser(),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-          _buildItemSpecialized(),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-          _buildItemSubjectManager(),
-          const SizedBox(
-            height: AppDimens.spacingNormal,
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+            _buildItemDepartmentManager(),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+            _buildItemManagerUser(),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+            _buildItemSpecialized(),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+            _buildItemSubjectManager(),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+          ],
+        ),
       ),
     );
   }

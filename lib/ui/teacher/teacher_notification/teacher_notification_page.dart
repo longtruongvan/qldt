@@ -3,13 +3,19 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qldt/common/app_dimens.dart';
 import 'package:qldt/common/app_images.dart';
+import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/teacher/teacher_notification/teacher_notification_logic.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_text_style.dart';
 
 class TeacherNotificationPage extends StatefulWidget {
-  const TeacherNotificationPage({Key? key}) : super(key: key);
+  final PersonType personType;
+
+  const TeacherNotificationPage({
+    Key? key,
+    required this.personType,
+  }) : super(key: key);
 
   @override
   State<TeacherNotificationPage> createState() =>
@@ -19,6 +25,13 @@ class TeacherNotificationPage extends StatefulWidget {
 class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
   final logic = Get.put(TeacherNotificationLogic());
   final state = Get.find<TeacherNotificationLogic>().state;
+
+
+  @override
+  void initState() {
+    logic.fetchData(widget.personType);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -58,8 +71,10 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
             child: ListView.separated(
               itemBuilder: (c, index) {
                 return GestureDetector(
-                  onTap: (){
-                    String targetViewType = state.listNotification[index].typeNotification??'LICH_THI';
+                  onTap: () {
+                    String targetViewType =
+                        state.listNotification[index].typeNotification ??
+                            'LICH_THI';
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10),
@@ -78,7 +93,8 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
                             child: (state.listNotification[index].avatarUrl !=
                                     null)
                                 ? Image.network(
-                                    state.listNotification[index].avatarUrl ?? '',
+                                    state.listNotification[index].avatarUrl ??
+                                        '',
                                     fit: BoxFit.cover,
                                   )
                                 : Image.asset(
@@ -95,7 +111,8 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
                             children: [
                               Text(
                                 state.listNotification[index].title ?? '',
-                                style: AppTextStyle.colorDarkGrayS14W500.copyWith(
+                                style:
+                                    AppTextStyle.colorDarkGrayS14W500.copyWith(
                                   fontSize: 16,
                                 ),
                                 maxLines: 2,
@@ -152,7 +169,7 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
   }
 
   Future _onRefresh() async {
-    logic.fetchData();
+    logic.fetchData(widget.personType);
   }
 
   Widget _buildAppbarWidget() {
