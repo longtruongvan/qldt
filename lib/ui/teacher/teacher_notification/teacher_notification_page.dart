@@ -26,7 +26,6 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
   final logic = Get.put(TeacherNotificationLogic());
   final state = Get.find<TeacherNotificationLogic>().state;
 
-
   @override
   void initState() {
     logic.fetchData(widget.personType);
@@ -67,6 +66,11 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
       color: AppColors.whiteColor,
       child: SafeArea(
         child: Obx(() {
+          if (state.listNotification.isEmpty) {
+            return const Center(
+              child: Text('You are not have any message'),
+            );
+          }
           return RefreshIndicator(
             child: ListView.separated(
               itemBuilder: (c, index) {

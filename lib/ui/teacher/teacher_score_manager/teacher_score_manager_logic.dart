@@ -30,8 +30,8 @@ class TeacherScoreManagerLogic {
   }
 
   void clickButtonNextHandler(TypeScoreManager typeScoreManager) {
-    if (!state.spec1Active.value &&
-        !state.spec2Active.value &&
+    if (!state.spec1Active.value ||
+        !state.spec2Active.value ||
         !state.spec4Active.value) {
       return;
     }
@@ -83,6 +83,7 @@ class TeacherScoreManagerLogic {
         state.subjectResponseSelected.value = state.currentListSubjectResponse[i];
       }
     }
+    state.spec3Active.value = true;
     state.spec4Active.value = true;
   }
 
