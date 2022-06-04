@@ -126,7 +126,7 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
                                 height: 5,
                               ),
                               Text(
-                                DateFormat('yyyy-MM-dd hh:mm:ss').format(
+                                DateFormat('hh:mm:ss - dd-MM-yyyy').format(
                                     DateTime.parse(
                                         (state.listNotification[index].time ??
                                             ''))),
