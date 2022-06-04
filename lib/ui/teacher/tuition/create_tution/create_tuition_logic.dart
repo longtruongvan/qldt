@@ -75,6 +75,29 @@ class CreateTuitionLogic extends GetxController {
     int countFailure = 0;
     dispatchGroup.listen((value) {
       if (value <= 0) {
+        RxInt d = 0.obs;
+        d.value++;
+        d.listen((p0) {
+          state.statusLoading.value = false;
+        });
+        _createNotification(
+          'Bạn vừa tạo thông báo đóng học phí năm học ${state.yearSchoolSelected.value}',
+          const Uuid().v4(),
+          authService.person.value?.id ?? '',
+          () => d.value--,
+        );
+        for (int i = 0;
+            i < (state.classResponseSelected.value.idStudent ?? []).length;
+            i++) {
+          d.value++;
+          _createNotification(
+            'Thông báo đóng học phí năm học ${state.yearSchoolSelected.value}',
+            const Uuid().v4(),
+            state.classResponseSelected.value.idStudent?[i]??'',
+                () => d.value--,
+          );
+        }
+
         FirebaseFirestore.instance
             .collection('Notification')
             .doc()
@@ -91,10 +114,8 @@ class CreateTuitionLogic extends GetxController {
           Get.back(closeOverlays: true);
           AppSnackBar.showSuccess(
               title: 'Success', message: 'Add tuition success');
-          state.statusLoading.value = false;
         }).catchError((onError) {
           AppSnackBar.showError(title: 'Error', message: 'Add tuition failure');
-          state.statusLoading.value = false;
         });
       }
     });
@@ -119,6 +140,45 @@ class CreateTuitionLogic extends GetxController {
         }
       });
     }
+  }
+
+  void _createNotification(String titleNotification, String idNotification,
+      String idReceiver, Function() callback) {
+    RxInt dispatchGroup = 0.obs;
+    dispatchGroup.value++;
+    dispatchGroup.value++;
+
+    dispatchGroup.listen((value) {
+      if (value <= 0) {
+        callback();
+      }
+    });
+
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(idNotification)
+        .set(NotificationResponse(
+          id: idNotification,
+          isRead: false,
+          title: titleNotification,
+          time: DateTime.now().toString(),
+          idSender: authService.person.value?.id,
+          idReceiver: idReceiver,
+          avatarUrl: authService.user.value?.photoURL,
+          typeNotification: 'HOC_PHI',
+        ).toJson())
+        .then((value) {
+      dispatchGroup.value--;
+    }).catchError((onError) {
+      dispatchGroup.value--;
+    });
+    FirebaseFirestore.instance.collection('Person').doc(idReceiver).update({
+      'idNotification': FieldValue.arrayUnion([idNotification])
+    }).then((value) {
+      dispatchGroup.value--;
+    }).catchError((onError) {
+      dispatchGroup.value--;
+    });
   }
 
   void checkSemester(String value) {

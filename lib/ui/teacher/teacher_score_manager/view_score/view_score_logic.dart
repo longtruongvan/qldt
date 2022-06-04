@@ -10,6 +10,7 @@ import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../model/response/notification_response.dart';
 import '../../../../model/response/person_response.dart';
 
 class ViewScoreLogic {
@@ -58,7 +59,8 @@ class ViewScoreLogic {
   }
 
   void updateScore(int index, Function() callback) {
-    List<ScoreResponse> listScore = state.listScoreEntity[index].listScore??[];
+    List<ScoreResponse> listScore =
+        state.listScoreEntity[index].listScore ?? [];
     state.statusLoading.value = true;
     ScoreResponse scoreResponse =
         (listScore.isNotEmpty) ? listScore.first : ScoreResponse();
@@ -93,7 +95,7 @@ class ViewScoreLogic {
     }
 
     // if not exist
-    if(!(state.listScoreEntity[index].isExist??false)){
+    if (!(state.listScoreEntity[index].isExist ?? false)) {
       String id = const Uuid().v1();
       scoreResponse.idSubject = state.listScoreEntity[index].idSubject;
       scoreResponse.idStudent = state.listScoreEntity[index].idStudent;
@@ -105,12 +107,11 @@ class ViewScoreLogic {
           .doc(id)
           .set(scoreResponse.toJson() ?? {})
           .then((value) {
-        AppSnackBar.showSuccess(
-            title: 'Success', message: 'Add score success');
+        AppSnackBar.showSuccess(title: 'Success', message: 'Add score success');
         state.statusLoading.value = false;
         state.listScoreEntity.refresh();
-        (state.listScoreEntity[index].listScore??[]).clear();
-        (state.listScoreEntity[index].listScore??[]).add(scoreResponse);
+        (state.listScoreEntity[index].listScore ?? []).clear();
+        (state.listScoreEntity[index].listScore ?? []).add(scoreResponse);
         state.listScoreEntity[index].isExist = true;
         state.listScoreEntity.refresh();
       }).catchError((onError) {
@@ -123,9 +124,8 @@ class ViewScoreLogic {
           .collection('Person')
           .doc(scoreResponse.idStudent)
           .update({
-        'idScores':  FieldValue.arrayUnion([id])
-      })
-          .then((value) {
+        'idScores': FieldValue.arrayUnion([id])
+      }).then((value) {
         // AppSnackBar.showSuccess(
         //     title: 'Success', message: 'Update score success');
       }).catchError((onError) {
@@ -134,18 +134,103 @@ class ViewScoreLogic {
       return;
     }
 
+    RxInt dispatchGroup = 0.obs;
+    bool updateFailure = false;
+    dispatchGroup.listen((p0) {
+      if (p0 <= 0) {
+        state.statusLoading.value = false;
+        if (!updateFailure) {
+          AppSnackBar.showSuccess(
+              title: 'Success', message: 'Update score success');
+        }
+      }
+    });
+
+    dispatchGroup.value++;
     FirebaseFirestore.instance
         .collection('Score')
         .doc(scoreResponse.id)
         .update(scoreResponse.toJson() ?? {})
         .then((value) {
-      AppSnackBar.showSuccess(
-          title: 'Success', message: 'Update score success');
-      state.statusLoading.value = false;
       state.listScoreEntity.refresh();
+      dispatchGroup.value--;
     }).catchError((onError) {
+      updateFailure = true;
       AppSnackBar.showError(title: 'Error', message: 'Update score failure');
-      state.statusLoading.value = false;
+      dispatchGroup.value--;
+    });
+
+    String idStudent = state.listScoreEntity[index].personResponse?.id ?? '';
+    String nameStudent =
+        state.listScoreEntity[index].personResponse?.name ?? '';
+    String nameSender = authService.person.value?.name ?? '';
+    String idSender = authService.person.value?.id ?? '';
+    String subjectName = '';
+    for (int i = 0; i < state.listAllSubjectResponse.length; i++) {
+      if (state.listScoreEntity[index].idSubject ==
+          state.listAllSubjectResponse[i].id) {
+        subjectName=state.listAllSubjectResponse[i].name??'';
+        break;
+      }
+    }
+
+    dispatchGroup.value++;
+    _createNotification(
+      'Bạn vừa cập nhật điểm môn $subjectName cho sinh viên $nameStudent',
+      const Uuid().v4(),
+      idSender,
+      () {
+        dispatchGroup.value--;
+      },
+    );
+
+    dispatchGroup.value++;
+    _createNotification(
+      '$nameSender vừa cập nhật điểm môn $subjectName cho bạn',
+      const Uuid().v4(),
+      idStudent,
+      () {
+        dispatchGroup.value--;
+      },
+    );
+  }
+
+  void _createNotification(String titleNotification, String idNotification,
+      String idReceiver, Function() callback) {
+    RxInt dispatchGroup = 0.obs;
+    dispatchGroup.value++;
+    dispatchGroup.value++;
+
+    dispatchGroup.listen((value) {
+      if (value <= 0) {
+        callback();
+      }
+    });
+
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(idNotification)
+        .set(NotificationResponse(
+          id: idNotification,
+          isRead: false,
+          title: titleNotification,
+          time: DateTime.now().toString(),
+          idSender: authService.person.value?.id,
+          idReceiver: idReceiver,
+          avatarUrl: authService.user.value?.photoURL,
+          typeNotification: 'UPDATE_SCORE',
+        ).toJson())
+        .then((value) {
+      dispatchGroup.value--;
+    }).catchError((onError) {
+      dispatchGroup.value--;
+    });
+    FirebaseFirestore.instance.collection('Person').doc(idReceiver).update({
+      'idNotification': FieldValue.arrayUnion([idNotification])
+    }).then((value) {
+      dispatchGroup.value--;
+    }).catchError((onError) {
+      dispatchGroup.value--;
     });
   }
 
@@ -167,7 +252,7 @@ class ViewScoreLogic {
       value.docs.map((e) {
         var subjectData = SubjectResponse.fromJson(e.data());
         state.listAllSubjectResponse.add(subjectData);
-        for(int i =0 ;i< persons.length;i++){
+        for (int i = 0; i < persons.length; i++) {
           if (subjectData.idSpecialized == persons[i].idSpecialized) {
             state.listAllSubjectResponse.add(subjectData);
           }
@@ -197,24 +282,29 @@ class ViewScoreLogic {
               idStudent: persons[u].id,
               diligenceTextController: TextEditingController(
                 text:
-                    '${(listScore.isNotEmpty) ? (listScore.first.diligence??'') : ''}',
+                    '${(listScore.isNotEmpty) ? (listScore.first.diligence ?? '') : ''}',
               ),
               testTextController: TextEditingController(
-                text: '${(listScore.isNotEmpty) ? (listScore.first.test??'') : ''}',
+                text:
+                    '${(listScore.isNotEmpty) ? (listScore.first.test ?? '') : ''}',
               ),
               examTextController: TextEditingController(
-                text: '${(listScore.isNotEmpty) ? (listScore.first.exam??'') : ''}',
+                text:
+                    '${(listScore.isNotEmpty) ? (listScore.first.exam ?? '') : ''}',
               ),
               endOfCourseTextController: TextEditingController(
                 text:
-                    '${(listScore.isNotEmpty) ? (listScore.first.endOfCourse??'' ): ''}',
+                    '${(listScore.isNotEmpty) ? (listScore.first.endOfCourse ?? '') : ''}',
               ),
               letterTextController: TextEditingController(
-                text: (listScore.isNotEmpty) ?( listScore.first.letter??'') : '',
+                text: (listScore.isNotEmpty)
+                    ? (listScore.first.letter ?? '')
+                    : '',
               ),
               evaluateTextController: TextEditingController(
-                text:
-                    (listScore.isNotEmpty) ?( listScore.first.evaluate??'') : '',
+                text: (listScore.isNotEmpty)
+                    ? (listScore.first.evaluate ?? '')
+                    : '',
               ),
             ));
           }

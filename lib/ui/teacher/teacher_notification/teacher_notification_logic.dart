@@ -31,7 +31,10 @@ class TeacherNotificationLogic extends GetxController {
           state.listNotification.add(response);
         } else if (personType == PersonType.QTHT &&
             response.typeNotification != null &&
-            response.typeNotification != 'WELCOME') {
+            response.typeNotification != 'WELCOME' &&
+            response.idReceiver != response.idSender &&
+            response.idSender != auth.person.value?.id&&
+            response.idReceiver != auth.person.value?.id) {
           state.listNotification.add(response);
         }
       }).toList();

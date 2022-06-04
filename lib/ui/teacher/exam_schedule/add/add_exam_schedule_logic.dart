@@ -35,29 +35,47 @@ class CreateExamScheduleLogic extends GetxController {
     }
 
     state.stateLoading.value = true;
-    String id = const Uuid().v1();
+    String idExamSchedule = const Uuid().v1();
 
-    FirebaseFirestore.instance
-        .collection('Notification')
-        .doc(id)
-        .set(NotificationResponse(
-          id: id,
-          isRead: false,
-          idExamSchedule: id,
-          title: 'Đã có: ${state.titleTextController.text}',
-          time: DateTime.now().toString(),
-          idSender: authService.person.value?.id,
-          avatarUrl: authService.user.value?.photoURL,
-          typeNotification: 'LICH_THI',
-        ).toJson())
-        .then((value) {})
-        .catchError((onError) {});
+    RxInt dispatchGroup = 0.obs;
+    dispatchGroup.value++;
+    dispatchGroup.listen((value) {
+      if(value<=0){
+        state.stateLoading.value = false;
+      }
+    });
+
+    _createNotification(
+      'Bạn đã tạo ${state.titleTextController.text}',
+      idExamSchedule,
+      const Uuid().v4(),
+      authService.person.value?.id ?? '',
+      () {
+        dispatchGroup.value--;
+      },
+    );
+
+    for (int i = 0;
+        i < (state.classSelected.value.idStudent ?? []).length;
+        i++) {
+      dispatchGroup.value++;
+      String idNotification = const Uuid().v4();
+      _createNotification(
+        'Đã có ${state.titleTextController.text}',
+        idExamSchedule,
+        idNotification,
+        state.classSelected.value.idStudent?[i] ?? '',
+        () {
+          dispatchGroup.value--;
+        },
+      );
+    }
 
     FirebaseFirestore.instance
         .collection('ExamSchedule')
-        .doc(id)
+        .doc(idExamSchedule)
         .set(ExampleScheduleResponse(
-          id: id,
+          id: idExamSchedule,
           timeStart: state.timeStartTextController.text,
           timeEnd: state.timeEndTextController.text,
           subjectId: state.subjectSelected.value.id,
@@ -75,6 +93,46 @@ class CreateExamScheduleLogic extends GetxController {
     }).catchError((onError) {
       AppSnackBar.showError(
           title: 'Error', message: 'Create exam schedule failure');
+    });
+  }
+
+  void _createNotification(String titleNotification, String idExamSchedule,
+      String idNotification, String idReceiver, Function() callback) {
+    RxInt dispatchGroup = 0.obs;
+    dispatchGroup.value++;
+    dispatchGroup.value++;
+
+    dispatchGroup.listen((value) {
+      if (value <= 0) {
+        callback();
+      }
+    });
+
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(idNotification)
+        .set(NotificationResponse(
+          id: idNotification,
+          isRead: false,
+          idExamSchedule: idExamSchedule,
+          title: titleNotification,
+          time: DateTime.now().toString(),
+          idSender: authService.person.value?.id,
+          idReceiver: idReceiver,
+          avatarUrl: authService.user.value?.photoURL,
+          typeNotification: 'LICH_THI',
+        ).toJson())
+        .then((value) {
+      dispatchGroup.value--;
+    }).catchError((onError) {
+      dispatchGroup.value--;
+    });
+    FirebaseFirestore.instance.collection('Person').doc(idReceiver).update({
+      'idNotification': FieldValue.arrayUnion([idNotification])
+    }).then((value) {
+      dispatchGroup.value--;
+    }).catchError((onError) {
+      dispatchGroup.value--;
     });
   }
 
