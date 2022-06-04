@@ -49,14 +49,14 @@ class UpdateDepartmentLogic {
   }
 
   void updateItemSelected(BuildingResponse response) {
-    for (int i = 0; i < state.listBuilding.value.length; i++) {
-      if (state.listBuilding.value[i].id == response.id) {
-        state.listBuilding.value[i].isSelected = true;
+    for (int i = 0; i < state.listBuilding.length; i++) {
+      if (state.listBuilding[i].id == response.id) {
+        state.listBuilding[i].isSelected = true;
         state.nameBuildingTextController.text =
-            state.listBuilding.value[i].name ?? '';
-        state.idBuildingSelected.value = state.listBuilding.value[i].id ?? '';
+            state.listBuilding[i].name ?? '';
+        state.idBuildingSelected.value = state.listBuilding[i].id ?? '';
       } else {
-        state.listBuilding.value[i].isSelected = false;
+        state.listBuilding[i].isSelected = false;
       }
     }
   }

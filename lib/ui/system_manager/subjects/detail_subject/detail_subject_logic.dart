@@ -69,10 +69,10 @@ class DetailSubjectLogic extends GetxController {
       callback(subjectResponse);
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
-          title: 'Success', message: 'Delete subject success');
+          title: 'Success', message: 'Update subject success');
     }).catchError((onError) {
       state.stateLoading.value = false;
-      AppSnackBar.showError(title: 'Error', message: 'Delete subject failure');
+      AppSnackBar.showError(title: 'Error', message: 'Update subject failure');
     });
   }
 

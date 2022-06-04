@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_images.dart';
 import 'package:qldt/model/response/specialized_response.dart';
+import 'package:qldt/ui/system_manager/specialized/update_specialized/update_specialized_page.dart';
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
 import '../../../widgets/button/back_button.dart';
-import '../../../widgets/textfields/app_text_field.dart';
 import 'detail_specialized_logic.dart';
 
 class DetailSpecializedPage extends StatefulWidget {
@@ -25,6 +25,13 @@ class DetailSpecializedPage extends StatefulWidget {
 class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
   final logic = Get.put(DetailSpecializedLogic());
   final state = Get.find<DetailSpecializedLogic>().state;
+
+
+  @override
+  void initState() {
+    logic.initData(widget.specializedResponse);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -55,30 +62,52 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
           children: [
             Container(
               width: Get.width,
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: AppColors.grayColor, width: 1)),
               child: Text(
-                'Name: ${widget.specializedResponse.name}',
-                style: AppTextStyle.colorDarkS16W500
-                    .copyWith(color: AppColors.grayColor),
+                'Id: ${widget.specializedResponse.id}',
+                style: AppTextStyle.color3C3A36S16W500,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             const SizedBox(
               height: 10,
             ),
             Container(
-              padding: const EdgeInsets.all(10),
+              width: Get.width,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: AppColors.grayColor, width: 1)),
+              child: Obx(() {
+                return Text(
+                  'Name: ${state.specialized.value.name ?? ''}',
+                  style: AppTextStyle.color3C3A36S16W500,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                );
+              }),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               width: Get.width,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: AppColors.grayColor, width: 1)),
-              child: Text(
-                'Display name: ${widget.specializedResponse.displayName}',
-                style: AppTextStyle.colorDarkS16W500
-                    .copyWith(color: AppColors.grayColor),
-              ),
+              child: Obx((){
+                return Text(
+                  'Display name: ${state.specialized.value.displayName ?? ''}',
+                  style: AppTextStyle.color3C3A36S16W500,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                );
+              }),
             )
           ],
         ),
@@ -96,13 +125,19 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
           Get.back();
         }),
         const SizedBox(width: AppDimens.spacingNormal),
-        Image.asset(widget.specializedResponse.icon??AppImages.icSpecialized1,width: 24,height: 24,),
+        Image.asset(
+          widget.specializedResponse.icon ?? AppImages.icSpecialized1,
+          width: 24,
+          height: 24,
+        ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            "${widget.specializedResponse.displayName}",
-            style: AppTextStyle.colorDarkS24W500,
-          ),
+          child: Obx(() {
+            return Text(
+              state.specialized.value.name ?? '',
+              style: AppTextStyle.colorDarkS24W500,
+            );
+          }),
         ),
         DropdownButton<String>(
           items: <String>['Update', 'Delete'].map((String value) {
@@ -117,6 +152,14 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
           onChanged: (_) {
             if (_ == 'Delete') {
               _showDialogDelete();
+            } else if (_ == 'Update') {
+              Get.to(UpdateSpecializedPage(
+                specializedResponse: widget.specializedResponse,
+                callback: (value) {
+                  state.specialized.value = value;
+                  state.specialized.refresh();
+                },
+              ));
             }
           },
           icon: const Icon(Icons.more_vert),

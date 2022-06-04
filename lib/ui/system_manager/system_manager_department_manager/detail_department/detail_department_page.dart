@@ -112,7 +112,7 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
           Obx(() => _buildInfoItemRowWidget(
               'Name: ', '${state.departmentResponse.value.name}')),
           Obx(() => _buildInfoItemRowWidget(
-              'Building: ', state.buildingResponse.value.name ?? '')),
+              'Building: ', state.departmentResponse.value.nameBuilding ?? '')),
           Obx(() => _buildInfoItemRowWidget(
               'Location: ', '${state.departmentResponse.value.location}')),
           Obx(() => _buildInfoItemRowWidget('Description: ',
@@ -231,44 +231,55 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
   Widget _buildAppbarWidget() {
     return Row(
       children: [
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
         AppBackButton(eventHandler: () {
           Get.back(closeOverlays: true);
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
-          child: Text('P: ${widget.departmentResponse.name}',
-              style: AppTextStyle.colorDarkS24W500),
+          child: Obx(
+            () => Text(
+              'P: ${(state.departmentResponse.value.name != null) ? state.departmentResponse.value.name : widget.departmentResponse.name}',
+              style: AppTextStyle.colorDarkS24W500,
+            ),
+          ),
         ),
-        Visibility(child: DropdownButton<String>(
-          items: <String>['Update', 'Delete'].map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(
-                value,
-                style: AppTextStyle.colorDarkS16W500,
-              ),
-            );
-          }).toList(),
-          onChanged: (_) {
-            if (_ == 'Delete') {
-              _showDialogDelete();
-            } else if (_ == 'Update') {
-              Get.to(
-                UpdateDepartmentPage(
-                  departmentResponse: widget.departmentResponse,
-                  buildingResponse: widget.buildingResponse,
-                  callback: (){
-                    widget.callback();
-                  },
+        Visibility(
+          child: DropdownButton<String>(
+            items: <String>['Update', 'Delete'].map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: AppTextStyle.colorDarkS16W500,
                 ),
               );
-            }
-          },
-          icon: const Icon(Icons.more_vert),
-          underline: Container(),
-        ),visible: widget.isSystemManager,),
-        const SizedBox(width: AppDimens.spacingNormal,),
+            }).toList(),
+            onChanged: (_) {
+              if (_ == 'Delete') {
+                _showDialogDelete();
+              } else if (_ == 'Update') {
+                Get.to(
+                  UpdateDepartmentPage(
+                    departmentResponse: widget.departmentResponse,
+                    buildingResponse: widget.buildingResponse,
+                    callback: () {
+                      widget.callback();
+                    },
+                  ),
+                );
+              }
+            },
+            icon: const Icon(Icons.more_vert),
+            underline: Container(),
+          ),
+          visible: widget.isSystemManager,
+        ),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
       ],
     );
   }

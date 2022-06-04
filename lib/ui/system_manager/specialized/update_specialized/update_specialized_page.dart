@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qldt/common/app_colors.dart';
-import 'package:qldt/ui/system_manager/specialized/add_specialized/add_specialized_logic.dart';
-import 'package:qldt/ui/widgets/textfields/app_label_text_field.dart';
+import 'package:qldt/model/response/specialized_response.dart';
+import 'package:qldt/ui/system_manager/specialized/update_specialized/update_specialized_logic.dart';
 
+import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
 import '../../../widgets/button/back_button.dart';
+import '../../../widgets/textfields/app_label_text_field.dart';
 
-class AddSpecializedPage extends StatefulWidget {
-  const AddSpecializedPage({Key? key}) : super(key: key);
+class UpdateSpecializedPage extends StatefulWidget {
+  final SpecializedResponse specializedResponse;
+  final Function(SpecializedResponse) callback;
+
+  const UpdateSpecializedPage({
+    Key? key,
+    required this.specializedResponse,
+    required this.callback,
+  }) : super(key: key);
 
   @override
-  State<AddSpecializedPage> createState() => _AddSpecializedPageState();
+  State<UpdateSpecializedPage> createState() => _UpdateSpecializedPageState();
 }
 
-class _AddSpecializedPageState extends State<AddSpecializedPage> {
-  final logic = Get.put(AddSpecializedLogic());
-  final state = Get.find<AddSpecializedLogic>().state;
+class _UpdateSpecializedPageState extends State<UpdateSpecializedPage> {
+  final logic = Get.put(UpdateSpecializedLogic());
+  final state = Get.find<UpdateSpecializedLogic>().state;
+
+  @override
+  void initState() {
+    logic.initData(widget.specializedResponse);
+    super.initState();
+  }
 
   @override
   void dispose() {
-    Get.delete<AddSpecializedLogic>();
+    Get.delete<UpdateSpecializedLogic>();
     super.dispose();
   }
 
@@ -57,8 +71,14 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
   Widget _buildSubmitButtonWidget() {
     return Positioned(
       child: InkWell(
-        onTap: (){
-          logic.submitButtonClickListener();
+        onTap: () {
+          logic.submitButtonClickListener(() {
+            state.specializedResponse.value.name =
+                state.nameTextController.text;
+            state.specializedResponse.value.displayName =
+                state.displayNameTextController.text;
+            widget.callback(state.specializedResponse.value);
+          });
         },
         child: Container(
           alignment: Alignment.center,
@@ -120,16 +140,20 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
   Widget _buildAppbarWidget() {
     return Row(
       children: [
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
         AppBackButton(eventHandler: () {
           Get.back();
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text(
-          "Add specialized",
+          "Update specialized",
           style: AppTextStyle.colorDarkS24W500,
         ),
-        const SizedBox(width: AppDimens.spacingNormal,),
+        const SizedBox(
+          width: AppDimens.spacingNormal,
+        ),
       ],
     );
   }
