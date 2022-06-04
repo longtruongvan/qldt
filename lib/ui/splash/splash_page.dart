@@ -14,7 +14,6 @@ class _SplashPageState extends State<SplashPage> {
   final logic = Get.put(SplashLogic());
   final state = Get.find<SplashLogic>().state;
 
-
   @override
   void dispose() {
     Get.delete<SplashLogic>();
@@ -23,14 +22,43 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
+    // Future(_showLoaderDialog);
     super.initState();
     logic.checkLogin(context: context);
+  }
+
+  void _showLoaderDialog() {
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.transparent,
+      content: Container(
+        width: 60,
+        height: 60,
+        color: Colors.white,
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.primaryColor,
+          ),
+        ),
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.whiteColor,
+      child:  const Center(
+        child: CircularProgressIndicator(
+          color: AppColors.primaryColor,
+        ),
+      ),
     );
   }
 }

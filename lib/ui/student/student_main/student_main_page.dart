@@ -85,7 +85,7 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
               positionItem: 0,
             ),
             _buildBottomNavItem(
-              title: "Home",
+              title: "Calendar",
               icon: Icons.calendar_today,
               positionItem: 1,
             ),

@@ -37,17 +37,22 @@ class LoginLogic extends GetxController {
           .get()
           .then((value) {
         if (value.data() != null) {
-          var response = PersonResponse.fromJson(value.data()!);
-          final service = Get.find<AuthService>();
-          service.updatePerson(response);
-          service.updateUser(user);
-          if (response.type == PersonType.SV.name) {
-            Get.offAll(const StudentMainPage());
-          } else if (response.type == PersonType.QTHT.name) {
-            Get.offAll(const SystemManagerMainPage());
-          } else if (response.type == PersonType.GV.name) {
-            Get.offAll(const TeacherMainPage());
-          }
+          FirebaseFirestore.instance
+              .collection('Person')
+              .doc(uid)
+              .update({"avatar": user.photoURL}).then((data) {
+            var response = PersonResponse.fromJson(value.data()!);
+            final service = Get.find<AuthService>();
+            service.updatePerson(response);
+            service.updateUser(user);
+            if (response.type == PersonType.SV.name) {
+              Get.offAll(const StudentMainPage());
+            } else if (response.type == PersonType.QTHT.name) {
+              Get.offAll(const SystemManagerMainPage());
+            } else if (response.type == PersonType.GV.name) {
+              Get.offAll(const TeacherMainPage());
+            }
+          });
         } else {
           //checkFirstLogin
           FirebaseFirestore.instance
