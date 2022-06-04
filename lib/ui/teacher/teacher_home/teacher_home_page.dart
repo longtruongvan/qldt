@@ -153,23 +153,25 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
         const SizedBox(
           width: AppDimens.spacingNormal,
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Hello,',
-              style: AppTextStyle.color3C3A36S16,
-            ),
-            Text(
-              '${authService.person.value?.name ?? ''},',
-              style: AppTextStyle.color333333S32.copyWith(
-                fontWeight: FontWeight.w700,
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Hello,',
+                style: AppTextStyle.color3C3A36S16,
               ),
-            ),
-          ],
+              Text(
+                '${authService.person.value?.name ?? ''},',
+                style: AppTextStyle.color333333S32.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
         ),
-        const Spacer(),
+        const SizedBox(width: 10),
         InkWell(
           onTap: () {
             teacherMainState.itemSelected.value = 2;

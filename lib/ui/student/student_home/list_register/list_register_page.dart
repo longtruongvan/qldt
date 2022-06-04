@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_images.dart';
+import 'package:qldt/ui/student/student_home/detail_register/detail_register_page.dart';
 import 'package:qldt/ui/student/student_home/list_register/list_register_logic.dart';
 import 'package:qldt/ui/student/student_register_subject/student_register_subject_page.dart';
 
@@ -69,152 +70,62 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
   }
 
   Widget _buildItemCourse(int index) {
-    return Container(
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      margin: const EdgeInsets.only(top: 10, left: 16, right: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: AppColors.primaryColor,
-      ),
-      width: Get.width - 72,
+    return GestureDetector(
+      onTap: () {
+        Get.to(DetailRegisterPage(courseEntity: state.listCourse[index]));
+      },
       child: Container(
-        padding: const EdgeInsets.only(
-          left: AppDimens.spacingNormal,
-          top: AppDimens.spacingNormal,
+        width: Get.width,
+        margin: const EdgeInsets.only(
           bottom: AppDimens.spacingNormal,
+          left: AppDimens.spacingNormal,
           right: AppDimens.spacingNormal,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: AppColors.grayColor,
+            width: 1,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
-            Table(
-              columnWidths: const {
-                0: FlexColumnWidth(4),
-                1: FlexColumnWidth(6),
-              },
-              border: const TableBorder(
-                horizontalInside: BorderSide(
-                  width: 1,
-                  color: AppColors.whiteColor,
-                  style: BorderStyle.solid,
-                ),
-                verticalInside: BorderSide(
-                  width: 1,
-                  color: AppColors.whiteColor,
-                  style: BorderStyle.solid,
-                ),
-              ),
-              children: [
-                TableRow(children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: Text(
-                      'Name course: ',
-                      style: AppTextStyle.colorWhiteS16W500,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                    child: Text(
-                      '${state.listCourse[index].subjectResponse?.name}',
-                      style: AppTextStyle.colorDarkS14Bold,
-                    ),
-                  ),
-                ]),
-                TableRow(children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: Text(
-                      'Specialized',
-                      style: AppTextStyle.colorWhiteS16W500,
-                    ),
-                  ),
-                  Container(
-                    margin:
-                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                    child: Text(
-                      '${state.listCourse[index].specializedResponse?.name}',
-                      style: AppTextStyle.colorDarkS14Bold,
-                    ),
-                  ),
-                ]),
-                TableRow(children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: Text(
-                      'Time payment:',
-                      style: AppTextStyle.colorWhiteS16W500,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                    child: Text(
-                      state.listCourse[index].subjectRegisterRequest
-                              ?.timePayment ??
-                          'Unknown',
-                      style: AppTextStyle.colorDarkS14Bold,
-                    ),
-                  ),
-                ]),
-                TableRow(children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: Text(
-                      'Status:',
-                      style: AppTextStyle.colorWhiteS16W500,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                    child: Text(
-                      '${state.listCourse[index].subjectRegisterRequest?.isAccept}',
-                      style: AppTextStyle.colorDarkS14Bold,
-                    ),
-                  ),
-                ]),
-                TableRow(children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: Text(
-                      'Period:',
-                      style: AppTextStyle.colorWhiteS16W500,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                    child: Text(
-                      state.listCourse[index].subjectRegisterRequest
-                              ?.propossedTime?.period ??
-                          'Unknown',
-                      style: AppTextStyle.colorDarkS14Bold,
-                    ),
-                  ),
-                ]),
-                TableRow(children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: Text(
-                      'Number of period:',
-                      style: AppTextStyle.colorWhiteS16W500,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                    child: Text(
-                      state.listCourse[index].subjectRegisterRequest
-                              ?.propossedTime?.numberOfPeriod ??
-                          'Unknown',
-                      style: AppTextStyle.colorDarkS14Bold,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ]),
-              ],
+            Image.asset(
+              state.listCourse[index].image ?? AppImages.imgDepartmentManager,
+              width: Get.width,
+              fit: BoxFit.cover,
+              height: 194,
             ),
-            const SizedBox(height: AppDimens.spacingNormal,),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                '${state.listCourse[index].subjectResponse?.name}',
+                style: AppTextStyle.color3C3A36S24W500,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.spacingNormal,
+              ),
+              child: Text(
+                '${state.listCourse[index].specializedResponse?.name}',
+                style: AppTextStyle.color3C3A36S14W400,
+              ),
+            ),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
             _buildDayOfWeekWidget(index),
+            const SizedBox(
+              height: AppDimens.spacingNormal,
+            ),
           ],
         ),
       ),
@@ -228,13 +139,14 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
+        padding: const EdgeInsets.only(left: AppDimens.spacingNormal),
         itemBuilder: (c, index) {
           return Container(
             alignment: Alignment.center,
             margin: const EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
               color: AppColors.successColor,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.all(10),
             child: Text(

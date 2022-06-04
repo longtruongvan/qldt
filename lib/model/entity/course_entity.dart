@@ -6,10 +6,12 @@ class CourseEntity {
   SubjectResponse? subjectResponse;
   SpecializedResponse? specializedResponse;
   SubjectRegisterRequest? subjectRegisterRequest;
+  String? image;
 
   CourseEntity({
     this.specializedResponse,
     this.subjectRegisterRequest,
     this.subjectResponse,
+    this.image,
   });
 }

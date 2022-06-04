@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:qldt/model/entity/tuition_entity.dart';
 import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/model/response/tuition_response.dart';
 import 'package:qldt/services/auth_service.dart';
@@ -14,25 +15,39 @@ class DetailTuitionLogic {
   void payment(int index) {
     FirebaseFirestore.instance
         .collection('Tuition')
-        .doc(state.listTuition[index].id)
+        .doc(state.listTuition[index].tuitionResponse.id)
         .update({'state': true}).then((value) {
       AppSnackBar.showSuccess(title: 'Success', message: 'Payment success');
-      state.listTuition[index].state = true;
+      state.listTuition[index].tuitionResponse.state = true;
       state.listTuition.refresh();
     }).catchError((onError) {
       AppSnackBar.showError(title: 'Error', message: 'Payment failure');
     });
   }
 
-  void fetchData(PersonResponse personResponse) {
+  void fetchData(List<PersonResponse> personResponses) {
     state.currentListTuition.clear();
     state.listTuition.clear();
-    for (int i = 0; i < (personResponse.idTuition ?? []).length; i++) {
-      getTuitionById(personResponse.idTuition![i], () {});
+
+    for (int u = 0; u < personResponses.length; u++) {
+      for (int i = 0; i < (personResponses[u].idTuition ?? []).length; i++) {
+        getTuitionById(personResponses[u].idTuition![i], (response) {
+          if (response != null) {
+            state.currentListTuition.add(TuitionEntity(
+              tuitionResponse: response,
+              personResponse: personResponses[u],
+            ));
+            state.listTuition.add(TuitionEntity(
+              tuitionResponse: response,
+              personResponse: personResponses[u],
+            ));
+          }
+        });
+      }
     }
   }
 
-  void getTuitionById(String idTuition, Function() callback) {
+  void getTuitionById(String idTuition, Function(TuitionResponse?) callback) {
     FirebaseFirestore.instance
         .collection('Tuition')
         .doc(idTuition)
@@ -40,11 +55,12 @@ class DetailTuitionLogic {
         .then((value) {
       var response = TuitionResponse.fromJson(value.data() ?? {});
       if (value.data() != null) {
-        state.currentListTuition.add(response);
-        state.listTuition.add(response);
+        callback(response);
+      } else {
+        callback(null);
       }
     }).catchError((onError) {
-      print(onError);
+      callback(null);
     });
   }
 }

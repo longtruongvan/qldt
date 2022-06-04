@@ -233,6 +233,7 @@ class _SystemManagerDepartmentManagerState
       },
       child: Container(
         padding: const EdgeInsets.all(10.0),
+        height: 55,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(

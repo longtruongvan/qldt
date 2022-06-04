@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
+import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/ui/teacher/tuition/detail_tution/detail_tuition_page.dart';
 import 'package:qldt/ui/teacher/tuition/search_tution/search_tuition_logic.dart';
 import 'package:qldt/ui/teacher/tuition/tuition_logic.dart';
@@ -93,10 +94,13 @@ class _SearchTuitionPageState extends State<SearchTuitionPage> {
   Widget _buildButtonSubmitWidget() {
     return GestureDetector(
       onTap: () {
-        // logic.clickNextButton(() {
-        //   widget.callback();
-        // });
-        Get.to(DetailTuitionPage(personResponse: state.personResponseSelected.value));
+        List<PersonResponse> list = [];
+        if (state.personResponseSelected.value.id != null) {
+          list.add(state.personResponseSelected.value);
+        } else {
+          list.addAll(state.listPersonResponse);
+        }
+        Get.to(DetailTuitionPage(personResponse: list));
       },
       child: Container(
         margin: const EdgeInsets.only(

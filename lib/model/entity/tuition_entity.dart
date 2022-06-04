@@ -1,12 +1,12 @@
-import 'package:qldt/model/request/subject_register_request.dart';
+import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/model/response/tuition_response.dart';
 
 class TuitionEntity {
   final TuitionResponse tuitionResponse;
-  final SubjectRegisterRequest courseResponse;
+  final PersonResponse personResponse;
 
   const TuitionEntity({
     required this.tuitionResponse,
-    required this.courseResponse,
+    required this.personResponse,
   });
 }

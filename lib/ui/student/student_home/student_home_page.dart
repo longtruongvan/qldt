@@ -77,7 +77,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
               }, AppImages.imgSpecialized),
               _buildItemTopicWidget('Tuition', () {
                 Get.to(DetailTuitionPage(
-                  personResponse: authService.person.value!,
+                  personResponse: [authService.person.value!],
                 ));
               }, AppImages.imgCoruse),
             ],
@@ -139,23 +139,25 @@ class _StudentHomePageState extends State<StudentHomePage> {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Hello,',
-              style: AppTextStyle.color3C3A36S16,
-            ),
-            Text(
-              '${authService.person.value?.name ?? ''},',
-              style: AppTextStyle.color333333S32.copyWith(
-                fontWeight: FontWeight.w700,
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Hello,',
+                style: AppTextStyle.color3C3A36S16,
               ),
-            ),
-          ],
+              Text(
+                '${authService.person.value?.name ?? ''},',
+                style: AppTextStyle.color333333S32.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
         ),
-        const Spacer(),
+        const SizedBox(width: 10),
         InkWell(
           onTap: () {
             studentMainPageState.itemSelected.value = 3;

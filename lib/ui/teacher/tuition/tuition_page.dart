@@ -10,6 +10,7 @@ import 'package:qldt/ui/teacher/tuition/tuition_logic.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
+import '../../../model/response/person_response.dart';
 import '../../widgets/button/back_button.dart';
 import '../../widgets/textfields/app_text_field.dart';
 
@@ -158,9 +159,8 @@ class _TuitionPageState extends State<TuitionPage> {
   Widget _buildItemPersonWidget(int index) {
     return GestureDetector(
       onTap: () {
-        Get.to(DetailTuitionPage(
-          personResponse: state.listPersonResponse[index],
-        ));
+        List<PersonResponse> list = [state.listPersonResponse[index]];
+        Get.to(DetailTuitionPage(personResponse: list));
       },
       child: Container(
         padding: const EdgeInsets.all(AppDimens.spacingNormal),

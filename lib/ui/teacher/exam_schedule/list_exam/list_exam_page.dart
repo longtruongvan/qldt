@@ -6,6 +6,7 @@ import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
 import '../../../widgets/button/back_button.dart';
+import '../detail_exam_schedule/detail_exam_schedule_page.dart';
 
 class ListExamPage extends StatefulWidget {
   const ListExamPage({Key? key}) : super(key: key);
@@ -46,41 +47,57 @@ class _ListExamPageState extends State<ListExamPage> {
           child: Obx(() => RefreshIndicator(
                 child: ListView.builder(
                   itemBuilder: (c, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 7),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: AppColors.grayColor,
-                            width: 1,
-                          )),
-                      padding: const EdgeInsets.all(AppDimens.spacingNormal),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '${state.listExamSchedule[index].title}',
-                                style: AppTextStyle.color3C3A36S16
-                                    .copyWith(fontWeight: FontWeight.w500),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                '${state.listExamSchedule[index].timeStart} - ${state.listExamSchedule[index].timeEnd}',
-                                style: AppTextStyle.colorGrayS16W500,
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.navigate_next_sharp,
-                          )
-                        ],
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(DetailExamSchedulePage(
+                          exampleScheduleResponse:
+                              state.listExamSchedule[index],
+                        ));
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 7),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: AppColors.grayColor,
+                              width: 1,
+                            )),
+                        padding: const EdgeInsets.all(AppDimens.spacingNormal),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '${state.listExamSchedule[index].title}',
+                                  style: AppTextStyle.color3C3A36S16
+                                      .copyWith(fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  '${state.listExamSchedule[index].timeStart} - ${state.listExamSchedule[index].timeEnd}',
+                                  style: AppTextStyle.colorGrayS16W500,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  '${state.listExamSchedule[index].dayStart}',
+                                  style: AppTextStyle.colorGrayS16W500,
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.navigate_next_sharp,
+                              color: AppColors.grayColor,
+                            )
+                          ],
+                        ),
                       ),
                     );
                   },

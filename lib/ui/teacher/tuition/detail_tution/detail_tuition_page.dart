@@ -12,7 +12,7 @@ import '../../../../common/app_text_style.dart';
 import '../../../widgets/button/back_button.dart';
 
 class DetailTuitionPage extends StatefulWidget {
-  final PersonResponse personResponse;
+  final List<PersonResponse> personResponse;
 
   const DetailTuitionPage({
     Key? key,
@@ -73,11 +73,17 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
     return Obx(() {
       return RefreshIndicator(
         onRefresh: _onRefresh,
-        child: ListView.builder(
+        child: ListView.separated(
           itemBuilder: (c, index) {
             return _buildItemTuitionWidget(index);
           },
           itemCount: state.listTuition.length,
+          separatorBuilder: (c,index){
+            return const Divider(
+              height: 1,
+              color: AppColors.grayColor,
+            );
+          },
         ),
       );
     });
@@ -146,7 +152,7 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: !(state.listTuition[index].state ?? false)
+          color: !(state.listTuition[index].tuitionResponse.state ?? false)
               ? AppColors.primaryColor
               : AppColors.successColor,
           borderRadius: BorderRadius.circular(10),
@@ -155,7 +161,7 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-                !(state.listTuition[index].state ?? false)
+                !(state.listTuition[index].tuitionResponse.state ?? false)
                     ? Icons.payment
                     : Icons.check,
                 size: 16,
@@ -170,73 +176,69 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
 
   Widget _buildItemTuitionWidget(int index) {
     return Container(
-      padding: const EdgeInsets.all(AppDimens.spacingNormal),
-      margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
-      child: Row(
+      // color: (index%2==0)?Colors.red:Colors.green,
+      padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+      child: ExpansionTile(
         children: [
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: Image.asset(
-              AppImages.icSubjectSelected,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: AppDimens.spacingNormal),
-          Expanded(
-            child: ExpansionTile(
-              children: [
-                Table(
-                    border: const TableBorder(
-                      horizontalInside: BorderSide(
-                        width: 0.5,
-                        color: AppColors.grayColor,
-                        style: BorderStyle.solid,
-                      ),
-                      verticalInside: BorderSide(
-                        width: 0.5,
-                        color: AppColors.grayColor,
-                        style: BorderStyle.solid,
-                      ),
-                    ),
-                    columnWidths: const {
-                      0: FlexColumnWidth(3),
-                      1: FlexColumnWidth(7),
-                    },
-                    children: [
-                      _buildTableRowWidget(
-                        'Tuition:',
-                        '${state.listTuition[index].price} (VND)',
-                      ),
-                      _buildTableRowWidget(
-                        'Status:',
-                        (state.listTuition[index].state ?? false)
-                            ? 'Đã thanh toán'
-                            : 'Chưa thanh toán',
-                      ),
-                      _buildTableRowWidget(
-                        'Method:',
-                        (state.listTuition[index].state ?? false)
-                            ? 'Master card'
-                            : 'Unknown',
-                      ),
-                    ]),
-                const SizedBox(height: AppDimens.spacingNormal),
-                _buildActionInfoStudentWidget(
-                  index,
-                  state.listTuition[index].idStudent ?? '',
+          Table(
+              border: const TableBorder(
+                horizontalInside: BorderSide(
+                  width: 0.5,
+                  color: AppColors.grayColor,
+                  style: BorderStyle.solid,
                 ),
-                const SizedBox(height: AppDimens.spacingNormal),
-              ],
-              title: Text(
-                state.listTuition[index].schoolYear ?? '',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.color3C3A36S16W500,
+                verticalInside: BorderSide(
+                  width: 0.5,
+                  color: AppColors.grayColor,
+                  style: BorderStyle.solid,
+                ),
               ),
-            ),
+              columnWidths: const {
+                0: FlexColumnWidth(3),
+                1: FlexColumnWidth(7),
+              },
+              children: [
+                _buildTableRowWidget(
+                  'Tuition:',
+                  '${state.listTuition[index].tuitionResponse.price} (VND)',
+                ),
+                _buildTableRowWidget(
+                  'Status:',
+                  (state.listTuition[index].tuitionResponse.state ?? false)
+                      ? 'Đã thanh toán'
+                      : 'Chưa thanh toán',
+                ),
+                _buildTableRowWidget(
+                  'Method:',
+                  (state.listTuition[index].tuitionResponse.state ?? false)
+                      ? 'Master card'
+                      : 'Unknown',
+                ),
+              ]),
+          const SizedBox(height: AppDimens.spacingNormal),
+          _buildActionInfoStudentWidget(
+            index,
+            state.listTuition[index].personResponse.id ?? '',
           ),
+          const SizedBox(height: AppDimens.spacingNormal),
         ],
+        title: Text(
+          state.listTuition[index].personResponse.name ?? '',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: AppTextStyle.color3C3A36S16W500,
+        ),
+        subtitle: Text(
+          'Time: ${state.listTuition[index].tuitionResponse.schoolYear ?? ''}',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: AppTextStyle.color3C3A36S16W500.copyWith(
+            fontSize: 12,
+            color: AppColors.grayColor,
+          ),
+        ),
+        collapsedIconColor: AppColors.grayColor,
+        iconColor: AppColors.primaryColor,
       ),
     );
   }

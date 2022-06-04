@@ -37,7 +37,7 @@ class ListRegisterLogic extends GetxController {
           i++) {
         state.mergeRequest.value++;
         String idCourse = state.personResponse.value.idCourse![i];
-        getCourseById(idCourse);
+        getCourseById(idCourse, i);
       }
       state.stateLoading.value = false;
     }).catchError((onError) {
@@ -46,7 +46,7 @@ class ListRegisterLogic extends GetxController {
     });
   }
 
-  void getCourseById(String id) {
+  void getCourseById(String id, int index) {
     FirebaseFirestore.instance.collection('Course').doc(id).get().then((value) {
       var response = SubjectRegisterRequest.fromJson(value.data() ?? {});
       if (value.data() != null) {
@@ -57,12 +57,20 @@ class ListRegisterLogic extends GetxController {
             state.listCourse.add(courseEntity);
           }
         });
-        getSubjectById(response.subjectIds??'', (value) {
+        getSubjectById(response.subjectIds ?? '', (value) {
           courseEntity.subjectResponse = value;
           if (courseEntity.specializedResponse != null) {
             state.listCourse.add(courseEntity);
           }
         });
+        if (index <= 9) {
+          courseEntity.image = state.imgCourses[index];
+        } else {
+          String position = index
+              .toString()
+              .substring(index.toString().length - 1, index.toString().length);
+          courseEntity.image = state.imgCourses[int.tryParse(position)??0];
+        }
       }
       state.mergeRequest.value--;
     }).catchError((onError) {
