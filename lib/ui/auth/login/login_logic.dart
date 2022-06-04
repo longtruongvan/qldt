@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/ui/auth/login/login_state.dart';
@@ -28,7 +29,38 @@ class LoginLogic extends GetxController {
 
   void clickLoginGoogleListener({required BuildContext context}) async {
     var user = await Authentication.signInWithGoogle(context: context);
+    _handlerCreateDataPerson(user);
+  }
+
+  void loginClickListener() async {
+    if (state.emailTextController.text.isEmpty) {
+      state.emailValidate.value = false;
+    } else {
+      state.emailValidate.value = true;
+    }
+
+    if (state.passwordTextController.text.isEmpty) {
+      state.passwordValidate.value = false;
+    } else {
+      state.passwordValidate.value = true;
+    }
+
+    if (!state.emailValidate.value || !state.passwordValidate.value) {
+      return;
+    }
+
+    await Authentication.signInWithEmailPassword(
+        email: state.emailTextController.text,
+        password: state.passwordTextController.text,
+        callback: (user) {
+          _handlerCreateDataPerson(user);
+        });
+  }
+
+  void _handlerCreateDataPerson(User? user){
     if (user != null) {
+      String fakeAvatar =
+          'https://firebasestorage.googleapis.com/v0/b/flutter-app-151a6.appspot.com/o/leaves-7101716_1280.png?alt=media&token=7474428c-854f-4494-ad1f-ec60cc675415';
       state.statusLoading.value = true;
       String uid = user.uid;
       FirebaseFirestore.instance
@@ -40,7 +72,7 @@ class LoginLogic extends GetxController {
           FirebaseFirestore.instance
               .collection('Person')
               .doc(uid)
-              .update({"avatar": user.photoURL}).then((data) {
+              .update({"avatar": user.photoURL ?? fakeAvatar}).then((data) {
             var response = PersonResponse.fromJson(value.data()!);
             final service = Get.find<AuthService>();
             service.updatePerson(response);
@@ -59,16 +91,17 @@ class LoginLogic extends GetxController {
               .collection('Person')
               .doc(uid)
               .set(PersonResponse(
-                id: uid,
-                uid: uid,
-                name: user.displayName ?? '',
-                email: user.email ?? '',
-                phone: '',
-                type: PersonType.SV.name,
-                idScores: [],
-                idCourse: [],
-                idTuition: [],
-              ).toJson())
+            id: uid,
+            uid: uid,
+            name: user.displayName ?? '${user.email}',
+            email: user.email ?? '',
+            phone: '',
+            type: PersonType.SV.name,
+            idScores: [],
+            idCourse: [],
+            idTuition: [],
+            avatar: user.photoURL ?? fakeAvatar,
+          ).toJson())
               .then((value) {
             FirebaseFirestore.instance
                 .collection('Person')
@@ -103,28 +136,5 @@ class LoginLogic extends GetxController {
     } else {
       Get.offAll(const LoginPage());
     }
-  }
-
-  void loginClickListener() async {
-    if (state.emailTextController.text.isEmpty) {
-      state.emailValidate.value = false;
-    } else {
-      state.emailValidate.value = true;
-    }
-
-    if (state.passwordTextController.text.isEmpty) {
-      state.passwordValidate.value = false;
-    } else {
-      state.passwordValidate.value = true;
-    }
-
-    if (!state.emailValidate.value || !state.passwordValidate.value) {
-      return;
-    }
-
-    await Authentication.signInWithEmailPassword(
-        email: state.emailTextController.text,
-        password: state.passwordTextController.text,
-        callback: (user) {});
   }
 }

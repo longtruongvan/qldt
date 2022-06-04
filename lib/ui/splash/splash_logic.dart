@@ -32,6 +32,8 @@ class SplashLogic extends GetxController {
     User? user = firebaseAuth.currentUser;
     if (user != null) {
       String uid = user.uid;
+      String fakeAvatar =
+          'https://firebasestorage.googleapis.com/v0/b/flutter-app-151a6.appspot.com/o/leaves-7101716_1280.png?alt=media&token=7474428c-854f-4494-ad1f-ec60cc675415';
       FirebaseFirestore.instance
           .collection('Person')
           .doc(uid)
@@ -41,7 +43,7 @@ class SplashLogic extends GetxController {
           FirebaseFirestore.instance
               .collection('Person')
               .doc(uid)
-              .update({"avatar": user.photoURL}).then((data) {
+              .update({"avatar": user.photoURL ?? fakeAvatar}).then((data) {
             var response = PersonResponse.fromJson(value.data()!);
             final service = Get.find<AuthService>();
             service.updatePerson(response);
@@ -64,14 +66,14 @@ class SplashLogic extends GetxController {
               .set(PersonResponse(
                 id: uid,
                 uid: uid,
-                name: user.displayName ?? '',
+                name: user.displayName ?? '${user.email}',
                 email: user.email ?? '',
                 phone: '',
                 type: PersonType.SV.name,
                 idScores: [],
                 idCourse: [],
                 idTuition: [],
-                avatar: user.photoURL,
+                avatar: user.photoURL??fakeAvatar,
               ).toJson())
               .then((value) {
             FirebaseFirestore.instance

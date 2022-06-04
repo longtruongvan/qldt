@@ -126,7 +126,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                       ));
                     },
                     child: Text(
-                      'Update infomation',
+                      'Update information',
                       style: AppTextStyle.colorPrimaryS16.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -164,7 +164,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${authService.user.value?.displayName ?? ''},',
+                        '${authService.person.value?.name ?? ''},',
                         style: AppTextStyle.colorDarkS16W500.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
@@ -186,14 +186,14 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                   child: ProgressiveImage.assetNetwork(
                     placeholder: AppImages.imgLoading1,
                     placeholderScale: 1.5,
-                    thumbnail: (authService.user.value != null &&
-                            authService.user.value!.photoURL != null)
-                        ? authService.user.value!.photoURL ??
+                    thumbnail: (authService.person.value != null &&
+                            authService.person.value!.avatar != null)
+                        ? authService.person.value!.avatar ??
                             'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                         : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
-                    image: (authService.user.value != null &&
-                            authService.user.value!.photoURL != null)
-                        ? authService.user.value!.photoURL ??
+                    image: (authService.person.value != null &&
+                            authService.person.value!.avatar != null)
+                        ? authService.person.value!.avatar ??
                             'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                         : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
                     fit: BoxFit.cover,

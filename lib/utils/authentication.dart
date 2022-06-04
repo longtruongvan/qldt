@@ -49,7 +49,7 @@ class Authentication {
   static Future<void> signInWithEmailPassword({
     required String email,
     required String password,
-    required Function(User) callback,
+    required Function(User?) callback,
   }) async {
     FirebaseAuth.instance.authStateChanges().listen((event) {
       if (event != null && event.emailVerified) {
@@ -59,8 +59,11 @@ class Authentication {
 
     UserCredential? user;
     try {
-      await FirebaseAuth.instance
+      user = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      if(user!=null){
+        callback(user.user);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

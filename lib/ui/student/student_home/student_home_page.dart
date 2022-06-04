@@ -40,60 +40,56 @@ class _StudentHomePageState extends State<StudentHomePage> {
   }
 
   Widget _buildBodyWidget() {
-    return SingleChildScrollView(
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: Container(
-        height: Get.height,
-        padding: const EdgeInsets.only(
-          left: AppDimens.spacingNormal,
-          right: AppDimens.spacingNormal,
-        ),
-        width: Get.size.width,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeaderWidget(),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            Row(
-              children: [
-                _buildItemTopicWidget('Score', () {
-                  Get.to(const TeacherScoreManagerPage(
-                    typeScoreManager: TypeScoreManager.student,
-                  ));
-                }, AppImages.imgSpecialized1),
-                _buildItemTopicWidget('Course', () {
-                  Get.to(const ListRegisterPage());
-                }, AppImages.imgDepartmentManager),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                _buildItemTopicWidget('Exam schedule', () {
-                  Get.to(const ListExamPage());
-                }, AppImages.imgSpecialized),
-                _buildItemTopicWidget('Tuition', () {
-                  Get.to(DetailTuitionPage(
-                    personResponse: authService.person.value!,
-                  ));
-                }, AppImages.imgCoruse),
-              ],
-            ),
-            // const SizedBox(height: 10,),
-            // Row(
-            //   children: [
-            //     _buildItemTopicWidget('Lộ trình', (){}),
-            //     const Spacer(),
-            //   ],
-            // ),
-          ],
-        ),
+    return Container(
+      height: Get.height,
+      padding: const EdgeInsets.only(
+        left: AppDimens.spacingNormal,
+        right: AppDimens.spacingNormal,
+      ),
+      width: Get.size.width,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeaderWidget(),
+          const SizedBox(
+            height: AppDimens.spacingNormal,
+          ),
+          Row(
+            children: [
+              _buildItemTopicWidget('Score', () {
+                Get.to(const TeacherScoreManagerPage(
+                  typeScoreManager: TypeScoreManager.student,
+                ));
+              }, AppImages.imgSpecialized1),
+              _buildItemTopicWidget('Course', () {
+                Get.to(const ListRegisterPage());
+              }, AppImages.imgDepartmentManager),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              _buildItemTopicWidget('Exam schedule', () {
+                Get.to(const ListExamPage());
+              }, AppImages.imgSpecialized),
+              _buildItemTopicWidget('Tuition', () {
+                Get.to(DetailTuitionPage(
+                  personResponse: authService.person.value!,
+                ));
+              }, AppImages.imgCoruse),
+            ],
+          ),
+          // const SizedBox(height: 10,),
+          // Row(
+          //   children: [
+          //     _buildItemTopicWidget('Lộ trình', (){}),
+          //     const Spacer(),
+          //   ],
+          // ),
+        ],
       ),
     );
   }
@@ -152,7 +148,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
               style: AppTextStyle.color3C3A36S16,
             ),
             Text(
-              '${authService.user.value?.displayName ?? ''},',
+              '${authService.person.value?.name ?? ''},',
               style: AppTextStyle.color333333S32.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -170,14 +166,14 @@ class _StudentHomePageState extends State<StudentHomePage> {
             child: ProgressiveImage.assetNetwork(
               placeholder: AppImages.imgLoading1,
               placeholderScale: 1.5,
-              thumbnail: (authService.user.value != null &&
-                      authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL ??
+              thumbnail: (authService.person.value != null &&
+                      authService.person.value!.avatar != null)
+                  ? authService.person.value!.avatar ??
                       'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
-              image: (authService.user.value != null &&
-                      authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL ??
+              image: (authService.person.value != null &&
+                      authService.person.value!.avatar != null)
+                  ? authService.person.value!.avatar ??
                       'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               fit: BoxFit.cover,

@@ -48,38 +48,36 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
   }
 
   Widget _buildBodyWidget() {
-    return SingleChildScrollView(
-      child: Container(
-        color: AppColors.whiteColor,
-        padding: const EdgeInsets.only(
-          left: AppDimens.spacingNormal,
-          right: AppDimens.spacingNormal,
-        ),
-        width: Get.size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            _buildItemDepartmentManager(),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            _buildItemManagerUser(),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            _buildItemSpecialized(),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            _buildItemSubjectManager(),
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-          ],
-        ),
+    return Container(
+      color: AppColors.whiteColor,
+      padding: const EdgeInsets.only(
+        left: AppDimens.spacingNormal,
+        right: AppDimens.spacingNormal,
+      ),
+      width: Get.size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: AppDimens.spacingNormal,
+          ),
+          _buildItemDepartmentManager(),
+          const SizedBox(
+            height: AppDimens.spacingNormal,
+          ),
+          _buildItemManagerUser(),
+          const SizedBox(
+            height: AppDimens.spacingNormal,
+          ),
+          _buildItemSpecialized(),
+          const SizedBox(
+            height: AppDimens.spacingNormal,
+          ),
+          _buildItemSubjectManager(),
+          const SizedBox(
+            height: AppDimens.spacingNormal,
+          ),
+        ],
       ),
     );
   }
@@ -229,13 +227,13 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
               placeholder: AppImages.imgLoading1,
               placeholderScale: 1.5,
               thumbnail:
-              (authService.user.value != null &&
-                  authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+              (authService.person.value != null &&
+                  authService.person.value!.avatar != null)
+                  ? authService.person.value!.avatar??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
-              image: (authService.user.value != null &&
-                      authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
+              image: (authService.person.value != null &&
+                      authService.person.value!.avatar != null)
+                  ? authService.person.value!.avatar??'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               fit: BoxFit.cover,
               width: 48,

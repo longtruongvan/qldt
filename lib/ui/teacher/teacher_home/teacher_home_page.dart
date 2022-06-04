@@ -53,57 +53,54 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
   }
 
   Widget _buildBodyWidget() {
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: Container(
-        color: AppColors.whiteColor,
-        height: Get.height,
-        padding: const EdgeInsets.only(
-          left: AppDimens.spacingNormal,
-          right: AppDimens.spacingNormal,
-        ),
-        width: Get.size.width,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: AppDimens.spacingNormal,
-            ),
-            Row(
-              children: [
-                _buildItemTopicWidget('Score', () {
-                  // Get.to(const ViewScorePage(students: []));
-                  Get.to(const TeacherScoreManagerPage(
-                    typeScoreManager: TypeScoreManager.teacher,
-                  ));
-                }, AppImages.imgSpecialized1),
-                // _buildItemTopicWidget('Đăng ký học', () {}),
-                _buildItemTopicWidget('Exam schedule', () {
-                  Get.to(const ExamSchedulePage());
-                }, AppImages.imgDepartmentManager),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                _buildItemTopicWidget('Department', () {
-                  Get.to(const SystemManagerDepartmentManagerPage(
-                    isSystemManager: false,
-                  ));
-                }, AppImages.imgSpecialized),
-                _buildItemTopicWidget('Tuition', () {
-                  Get.to(const TuitionPage());
-                }, AppImages.imgCoruse),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
-        ),
+    return Container(
+      color: AppColors.whiteColor,
+      height: Get.height,
+      padding: const EdgeInsets.only(
+        left: AppDimens.spacingNormal,
+        right: AppDimens.spacingNormal,
+      ),
+      width: Get.size.width,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: AppDimens.spacingNormal,
+          ),
+          Row(
+            children: [
+              _buildItemTopicWidget('Score', () {
+                // Get.to(const ViewScorePage(students: []));
+                Get.to(const TeacherScoreManagerPage(
+                  typeScoreManager: TypeScoreManager.teacher,
+                ));
+              }, AppImages.imgSpecialized1),
+              // _buildItemTopicWidget('Đăng ký học', () {}),
+              _buildItemTopicWidget('Exam schedule', () {
+                Get.to(const ExamSchedulePage());
+              }, AppImages.imgDepartmentManager),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              _buildItemTopicWidget('Department', () {
+                Get.to(const SystemManagerDepartmentManagerPage(
+                  isSystemManager: false,
+                ));
+              }, AppImages.imgSpecialized),
+              _buildItemTopicWidget('Tuition', () {
+                Get.to(const TuitionPage());
+              }, AppImages.imgCoruse),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
       ),
     );
   }
@@ -165,7 +162,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
               style: AppTextStyle.color3C3A36S16,
             ),
             Text(
-              '${authService.user.value?.displayName ?? ''},',
+              '${authService.person.value?.name ?? ''},',
               style: AppTextStyle.color333333S32.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -183,14 +180,14 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             child: ProgressiveImage.assetNetwork(
               placeholder: AppImages.imgLoading1,
               placeholderScale: 1.5,
-              thumbnail: (authService.user.value != null &&
-                      authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL ??
+              thumbnail: (authService.person.value != null &&
+                      authService.person.value!.avatar != null)
+                  ? authService.person.value!.avatar ??
                       'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
-              image: (authService.user.value != null &&
-                      authService.user.value!.photoURL != null)
-                  ? authService.user.value!.photoURL ??
+              image: (authService.person.value != null &&
+                      authService.person.value!.avatar != null)
+                  ? authService.person.value!.avatar ??
                       'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg'
                   : 'https://cdn.pixabay.com/photo/2022/05/08/20/21/flowers-7182930_1280.jpg',
               fit: BoxFit.cover,
