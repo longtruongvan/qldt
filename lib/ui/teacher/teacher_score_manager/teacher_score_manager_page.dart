@@ -128,13 +128,13 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
           const SizedBox(height: 10),
           _buildSelectStudentDropdownWidget(),
           const SizedBox(height: AppDimens.spacingNormal),
-          Text(
-            'Select time',
-            style: AppTextStyle.color3C3A36S18W500,
-          ),
-          const SizedBox(height: 10),
-          _buildSelectTimeDropdownWidget(),
-          const SizedBox(height: AppDimens.spacingNormal),
+          // Text(
+          //   'Select time',
+          //   style: AppTextStyle.color3C3A36S18W500,
+          // ),
+          // const SizedBox(height: 10),
+          // _buildSelectTimeDropdownWidget(),
+          // const SizedBox(height: AppDimens.spacingNormal),
           Obx(() {
             if (state.yearSchoolSelected.value == 'All') {
               return Container();

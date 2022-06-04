@@ -6,6 +6,7 @@ import 'package:qldt/model/entity/day_of_week_entity.dart';
 import 'package:qldt/model/entity/subject_entity.dart';
 import 'package:qldt/model/request/propossed_time_request.dart';
 import 'package:qldt/model/request/subject_register_request.dart';
+import 'package:qldt/model/response/score_response.dart';
 import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/student/student_register_subject_2/student_register_subject_next_state.dart';
@@ -158,12 +159,29 @@ class StudentRegisterSubjectNextLogic extends GetxController {
         // AppSnackBar.showError(title: 'Error', message: 'Register failure');
       });
 
+      String idScore = const Uuid().v1();
+      //add data score to table score
+      FirebaseFirestore.instance
+          .collection('Score')
+          .doc(idScore)
+          .set(ScoreResponse(
+        id: idScore,
+        idStudent: authService.user.value?.uid ?? '',
+        idSubject: listRequest[i].subjectIds,
+      ).toJson())
+          .then((value) {
+       print('success');
+      }).catchError((onError) {
+        print('failure');
+      });
+
       state.mergeRequest.value++;
       FirebaseFirestore.instance
           .collection('Person')
           .doc(authService.user.value?.uid ?? '')
           .update({
-        'idCourse': FieldValue.arrayUnion([listRequest[i].id])
+        'idCourse': FieldValue.arrayUnion([listRequest[i].id]),
+        'idScores': FieldValue.arrayUnion([idScore])
       }).then((value) {
         state.mergeRequest.value--;
       }).catchError((onError) {

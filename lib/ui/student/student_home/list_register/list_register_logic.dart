@@ -18,6 +18,7 @@ class ListRegisterLogic extends GetxController {
   }
 
   void fetchData() {
+    state.listCourse.clear();
     state.stateLoading.value = true;
     state.mergeRequest.listen((value) {
       if (value <= 0) {}

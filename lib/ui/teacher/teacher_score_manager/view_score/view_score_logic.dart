@@ -165,10 +165,12 @@ class ViewScoreLogic {
       state.listAllSubjectResponse.clear();
       state.listSubjectWithSpecialized.clear();
       value.docs.map((e) {
-        var response = SubjectResponse.fromJson(e.data());
-        state.listAllSubjectResponse.add(response);
-        if (response.idSpecialized == persons.first.idSpecialized) {
-          state.listAllSubjectResponse.add(response);
+        var subjectData = SubjectResponse.fromJson(e.data());
+        state.listAllSubjectResponse.add(subjectData);
+        for(int i =0 ;i< persons.length;i++){
+          if (subjectData.idSpecialized == persons[i].idSpecialized) {
+            state.listAllSubjectResponse.add(subjectData);
+          }
         }
       }).toList();
       state.mergeRequest--;
@@ -195,24 +197,24 @@ class ViewScoreLogic {
               idStudent: persons[u].id,
               diligenceTextController: TextEditingController(
                 text:
-                    '${(listScore.isNotEmpty) ? listScore.first.diligence : ''}',
+                    '${(listScore.isNotEmpty) ? (listScore.first.diligence??'') : ''}',
               ),
               testTextController: TextEditingController(
-                text: '${(listScore.isNotEmpty) ? listScore.first.test : ''}',
+                text: '${(listScore.isNotEmpty) ? (listScore.first.test??'') : ''}',
               ),
               examTextController: TextEditingController(
-                text: '${(listScore.isNotEmpty) ? listScore.first.exam : ''}',
+                text: '${(listScore.isNotEmpty) ? (listScore.first.exam??'') : ''}',
               ),
               endOfCourseTextController: TextEditingController(
                 text:
-                    '${(listScore.isNotEmpty) ? listScore.first.endOfCourse : ''}',
+                    '${(listScore.isNotEmpty) ? (listScore.first.endOfCourse??'' ): ''}',
               ),
               letterTextController: TextEditingController(
-                text: '${(listScore.isNotEmpty) ? listScore.first.letter : ''}',
+                text: (listScore.isNotEmpty) ?( listScore.first.letter??'') : '',
               ),
               evaluateTextController: TextEditingController(
                 text:
-                    '${(listScore.isNotEmpty) ? listScore.first.evaluate : ''}',
+                    (listScore.isNotEmpty) ?( listScore.first.evaluate??'') : '',
               ),
             ));
           }

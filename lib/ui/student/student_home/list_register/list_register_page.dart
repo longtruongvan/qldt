@@ -52,7 +52,7 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
   }
 
   Future<void> _refresh() async {
-    // logic.fetchData();
+    logic.fetchData();
   }
 
   Widget _buildBodyWidget() {

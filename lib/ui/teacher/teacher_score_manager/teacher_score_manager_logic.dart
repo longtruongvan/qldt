@@ -30,11 +30,19 @@ class TeacherScoreManagerLogic {
   }
 
   void clickButtonNextHandler(TypeScoreManager typeScoreManager) {
-    if (!state.spec1Active.value && !state.spec2Active.value) {
+    if (!state.spec1Active.value &&
+        !state.spec2Active.value &&
+        !state.spec4Active.value) {
       return;
     }
+    List<PersonResponse> p = [];
+    if(state.personResponseSelected.value.id!=null){
+      p.add(state.personResponseSelected.value);
+    }else{
+      p.addAll(state.listPersonResponse);
+    }
     Get.to(ViewScorePage(
-      students: state.listPersonResponse,
+      students: p,
       typeScoreManager: typeScoreManager,
       viewType: (state.yearSchoolSelected.value == 'All')
           ? ScoreViewType.all
