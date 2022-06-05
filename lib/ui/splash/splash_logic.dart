@@ -14,6 +14,8 @@ import 'package:qldt/ui/teacher/teacher_main/teacher_main_page.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../model/response/notification_response.dart';
+import '../../services/notification_service.dart';
+import '../../services/setting_service.dart';
 import '../../utils/authentication.dart';
 import '../student/student_register_subject/student_register_subject_page.dart';
 
@@ -28,6 +30,8 @@ class SplashLogic extends GetxController {
 
   void checkLogin({required BuildContext context}) async {
     await Firebase.initializeApp();
+    await Get.putAsync(() => SettingService().init());
+    await NotificationService().init();
     await Get.putAsync(() => AuthService().init());
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     // check login when open app again

@@ -110,6 +110,9 @@ class AppTextStyle {
   static final color3C3A36S16W500 =
       color3C3A36.copyWith(fontSize: 16, fontWeight: FontWeight.w500);
 
+  static final color3C3A36S18 =
+  color3C3A36.copyWith(fontSize: 18);
+
   /// S18 Weight 500
   static final color3C3A36S18W500 =
       color3C3A36.copyWith(fontSize: 18, fontWeight: FontWeight.w500);

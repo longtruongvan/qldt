@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_text_style.dart';
+import 'package:qldt/ui/setting/setting_page.dart';
 import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/system_manager/main/system_manager_main_logic.dart';
 import 'package:qldt/ui/system_manager/system_manager_home/system_manager_home_page.dart';
@@ -27,6 +28,7 @@ class _SystemManagerMainPageState extends State<SystemManagerMainPage> {
     const SystemManagerHomePage(),
     const TeacherNotificationPage(personType: PersonType.QTHT),
     const TeacherProfilePage(),
+    const SettingPage(),
   ];
 
 
@@ -86,7 +88,12 @@ class _SystemManagerMainPageState extends State<SystemManagerMainPage> {
               title: "Profile",
               icon: Icons.person,
               positionItem: 2,
-            )
+            ),
+            _buildBottomNavItem(
+              title: "Setting",
+              icon: Icons.settings,
+              positionItem: 3,
+            ),
           ],
         ),
       ),
@@ -104,7 +111,7 @@ class _SystemManagerMainPageState extends State<SystemManagerMainPage> {
       },
       child: Container(
         height: 90,
-        width: (Get.width/3)-2,
+        width: (Get.width/4)-2,
         decoration: const BoxDecoration(
           color: Colors.transparent
         ),

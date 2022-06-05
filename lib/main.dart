@@ -5,13 +5,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_theme.dart';
 import 'package:qldt/router/router_config.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:qldt/services/setting_service.dart';
 
+import 'generated/l10n.dart';
 import 'services/notification_service.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -22,25 +25,11 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
   importance: Importance.max,
 );
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Future(initService);
-  runApp(const MyApp());
-}
-
-Future<void> saveTokenToDatabase(String token) async {
-  // Assume user is logged in for this example
-  String? userId = FirebaseAuth.instance.currentUser?.uid;
-
-  await FirebaseFirestore.instance.collection('Person').doc(userId).update({
-    'tokens': FieldValue.arrayUnion([token]),
-  });
-}
-
-void initService() async {
+Future initService() async {
   await Firebase.initializeApp();
   await Get.putAsync(() => AuthService().init());
   await NotificationService().init(); // <----
+  await Get.putAsync(() => SettingService().init());
 
   if (Platform.isIOS) {
     await FirebaseMessaging.instance.requestPermission();
@@ -59,13 +48,12 @@ void initService() async {
     sound: true,
   );
 
-
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
+      AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -92,23 +80,52 @@ void initService() async {
   });
 }
 
-class MyApp extends StatelessWidget {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initService();
+  runApp(const MyApp());
+}
+
+Future<void> saveTokenToDatabase(String token) async {
+  // Assume user is logged in for this example
+  String? userId = FirebaseAuth.instance.currentUser?.uid;
+
+  await FirebaseFirestore.instance.collection('Person').doc(userId).update({
+    'tokens': FieldValue.arrayUnion([token]),
+  });
+}
+
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return Obx(() => GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       initialRoute: RouterConfig.splash,
       getPages: RouterConfig.getPages,
+      locale: Get.find<SettingService>().currentLocale.value,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        S.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
         fontFamily: AppTheme.fontFamily,
         backgroundColor: AppColors.whiteColor,
         primarySwatch: Colors.blue,
       ),
       home: Container(),
-    );
+    ));
   }
 }
+

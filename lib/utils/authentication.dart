@@ -2,14 +2,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:qldt/common/app_snack_bar.dart';
+
+import '../services/notification_service.dart';
+import '../services/setting_service.dart';
 
 class Authentication {
   static final GoogleSignIn googleSignIn = GoogleSignIn();
 
   static Future<void> initializeFirebase() async {
     await Firebase.initializeApp();
+    await Get.putAsync(() => SettingService().init());
+    await NotificationService().init();
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9090);
   }
 
