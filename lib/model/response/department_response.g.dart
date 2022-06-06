@@ -14,6 +14,9 @@ DepartmentResponse _$DepartmentResponseFromJson(Map<String, dynamic> json) =>
       location: json['location'] as String?,
       name: json['name'] as String?,
       status: json['status'] as bool?,
+      idHistory: (json['idHistory'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     )..nameBuilding = json['nameBuilding'] as String?;
 
 Map<String, dynamic> _$DepartmentResponseToJson(DepartmentResponse instance) =>
@@ -25,4 +28,5 @@ Map<String, dynamic> _$DepartmentResponseToJson(DepartmentResponse instance) =>
       'name': instance.name,
       'status': instance.status,
       'nameBuilding': instance.nameBuilding,
+      'idHistory': instance.idHistory,
     };

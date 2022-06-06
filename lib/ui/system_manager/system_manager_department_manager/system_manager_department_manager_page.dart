@@ -8,6 +8,7 @@ import 'package:qldt/model/response/building_response.dart';
 import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/add_department/add_department_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/detail_department/detail_department_page.dart';
+import 'package:qldt/ui/system_manager/system_manager_department_manager/history_book_department/history_department_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/search_department/search_department_page.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_logic.dart';
 import 'package:qldt/ui/widgets/button/back_button.dart';
@@ -268,7 +269,10 @@ class _SystemManagerDepartmentManagerState
           Get.back(closeOverlays: true);
         }),
         const SizedBox(width: AppDimens.spacingNormal),
-        Text("Department manager", style: AppTextStyle.colorDarkS24W500),
+        Expanded(child: Text("Department manager", style: AppTextStyle.colorDarkS24W500)),
+        IconButton(onPressed: (){
+          Get.to(const HistoryDepartmentPage());
+        }, icon: const Icon(Icons.history_rounded)),
         const SizedBox(
           width: AppDimens.spacingNormal,
         ),

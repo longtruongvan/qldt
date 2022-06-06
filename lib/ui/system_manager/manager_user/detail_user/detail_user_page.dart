@@ -48,6 +48,7 @@ class _DetailUserPageState extends State<DetailUserPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: AppDimens.spacingNormal,),
             _buildAppbarWidget(),
             _buildHeaderWidget(),
             ListView(

@@ -1,13 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:qldt/model/response/building_response.dart';
+import 'package:qldt/model/response/department_history_response.dart';
 import 'package:qldt/model/response/department_response.dart';
+import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/detail_department/detail_department_state.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../common/app_colors.dart';
 
-class DetailDepartmentLogic extends GetxController{
+class DetailDepartmentLogic extends GetxController {
   final state = DetailDepartmentState();
+  final auth = Get.find<AuthService>();
 
   DetailDepartmentLogic() {}
 
@@ -77,7 +82,7 @@ class DetailDepartmentLogic extends GetxController{
     });
   }
 
-  void deleteClassroom({required String id,required Function() callback}) {
+  void deleteClassroom({required String id, required Function() callback}) {
     Get.back();
     state.statusLoading.value = true;
     FirebaseFirestore.instance
@@ -104,10 +109,21 @@ class DetailDepartmentLogic extends GetxController{
     });
   }
 
-  void bookClassroomHandler({required String id,required Function() callback}) {
+  void bookClassroomHandler(
+      {required String id, required Function() callback}) {
+    RxInt mergeRequest = 0.obs;
+    mergeRequest.listen((p0) {
+      if (p0 <= 0) {
+        state.statusLoading.value = false;
+      }
+    });
+
+    mergeRequest.value++;
     state.statusLoading.value = true;
+    String idHistory = const Uuid().v4();
     FirebaseFirestore.instance.collection('Department').doc(id).update({
-      'status': !(state.departmentResponse.value.status ?? false)
+      'status': !(state.departmentResponse.value.status ?? false),
+      'idHistory': FieldValue.arrayUnion([idHistory]),
     }).then((value) {
       Get.snackbar(
         'Success',
@@ -115,15 +131,35 @@ class DetailDepartmentLogic extends GetxController{
         backgroundColor: AppColors.successColor,
         colorText: AppColors.whiteColor,
       );
-      state.statusLoading.value = false;
+      mergeRequest.value--;
     }).catchError((onError) {
+      mergeRequest.value--;
       Get.snackbar(
         'Error',
         'Book class room failure',
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );
-      state.statusLoading.value = false;
+    });
+
+    DateTime now = DateTime.parse(DateTime.now().toString());
+    String formattedDate =  DateFormat('hh:mm:ss - dd-MM-yyyy').format(now);
+    mergeRequest.value++;
+    FirebaseFirestore.instance
+        .collection('DepartmentOrderHistory')
+        .doc(idHistory)
+        .set(DepartmentHistoryResponse(
+          id: idHistory,
+          idDepartment: id,
+          idOrder: auth.person.value?.id,
+          avatarUrl: auth.person.value?.avatar,
+          timeOrder: now.toString(),
+          title: '${auth.person.value?.name} vừa đặt phòng học ${state.departmentResponse.value.name}',
+        ).toJson())
+        .then((value) {
+      mergeRequest.value--;
+    }).catchError((onError) {
+      mergeRequest.value--;
     });
   }
 }

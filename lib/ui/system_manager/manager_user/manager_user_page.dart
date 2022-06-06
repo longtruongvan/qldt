@@ -71,7 +71,7 @@ class _ManagerUserPageState extends State<ManagerUserPage> {
 
   Widget _buildUserItemRowWidget(int index) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.to(DetailUserPage(personResponse: state.listPersonResponse[index]));
       },
       child: Container(
@@ -149,6 +149,7 @@ class _ManagerUserPageState extends State<ManagerUserPage> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          // IconButton(onPressed: () {}, icon: const Icon(Icons.filter_alt)),
           const SizedBox(
             width: AppDimens.spacingNormal,
           ),

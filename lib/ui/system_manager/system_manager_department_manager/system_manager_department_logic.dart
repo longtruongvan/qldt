@@ -14,25 +14,6 @@ class SystemManagerDepartmentLogic extends GetxController{
   }
 
   void fetchData() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    var collectionStream =
-        FirebaseFirestore.instance.collection('Department').get().then((value) {
-      if (value != null) {
-        value.docs.forEach((doc) {
-          print(doc.id);
-        });
-      }
-    });
-    Stream documentStream = FirebaseFirestore.instance
-        .collection('Department')
-        .doc('123456789')
-        .snapshots();
-
-    if (collectionStream != null) {}
-
-    if (documentStream != null) {}
-
     FirebaseFirestore.instance
         .collection('Department')
         .snapshots()
@@ -54,7 +35,7 @@ class SystemManagerDepartmentLogic extends GetxController{
         for (int i = 0; i < state.listBuilding.length; i++) {
           List<DepartmentResponse> departmentArr = [];
           for (int k = 0; k < state.listDepartment.length; k++) {
-            if (state.listDepartment.value[k].idBuilding == state.listBuilding.value[i].id) {
+            if (state.listDepartment[k].idBuilding == state.listBuilding[i].id) {
               departmentArr.add(state.listDepartment[k]);
             }
           }
