@@ -8,6 +8,7 @@ import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_page.dart';
 import '../../../common/app_colors.dart';
 import '../../../common/app_text_style.dart';
 import '../../../services/fcm_service.dart';
+import '../../setting/setting_page.dart';
 import '../teacher_notification/teacher_notification_page.dart';
 
 class TeacherMainPage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _TeacherMainPageState extends State<TeacherMainPage> with AutomaticKeepAli
     const TeacherHomePage(),
     const TeacherNotificationPage(personType: PersonType.GV),
     const TeacherProfilePage(),
+    const SettingPage(),
   ];
 
   void _onTapItem(int itemSelected) {
@@ -90,7 +92,12 @@ class _TeacherMainPageState extends State<TeacherMainPage> with AutomaticKeepAli
               title: "Profile",
               icon: Icons.person,
               positionItem: 2,
-            )
+            ),
+            _buildBottomNavItem(
+              title: "Setting",
+              icon: Icons.settings,
+              positionItem: 3,
+            ),
           ],
         ),
       ),
@@ -108,7 +115,7 @@ class _TeacherMainPageState extends State<TeacherMainPage> with AutomaticKeepAli
       },
       child: Container(
         height: 90,
-        width: (Get.width/3)-2,
+        width: (Get.width/4)-2,
         decoration: const BoxDecoration(
             color: Colors.transparent
         ),

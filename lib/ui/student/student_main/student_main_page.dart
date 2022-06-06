@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/services/fcm_service.dart';
+import 'package:qldt/ui/setting/setting_page.dart';
 import 'package:qldt/ui/splash/splash_logic.dart';
 import 'package:qldt/ui/student/student_home/student_home_page.dart';
 import 'package:qldt/ui/student/student_main/student_main_logic.dart';
@@ -29,6 +30,7 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
     const TimeTablePage(),
     const TeacherNotificationPage(personType: PersonType.SV),
     const TeacherProfilePage(),
+    const SettingPage(),
   ];
 
   void _onTapItem(int itemSelected) {
@@ -99,7 +101,12 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
               title: "Profile",
               icon: Icons.person,
               positionItem: 3,
-            )
+            ),
+            _buildBottomNavItem(
+              title: "Setting",
+              icon: Icons.settings,
+              positionItem: 4,
+            ),
           ],
         ),
       ),
@@ -117,7 +124,7 @@ class _StudentMainPageState extends State<StudentMainPage> with AutomaticKeepAli
       },
       child: Container(
         height: 90,
-        width: (Get.width/4)-2,
+        width: (Get.width/5)-2,
         decoration: const BoxDecoration(
             color: Colors.transparent
         ),
