@@ -10,6 +10,7 @@ import '../../../common/app_text_style.dart';
 import '../../../services/auth_service.dart';
 import '../../widgets/button/app_button.dart';
 import '../../widgets/textfields/app_text_field.dart';
+import 'package:qldt/generated/l10n.dart';
 
 class UpdateInfomationPage extends StatefulWidget {
   final Function() callback;
@@ -26,6 +27,7 @@ class _UpdateInfomationState extends State<UpdateInfomationPage> {
 
   @override
   void dispose() {
+
     Get.delete<UpdateInfomationLogic>();
     super.dispose();
   }
@@ -50,7 +52,7 @@ class _UpdateInfomationState extends State<UpdateInfomationPage> {
   Widget _buildButtonSave() {
     return Positioned(
       child: AppButton(
-        title: 'Save',
+        title: S.of(context).common_save,
         onPress: () {
           logic.save((){
             widget.callback();
@@ -114,7 +116,7 @@ class _UpdateInfomationState extends State<UpdateInfomationPage> {
                 controller: state.locationTextController,
                 textStyle: AppTextStyle.colorGrayS16W500,
                 hintText: (authService.person.value?.location) ??
-                    'Add location',
+                    S.of(context).common_add_location,
                 prefixIcon: const Icon(Icons.location_pin),
               ),
               const SizedBox(

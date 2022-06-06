@@ -129,6 +129,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Warning`
+  String get common_warning {
+    return Intl.message(
+      'Warning',
+      name: 'common_warning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the correct phone number`
+  String get update_profile_check_phone {
+    return Intl.message(
+      'Please enter the correct phone number',
+      name: 'update_profile_check_phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add location`
+  String get common_add_location {
+    return Intl.message(
+      'Add location',
+      name: 'common_add_location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get common_save {
+    return Intl.message(
+      'Save',
+      name: 'common_save',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -30,8 +30,6 @@ class SplashLogic extends GetxController {
 
   void checkLogin({required BuildContext context}) async {
     await Firebase.initializeApp();
-    await Get.putAsync(() => SettingService().init());
-    await NotificationService().init();
     await Get.putAsync(() => AuthService().init());
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     // check login when open app again

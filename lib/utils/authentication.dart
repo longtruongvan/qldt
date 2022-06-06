@@ -14,8 +14,6 @@ class Authentication {
 
   static Future<void> initializeFirebase() async {
     await Firebase.initializeApp();
-    await Get.putAsync(() => SettingService().init());
-    await NotificationService().init();
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9090);
   }
 

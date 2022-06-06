@@ -22,6 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "common_add_location":
+            MessageLookupByLibrary.simpleMessage("Add location"),
+        "common_save": MessageLookupByLibrary.simpleMessage("Save"),
+        "common_warning": MessageLookupByLibrary.simpleMessage("Warning"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
@@ -29,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "update_profile_check_phone": MessageLookupByLibrary.simpleMessage(
+            "Please enter the correct phone number"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese")
       };
 }

@@ -22,6 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "common_add_location":
+            MessageLookupByLibrary.simpleMessage("Thêm vị trí"),
+        "common_save": MessageLookupByLibrary.simpleMessage("Lưu"),
+        "common_warning": MessageLookupByLibrary.simpleMessage("Cảnh báo"),
         "dark": MessageLookupByLibrary.simpleMessage("Tối"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
@@ -29,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "system": MessageLookupByLibrary.simpleMessage("Hệ thống"),
         "theme": MessageLookupByLibrary.simpleMessage("Chủ đề"),
+        "update_profile_check_phone": MessageLookupByLibrary.simpleMessage(
+            "Vui lòng nhập số điện thoại chính xác"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt")
       };
 }

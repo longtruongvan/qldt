@@ -124,7 +124,12 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: AppColors.whiteColor,
         primarySwatch: Colors.blue,
       ),
-      home: Container(),
+      home: Scaffold(
+        backgroundColor: AppColors.whiteColor,
+        body: Container(
+          color: AppColors.whiteColor,
+        ),
+      ),
     ));
   }
 }

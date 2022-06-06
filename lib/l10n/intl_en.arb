@@ -6,5 +6,9 @@
   "language": "Language",
   "english": "English",
   "vietnamese": "Vietnamese",
-  "setting": "Setting"
+  "setting": "Setting",
+  "common_warning": "Warning",
+  "update_profile_check_phone": "Please enter the correct phone number",
+  "common_add_location": "Add location",
+  "common_save": "Save"
 }
