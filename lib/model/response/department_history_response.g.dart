@@ -15,7 +15,7 @@ DepartmentHistoryResponse _$DepartmentHistoryResponseFromJson(
       avatarUrl: json['avatarUrl'] as String?,
       timeOrder: json['timeOrder'] as String?,
       title: json['title'] as String?,
-    );
+    )..timeFormat = json['timeFormat'] as String?;
 
 Map<String, dynamic> _$DepartmentHistoryResponseToJson(
         DepartmentHistoryResponse instance) =>
@@ -26,4 +26,5 @@ Map<String, dynamic> _$DepartmentHistoryResponseToJson(
       'avatarUrl': instance.avatarUrl,
       'timeOrder': instance.timeOrder,
       'title': instance.title,
+      'timeFormat': instance.timeFormat,
     };

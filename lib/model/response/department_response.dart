@@ -18,6 +18,7 @@ class DepartmentResponse {
   bool? status;
   String? nameBuilding;
   List<String>? idHistory;
+  String? idOrder;
 
   DepartmentResponse({
     this.id,
@@ -27,6 +28,7 @@ class DepartmentResponse {
     this.name,
     this.status,
     this.idHistory,
+    this.idOrder,
   });
 
   factory DepartmentResponse.fromJson(Map<String, dynamic> json) =>

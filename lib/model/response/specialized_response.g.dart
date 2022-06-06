@@ -11,6 +11,7 @@ SpecializedResponse _$SpecializedResponseFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       name: json['name'] as String?,
       displayName: json['displayName'] as String?,
+      code: json['code'] as String?,
     )..icon = json['icon'] as String?;
 
 Map<String, dynamic> _$SpecializedResponseToJson(
@@ -19,5 +20,5 @@ Map<String, dynamic> _$SpecializedResponseToJson(
       'id': instance.id,
       'name': instance.name,
       'displayName': instance.displayName,
-      'icon': instance.icon,
+      'code': instance.code,
     };

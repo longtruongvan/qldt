@@ -98,6 +98,14 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
         children: [
           const SizedBox(height: AppDimens.spacingNormal),
           AppLabelTextField(
+            title: 'Code',
+            titleStyle: AppTextStyle.color3C3A36S18W500,
+            hintText: 'input code',
+            hintStyle: AppTextStyle.colorGrayS18W500,
+            controller: state.codeTextController,
+          ),
+          const SizedBox(height: AppDimens.spacingNormal),
+          AppLabelTextField(
             title: 'Name',
             titleStyle: AppTextStyle.color3C3A36S18W500,
             hintText: 'input name',

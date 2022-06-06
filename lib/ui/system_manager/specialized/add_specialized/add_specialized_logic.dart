@@ -11,11 +11,13 @@ class AddSpecializedLogic extends GetxController {
   void submitButtonClickListener() {
     state.stateLoading.value = true;
     if (state.nameTextController.text == '' ||
-        state.displayNameTextController.text == '') {
+        state.displayNameTextController.text == '' ||
+        state.codeTextController.text == '') {
       AppSnackBar.showWarning(
         title: 'Warning',
         message: 'You have not provided enough information. Please check again',
       );
+      state.stateLoading.value = false;
       return;
     }
 
@@ -27,6 +29,7 @@ class AddSpecializedLogic extends GetxController {
           id: id,
           name: state.nameTextController.text,
           displayName: state.displayNameTextController.text,
+          code: state.codeTextController.text,
         ).toJson())
         .then((value) {
       Get.back(closeOverlays: true);

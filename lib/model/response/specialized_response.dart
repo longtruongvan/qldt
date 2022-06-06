@@ -10,11 +10,13 @@ class SpecializedResponse {
   @JsonKey(name: 'displayName')
   String? displayName;
   String? icon;
+  String? code;
 
   SpecializedResponse({
     this.id,
     this.name,
     this.displayName,
+    this.code,
   });
 
   factory SpecializedResponse.fromJson(Map<String, dynamic> json) =>

@@ -67,7 +67,7 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: AppColors.grayColor, width: 1)),
               child: Text(
-                'Id: ${widget.specializedResponse.id}',
+                'Code: ${widget.specializedResponse.code??'Unknown'}',
                 style: AppTextStyle.color3C3A36S16W500,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

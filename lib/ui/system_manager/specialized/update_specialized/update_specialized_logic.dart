@@ -12,12 +12,15 @@ class UpdateSpecializedLogic extends GetxController {
     state.nameTextController.text = state.specializedResponse.value.name ?? '';
     state.displayNameTextController.text =
         state.specializedResponse.value.displayName ?? '';
+    state.codeTextController.text =
+        state.specializedResponse.value.code ?? 'Unknown';
   }
 
   void submitButtonClickListener(Function() callback) {
     state.stateLoading.value = true;
     if (state.nameTextController.text == '' ||
-        state.displayNameTextController.text == '') {
+        state.displayNameTextController.text == '' ||
+        state.codeTextController.text == '') {
       AppSnackBar.showWarning(
         title: 'Warning',
         message: 'You have not provided enough information. Please check again',
@@ -30,7 +33,8 @@ class UpdateSpecializedLogic extends GetxController {
         .doc(state.specializedResponse.value.id)
         .update({
       'name': state.nameTextController.text,
-      'displayName': state.displayNameTextController.text
+      'displayName': state.displayNameTextController.text,
+      'code': state.codeTextController.text,
     }).then((value) {
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
