@@ -10,5 +10,13 @@
   "common_warning": "Warning",
   "update_profile_check_phone": "Please enter the correct phone number",
   "common_add_location": "Add location",
-  "common_save": "Save"
+  "common_save": "Save",
+  "common_select_class": "Select class",
+  "create_user_input_number_student": "Enter the number of students",
+  "common_error": "Error",
+  "common_fetch_data_failure": "Fetch data failure",
+  "common_next": "Next",
+  "common_enter_enough_information": "Please enter enough information",
+  "common_success": "Success",
+  "create_user_state_success": "Create user success"
 }

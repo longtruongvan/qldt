@@ -8,6 +8,7 @@ import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_logi
 
 import '../../../common/app_dimens.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../widgets/button/back_button.dart';
 
 enum TypeScoreManager {
@@ -82,7 +83,7 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
                 height: 60,
                 child: Center(
                     child: Text(
-                  "Next",
+                      S.of(context).common_next,
                   style: AppTextStyle.colorWhiteS16
                       .copyWith(fontWeight: FontWeight.w500),
                 )),

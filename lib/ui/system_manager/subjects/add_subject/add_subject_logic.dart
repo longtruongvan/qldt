@@ -6,6 +6,8 @@ import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/ui/system_manager/subjects/add_subject/add_subject_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../generated/l10n.dart';
+
 class AddSubjectLogic {
   final state = AddSubjectState();
 
@@ -44,7 +46,7 @@ class AddSubjectLogic {
         state.codeSubjectTextController.text == '' ||
         state.numberOfLessonTextController.text == '') {
       AppSnackBar.showWarning(
-          title: 'Warning', message: 'Please enter enough information');
+          title: S.current.common_warning, message: S.current.common_enter_enough_information);
       return;
     }
     state.stateLoading.value = true;

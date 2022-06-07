@@ -28,6 +28,7 @@ class AppTextField extends StatelessWidget {
   final bool? isEnable;
   final String? obscuringCharacter;
   final List<TextInputFormatter>? textInputFormatter;
+  final int? maxLength;
 
   const AppTextField({
     Key? key,
@@ -53,6 +54,7 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.prefixIcon,
     this.textInputFormatter,
+    this.maxLength,
   }) : super(key: key);
 
   @override
@@ -61,6 +63,7 @@ class AppTextField extends StatelessWidget {
       controller: controller,
       cursorColor: cursorColor,
       enabled: isEnable ?? true,
+      maxLength: maxLength,
       keyboardType: keyboardType ?? TextInputType.text,
       style: textStyle ?? AppTextStyle.color10182BS14w500,
       autocorrect: autoCorrect ?? true,

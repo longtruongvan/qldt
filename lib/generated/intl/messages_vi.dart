@@ -24,8 +24,20 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "common_add_location":
             MessageLookupByLibrary.simpleMessage("Thêm vị trí"),
+        "common_enter_enough_information":
+            MessageLookupByLibrary.simpleMessage("Vui lòng nhập đủ thông tin"),
+        "common_error": MessageLookupByLibrary.simpleMessage("Error"),
+        "common_fetch_data_failure":
+            MessageLookupByLibrary.simpleMessage("Fetch data failure"),
+        "common_next": MessageLookupByLibrary.simpleMessage("Next"),
         "common_save": MessageLookupByLibrary.simpleMessage("Lưu"),
+        "common_select_class": MessageLookupByLibrary.simpleMessage("Chọn lớp"),
+        "common_success": MessageLookupByLibrary.simpleMessage("Thành công"),
         "common_warning": MessageLookupByLibrary.simpleMessage("Cảnh báo"),
+        "create_user_input_number_student":
+            MessageLookupByLibrary.simpleMessage("Nhập số lượng sinh viên"),
+        "create_user_state_success":
+            MessageLookupByLibrary.simpleMessage("Tạo tài khoản thành công"),
         "dark": MessageLookupByLibrary.simpleMessage("Tối"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),

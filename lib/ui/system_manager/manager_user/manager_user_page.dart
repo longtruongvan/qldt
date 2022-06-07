@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/common/app_images.dart';
+import 'package:qldt/ui/system_manager/manager_user/create_user/create_user_page.dart';
 import 'package:qldt/ui/system_manager/manager_user/detail_user/detail_user_page.dart';
 import 'package:qldt/ui/system_manager/manager_user/manager_user_logic.dart';
 
@@ -149,7 +150,14 @@ class _ManagerUserPageState extends State<ManagerUserPage> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          // IconButton(onPressed: () {}, icon: const Icon(Icons.filter_alt)),
+          IconButton(
+              onPressed: () {
+                Get.to(const CreateUserPage());
+              },
+              icon: const Icon(
+                Icons.person_add,
+                size: 25,
+              )),
           const SizedBox(
             width: AppDimens.spacingNormal,
           ),

@@ -4,6 +4,7 @@ import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/ui/system_manager/subjects/detail_subject/detail_subject_state.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/specialized_response.dart';
 
 class DetailSubjectLogic extends GetxController {
@@ -51,7 +52,7 @@ class DetailSubjectLogic extends GetxController {
         state.codeSubjectTextController.text == '' ||
         state.numberOfLessonTextController.text == '') {
       AppSnackBar.showWarning(
-          title: 'Warning', message: 'Please enter enough information');
+          title: S.current.common_warning, message: S.current.common_enter_enough_information);
       return;
     }
     state.stateLoading.value = true;

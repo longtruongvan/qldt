@@ -10,5 +10,13 @@
   "common_warning": "Cảnh báo",
   "update_profile_check_phone": "Vui lòng nhập số điện thoại chính xác",
   "common_add_location": "Thêm vị trí",
-  "common_save": "Lưu"
+  "common_save": "Lưu",
+  "common_select_class": "Chọn lớp",
+  "create_user_input_number_student": "Nhập số lượng sinh viên",
+  "common_error": "Error",
+  "common_fetch_data_failure": "Fetch data failure",
+  "common_next": "Next",
+  "common_enter_enough_information": "Vui lòng nhập đủ thông tin",
+  "common_success": "Thành công",
+  "create_user_state_success": "Tạo tài khoản thành công"
 }

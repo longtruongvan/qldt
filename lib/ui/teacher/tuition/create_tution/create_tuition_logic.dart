@@ -7,6 +7,7 @@ import 'package:qldt/ui/teacher/tuition/create_tution/create_tuition_state.dart'
 import 'package:uuid/uuid.dart';
 
 import '../../../../common/app_snack_bar.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/class_response.dart';
 import '../../../../model/response/person_response.dart';
 import '../../../../model/response/specialized_response.dart';
@@ -52,7 +53,7 @@ class CreateTuitionLogic extends GetxController {
         state.classResponseSelected.value.id == null ||
         state.tuitionTextController.text == '') {
       AppSnackBar.showWarning(
-          title: 'Warning', message: 'Please enter enough information');
+          title: S.current.common_warning, message: S.current.common_enter_enough_information);
       return;
     }
     state.statusLoading.value = true;

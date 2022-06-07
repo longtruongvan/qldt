@@ -169,6 +169,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Select class`
+  String get common_select_class {
+    return Intl.message(
+      'Select class',
+      name: 'common_select_class',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the number of students`
+  String get create_user_input_number_student {
+    return Intl.message(
+      'Enter the number of students',
+      name: 'create_user_input_number_student',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get common_error {
+    return Intl.message(
+      'Error',
+      name: 'common_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fetch data failure`
+  String get common_fetch_data_failure {
+    return Intl.message(
+      'Fetch data failure',
+      name: 'common_fetch_data_failure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get common_next {
+    return Intl.message(
+      'Next',
+      name: 'common_next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter enough information`
+  String get common_enter_enough_information {
+    return Intl.message(
+      'Please enter enough information',
+      name: 'common_enter_enough_information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get common_success {
+    return Intl.message(
+      'Success',
+      name: 'common_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create user success`
+  String get create_user_state_success {
+    return Intl.message(
+      'Create user success',
+      name: 'create_user_state_success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
