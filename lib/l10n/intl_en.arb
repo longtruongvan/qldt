@@ -21,5 +21,12 @@
   "create_user_state_success": "Create user success",
   "common_ok": "OK",
   "common_subject": "Subject",
-  "common_code": "Code"
+  "common_code": "Code",
+  "logout": "Logout",
+  "edit_profile_add_phone_number": "Add phone number",
+  "edit_profile_add_location": "Add location",
+  "edit_profile_update_infomation": "Update information",
+  "common_send_to_me": "Send to me",
+  "home_student_register": "Sinh viên đăng ký học",
+  "common_hello": "Hello,"
 }

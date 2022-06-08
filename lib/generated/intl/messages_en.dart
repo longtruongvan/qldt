@@ -30,11 +30,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "common_error": MessageLookupByLibrary.simpleMessage("Error"),
         "common_fetch_data_failure":
             MessageLookupByLibrary.simpleMessage("Fetch data failure"),
+        "common_hello": MessageLookupByLibrary.simpleMessage("Hello,"),
         "common_next": MessageLookupByLibrary.simpleMessage("Next"),
         "common_ok": MessageLookupByLibrary.simpleMessage("OK"),
         "common_save": MessageLookupByLibrary.simpleMessage("Save"),
         "common_select_class":
             MessageLookupByLibrary.simpleMessage("Select class"),
+        "common_send_to_me": MessageLookupByLibrary.simpleMessage("Send to me"),
         "common_subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "common_success": MessageLookupByLibrary.simpleMessage("Success"),
         "common_warning": MessageLookupByLibrary.simpleMessage("Warning"),
@@ -44,9 +46,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_user_state_success":
             MessageLookupByLibrary.simpleMessage("Create user success"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "edit_profile_add_location":
+            MessageLookupByLibrary.simpleMessage("Add location"),
+        "edit_profile_add_phone_number":
+            MessageLookupByLibrary.simpleMessage("Add phone number"),
+        "edit_profile_update_infomation":
+            MessageLookupByLibrary.simpleMessage("Update information"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "home_student_register":
+            MessageLookupByLibrary.simpleMessage("Sinh viên đăng ký học"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "light": MessageLookupByLibrary.simpleMessage("Light"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),

@@ -30,10 +30,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "common_error": MessageLookupByLibrary.simpleMessage("Error"),
         "common_fetch_data_failure":
             MessageLookupByLibrary.simpleMessage("Fetch data failure"),
+        "common_hello": MessageLookupByLibrary.simpleMessage("Xin chào,"),
         "common_next": MessageLookupByLibrary.simpleMessage("Next"),
         "common_ok": MessageLookupByLibrary.simpleMessage("OK"),
         "common_save": MessageLookupByLibrary.simpleMessage("Lưu"),
         "common_select_class": MessageLookupByLibrary.simpleMessage("Chọn lớp"),
+        "common_send_to_me":
+            MessageLookupByLibrary.simpleMessage("Gửi đến tôi"),
         "common_subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "common_success": MessageLookupByLibrary.simpleMessage("Thành công"),
         "common_warning": MessageLookupByLibrary.simpleMessage("Cảnh báo"),
@@ -42,9 +45,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_user_state_success":
             MessageLookupByLibrary.simpleMessage("Tạo tài khoản thành công"),
         "dark": MessageLookupByLibrary.simpleMessage("Tối"),
+        "edit_profile_add_location":
+            MessageLookupByLibrary.simpleMessage("Thêm vị trí"),
+        "edit_profile_add_phone_number":
+            MessageLookupByLibrary.simpleMessage("Thêm số điện thoại"),
+        "edit_profile_update_infomation":
+            MessageLookupByLibrary.simpleMessage("Cập nhật thông tin"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
+        "home_student_register":
+            MessageLookupByLibrary.simpleMessage("Sinh viên đăng ký học"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "light": MessageLookupByLibrary.simpleMessage("Sáng"),
+        "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "setting": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "system": MessageLookupByLibrary.simpleMessage("Hệ thống"),
         "theme": MessageLookupByLibrary.simpleMessage("Chủ đề"),

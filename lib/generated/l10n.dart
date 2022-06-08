@@ -279,6 +279,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message(
+      'Logout',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add phone number`
+  String get edit_profile_add_phone_number {
+    return Intl.message(
+      'Add phone number',
+      name: 'edit_profile_add_phone_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add location`
+  String get edit_profile_add_location {
+    return Intl.message(
+      'Add location',
+      name: 'edit_profile_add_location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update information`
+  String get edit_profile_update_infomation {
+    return Intl.message(
+      'Update information',
+      name: 'edit_profile_update_infomation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send to me`
+  String get common_send_to_me {
+    return Intl.message(
+      'Send to me',
+      name: 'common_send_to_me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sinh viên đăng ký học`
+  String get home_student_register {
+    return Intl.message(
+      'Sinh viên đăng ký học',
+      name: 'home_student_register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hello,`
+  String get common_hello {
+    return Intl.message(
+      'Hello,',
+      name: 'common_hello',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

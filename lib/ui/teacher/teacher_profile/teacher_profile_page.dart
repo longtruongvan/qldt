@@ -10,6 +10,7 @@ import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../../utils/authentication.dart';
 import '../../auth/login/login_page.dart';
 import '../../widgets/button/app_button.dart';
@@ -48,7 +49,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
   Widget _buildButtonLogout() {
     return Positioned(
       child: AppButton(
-        title: 'Logout',
+        title: S.of(context).logout,
         onPress: () {
           Authentication.signOut();
           Get.offAll(const LoginPage());
@@ -89,7 +90,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                     textStyle: AppTextStyle.colorGrayS16W500,
                     hintText: (authService.user.value?.phoneNumber) ??
                         (authService.person.value?.phone) ??
-                        'Add phone number',
+                        S.of(context).edit_profile_add_phone_number,
                     prefixIcon: const Icon(Icons.phone),
                     isEnable: false,
                   ),
@@ -109,7 +110,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                   AppTextField(
                     textStyle: AppTextStyle.colorGrayS16W500,
                     hintText:
-                        (authService.person.value?.location) ?? 'Add location',
+                        (authService.person.value?.location) ?? S.of(context).edit_profile_add_location,
                     prefixIcon: const Icon(Icons.location_pin),
                     isEnable: false,
                   ),
@@ -126,7 +127,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                       ));
                     },
                     child: Text(
-                      'Update information',
+                      S.of(context).edit_profile_update_infomation,
                       style: AppTextStyle.colorPrimaryS16.copyWith(
                         fontWeight: FontWeight.w500,
                       ),

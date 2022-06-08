@@ -21,5 +21,12 @@
   "create_user_state_success": "Tạo tài khoản thành công",
   "common_ok": "OK",
   "common_subject": "Subject",
-  "common_code": "Code"
+  "common_code": "Code",
+  "logout": "Đăng xuất",
+  "edit_profile_add_phone_number": "Thêm số điện thoại",
+  "edit_profile_add_location": "Thêm vị trí",
+  "edit_profile_update_infomation": "Cập nhật thông tin",
+  "common_send_to_me": "Gửi đến tôi",
+  "home_student_register": "Sinh viên đăng ký học",
+  "common_hello": "Xin chào,"
 }

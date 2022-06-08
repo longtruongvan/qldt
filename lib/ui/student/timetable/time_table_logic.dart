@@ -118,7 +118,6 @@ class TimeTableLogic extends GetxController {
           }
         }
         checkDayFocusWithTimeTable();
-        print('LONGTV @@ ${state.listCourse.length}');
       }
     });
 

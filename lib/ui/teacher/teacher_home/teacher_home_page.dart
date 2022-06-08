@@ -5,6 +5,7 @@ import 'package:qldt/common/app_colors.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_manager_page.dart';
 import 'package:qldt/ui/teacher/exam_schedule/exam_schedule_page.dart';
+import 'package:qldt/ui/teacher/student_register/student_register_page.dart';
 import 'package:qldt/ui/teacher/teacher_home/teacher_home_logic.dart';
 import 'package:qldt/ui/teacher/teacher_main/teacher_main_logic.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_page.dart';
@@ -14,6 +15,7 @@ import 'package:qldt/ui/teacher/tuition/tuition_page.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 
 class TeacherHomePage extends StatefulWidget {
   const TeacherHomePage({Key? key}) : super(key: key);
@@ -98,8 +100,54 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: 30,
           ),
+          Text(
+            S.of(context).home_student_register.toUpperCase(),
+            style: AppTextStyle.color3C3A36S20W500.copyWith(color: AppColors.primaryColor),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          GestureDetector(
+            onTap: (){
+              Get.to(const StudentRegisterList());
+            },
+            child: SizedBox(
+              width: Get.width,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                elevation: 2,
+                child: Container(
+                  padding: const EdgeInsets.all(AppDimens.spacingNormal),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: const Icon(
+                          Icons.send,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Expanded(
+                          child: Text(
+                        S.of(context).common_send_to_me,
+                        style: AppTextStyle.color3C3A36S18W500,
+                      )),
+                      const Icon(Icons.navigate_next_sharp)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -159,7 +207,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hello,',
+                S.of(context).common_hello,
                 style: AppTextStyle.color3C3A36S16,
               ),
               Text(
