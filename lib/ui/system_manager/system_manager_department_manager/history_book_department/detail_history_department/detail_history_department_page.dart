@@ -6,6 +6,7 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/history
 
 import '../../../../../common/app_dimens.dart';
 import '../../../../../common/app_text_style.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../../widgets/button/back_button.dart';
 
 class DetailHistoryDepartmentPage extends StatefulWidget {
@@ -92,9 +93,9 @@ class _DetailHistoryDepartmentPageState
                   ),
                 ),
                 children: [
-                  _buildRowTableWidget('Department name','${state.history.value.departmentResponse?.name}'),
-                  _buildRowTableWidget('Time order:','${state.history.value.departmentHistoryResponse?.timeFormat}'),
-                  _buildRowTableWidget('Order by','${state.history.value.personResponse?.name}'),
+                  _buildRowTableWidget(S.of(context).departmentName,'${state.history.value.departmentResponse?.name}'),
+                  _buildRowTableWidget(S.of(context).timeOrder,'${state.history.value.departmentHistoryResponse?.timeFormat}'),
+                  _buildRowTableWidget(S.of(context).orderBy,'${state.history.value.personResponse?.name}'),
                 ],
               )),
             ),

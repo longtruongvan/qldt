@@ -12,6 +12,7 @@ import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/student/student_register_subject_2/student_register_subject_next_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../model/response/subject_response.dart';
 
 class StudentRegisterSubjectNextLogic extends GetxController {
@@ -79,14 +80,14 @@ class StudentRegisterSubjectNextLogic extends GetxController {
                 '') {
           state.statusLoading.value = false;
           AppSnackBar.showWarning(
-              title: 'Warning', message: 'Please enter the enough information');
+              title: S.current.common_warning, message: S.current.pleaseEnterTheEnoughInformation);
           return;
         }
       }
       if (count == 0) {
         state.statusLoading.value = false;
         AppSnackBar.showWarning(
-            title: 'Warning', message: 'Please select the time learning');
+            title: S.current.common_warning, message: S.current.pleaseSelectTheTimeLearning);
         return;
       }
     }

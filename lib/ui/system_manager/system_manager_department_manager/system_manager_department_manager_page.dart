@@ -13,6 +13,8 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/search_
 import 'package:qldt/ui/system_manager/system_manager_department_manager/system_manager_department_logic.dart';
 import 'package:qldt/ui/widgets/button/back_button.dart';
 
+import '../../../generated/l10n.dart';
+
 class SystemManagerDepartmentManagerPage extends StatefulWidget {
   final bool isSystemManager;
 
@@ -168,7 +170,7 @@ class _SystemManagerDepartmentManagerState
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                "Status: ${(departmentResponse.status ?? false) ? "Online" : "Offline"}",
+                "${S.of(context).common_status} ${(departmentResponse.status ?? false) ? "Online" : "Offline"}",
                 style: AppTextStyle.colorWhiteS14W500,
               ),
             )
@@ -205,7 +207,7 @@ class _SystemManagerDepartmentManagerState
     return Row(
       children: [
         Text(
-          "List of departments",
+          S.of(context).listOfDepartments,
           style: AppTextStyle.colorDarkS20W500,
         ),
         const Spacer(),
@@ -250,7 +252,7 @@ class _SystemManagerDepartmentManagerState
             ),
             const SizedBox(width: 5),
             Text(
-              "Search",
+              S.of(context).common_search,
               style: AppTextStyle.colorGrayS14W500,
             )
           ],
@@ -269,7 +271,7 @@ class _SystemManagerDepartmentManagerState
           Get.back(closeOverlays: true);
         }),
         const SizedBox(width: AppDimens.spacingNormal),
-        Expanded(child: Text("Department manager", style: AppTextStyle.colorDarkS24W500)),
+        Expanded(child: Text(S.of(context).departmentManager, style: AppTextStyle.colorDarkS24W500)),
         IconButton(onPressed: (){
           Get.to(const HistoryDepartmentPage());
         }, icon: const Icon(Icons.history_rounded)),

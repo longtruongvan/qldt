@@ -10,6 +10,7 @@ import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/notification_response.dart';
 import '../../../../model/response/person_response.dart';
 
@@ -59,13 +60,13 @@ class ViewScoreLogic {
         .then((value) {
       state.listScoreEntity[index].listScore?.first = scoreResponse!;
       AppSnackBar.showSuccess(
-          title: 'Success', message: 'Remove score success');
+          title: S.current.common_success, message: S.current.removeScoreSuccess);
       state.statusLoading.value = false;
       state.listScoreEntity.refresh();
       //count score
       checkScoreStudent();
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Remove score failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.removeScoreFailure);
       state.statusLoading.value = false;
     });
   }
@@ -102,7 +103,7 @@ class ViewScoreLogic {
         scoreResponse.evaluate == null) {
       state.statusLoading.value = false;
       AppSnackBar.showWarning(
-          title: 'Warning', message: 'Please fill in all the information');
+          title: S.current.common_warning, message: S.current.pleaseFillInAllTheInformation);
       return;
     }
 
@@ -119,7 +120,7 @@ class ViewScoreLogic {
           .doc(id)
           .set(scoreResponse.toJson() ?? {})
           .then((value) {
-        AppSnackBar.showSuccess(title: 'Success', message: 'Add score success');
+        AppSnackBar.showSuccess(title: S.current.common_success, message: S.current.addScoreSuccess);
         state.statusLoading.value = false;
         state.listScoreEntity.refresh();
         (state.listScoreEntity[index].listScore ?? []).clear();
@@ -129,7 +130,7 @@ class ViewScoreLogic {
         //count score
         checkScoreStudent();
       }).catchError((onError) {
-        AppSnackBar.showError(title: 'Error', message: 'Add score failure');
+        AppSnackBar.showError(title: S.current.common_error, message: S.current.addScoreFailure);
         state.statusLoading.value = false;
       });
 
@@ -143,7 +144,7 @@ class ViewScoreLogic {
         // AppSnackBar.showSuccess(
         //     title: 'Success', message: 'Update score success');
       }).catchError((onError) {
-        AppSnackBar.showError(title: 'Error', message: 'Update score failure');
+        AppSnackBar.showError(title: S.current.common_error, message: S.current.updateScoreFailure);
       });
       return;
     }
@@ -155,7 +156,7 @@ class ViewScoreLogic {
         state.statusLoading.value = false;
         if (!updateFailure) {
           AppSnackBar.showSuccess(
-              title: 'Success', message: 'Update score success');
+              title: S.current.common_success, message: S.current.updateScoreSuccess);
           //count score
           checkScoreStudent();
         }
@@ -172,7 +173,7 @@ class ViewScoreLogic {
       dispatchGroup.value--;
     }).catchError((onError) {
       updateFailure = true;
-      AppSnackBar.showError(title: 'Error', message: 'Update score failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.updateScoreFailure);
       dispatchGroup.value--;
     });
 
@@ -279,7 +280,7 @@ class ViewScoreLogic {
       state.mergeRequest--;
     }).catchError((onError) {
       state.mergeRequest--;
-      AppSnackBar.showError(title: 'Error', message: 'Get subject failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.getSubjectFailure);
     });
 
     /// Get

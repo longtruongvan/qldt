@@ -4,6 +4,8 @@ import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/ui/system_manager/manager_user/manager_user_state.dart';
 
+import '../../../generated/l10n.dart';
+
 class ManagerUserLogic extends GetxController {
   final state = ManagerUserState();
 
@@ -42,7 +44,7 @@ class ManagerUserLogic extends GetxController {
       searchHandler(state.searchTextController.text);
     }).catchError((onError) {
       state.statusLoading.value = false;
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
     });
   }
 }

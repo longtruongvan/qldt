@@ -9,6 +9,7 @@ import 'package:qldt/ui/teacher/tuition/detail_tution/detail_tuition_logic.dart'
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_images.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class DetailTuitionPage extends StatefulWidget {
@@ -121,11 +122,11 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
       onTap: () {
         Get.dialog(AlertDialog(
           title: Text(
-            'Notification',
+            S.of(context).common_notification,
             style: AppTextStyle.color3C3A36S16W500,
           ),
           content: Text(
-            'Do you want to pay tuition fees for this semester?. Please confirm',
+            S.of(context).pay_tuition,
             style: AppTextStyle.color3C3A36S16,
           ),
           actions: [
@@ -134,7 +135,7 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
                   Get.back();
                 },
                 child: Text(
-                  'Cancel',
+                  S.of(context).common_cancel,
                   style: AppTextStyle.colorPrimaryS16,
                 )),
             FlatButton(
@@ -143,7 +144,7 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
                   logic.payment(index);
                 },
                 child: Text(
-                  'OK',
+                  S.of(context).common_ok,
                   style: AppTextStyle.colorPrimaryS16,
                 ))
           ],
@@ -167,7 +168,7 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
                 size: 16,
                 color: AppColors.whiteColor),
             const SizedBox(width: 5),
-            Text('Payment', style: AppTextStyle.colorWhiteS16W500),
+            Text(S.of(context).tuition_payment, style: AppTextStyle.colorWhiteS16W500),
           ],
         ),
       ),
@@ -199,17 +200,17 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
               },
               children: [
                 _buildTableRowWidget(
-                  'Tuition:',
+                  S.of(context).tuition,
                   '${state.listTuition[index].tuitionResponse.price} (VND)',
                 ),
                 _buildTableRowWidget(
-                  'Status:',
+                  S.of(context).common_status,
                   (state.listTuition[index].tuitionResponse.state ?? false)
                       ? 'Đã thanh toán'
                       : 'Chưa thanh toán',
                 ),
                 _buildTableRowWidget(
-                  'Method:',
+                  S.of(context).tuition_method,
                   (state.listTuition[index].tuitionResponse.state ?? false)
                       ? 'Master card'
                       : 'Unknown',
@@ -229,7 +230,7 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
           style: AppTextStyle.color3C3A36S16W500,
         ),
         subtitle: Text(
-          'Time: ${state.listTuition[index].tuitionResponse.schoolYear ?? ''}',
+          '${S.of(context).common_time} ${state.listTuition[index].tuitionResponse.schoolYear ?? ''}',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: AppTextStyle.color3C3A36S16W500.copyWith(
@@ -257,7 +258,7 @@ class _DetailTuitionPageState extends State<DetailTuitionPage> {
           }),
           const SizedBox(width: AppDimens.spacingNormal),
           Text(
-            "Detail tuition",
+            S.of(context).tuition.replaceAll(':', ''),
             style: AppTextStyle.colorDarkS24W500,
           ),
           const SizedBox(

@@ -10,6 +10,7 @@ import 'package:qldt/ui/teacher/tuition/tuition_logic.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../../model/response/person_response.dart';
 import '../../widgets/button/back_button.dart';
 import '../../widgets/textfields/app_text_field.dart';
@@ -39,7 +40,7 @@ class _TuitionPageState extends State<TuitionPage> {
       ),
       child: AppTextField(
         controller: state.searchTextController,
-        hintText: 'Search',
+        hintText: S.of(context).common_search,
         hintStyle: AppTextStyle.colorGrayS14W500,
         suffixIcon: const Icon(
           Icons.search,
@@ -90,9 +91,9 @@ class _TuitionPageState extends State<TuitionPage> {
   Widget _buildSearchTitleWidget() {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
-        child: const Text(
-          'Search',
-          style: TextStyle(
+        child: Text(
+          S.of(context).common_search,
+          style: const TextStyle(
               color: AppColors.color3C3A36,
               fontSize: 18,
               fontWeight: FontWeight.w500),
@@ -108,16 +109,16 @@ class _TuitionPageState extends State<TuitionPage> {
         color: Colors.transparent,
         margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
         child: Row(
-          children: const [
+          children: [
             Text(
-              'Search advance',
-              style: TextStyle(
+              S.of(context).searchAdvance,
+              style: const TextStyle(
                   color: AppColors.color3C3A36,
                   fontSize: 18,
                   fontWeight: FontWeight.w500),
             ),
-            Spacer(),
-            Icon(
+            const Spacer(),
+            const Icon(
               Icons.arrow_right_alt_sharp,
               size: 30,
               color: AppColors.color3C3A36,
@@ -213,7 +214,7 @@ class _TuitionPageState extends State<TuitionPage> {
           }),
           const SizedBox(width: AppDimens.spacingNormal),
           Text(
-            "Tuition manager",
+            S.of(context).tuitionManager,
             style: AppTextStyle.colorDarkS24W500,
           ),
           const Spacer(),

@@ -109,21 +109,21 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
           _buildSpecWidget(),
           const SizedBox(height: AppDimens.spacingNormal),
           Text(
-            'Select Specialized',
+            S.of(context).common_select_specialized,
             style: AppTextStyle.color3C3A36S18W500,
           ),
           const SizedBox(height: 10),
           _buildSelectSpecializedDropdownWidget(),
           const SizedBox(height: AppDimens.spacingNormal),
           Text(
-            'Select class',
+            S.of(context).common_select_class,
             style: AppTextStyle.color3C3A36S18W500,
           ),
           const SizedBox(height: 10),
           _buildSelectClassDropdownWidget(),
           const SizedBox(height: AppDimens.spacingNormal),
           Text(
-            'Select student',
+            S.of(context).common_select_student,
             style: AppTextStyle.color3C3A36S18W500,
           ),
           const SizedBox(height: 10),
@@ -137,21 +137,21 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
           // _buildSelectTimeDropdownWidget(),
           // const SizedBox(height: AppDimens.spacingNormal),
           Obx(() {
-            if (state.yearSchoolSelected.value == 'All') {
+            if (state.yearSchoolSelected.value == S.of(context).common_all) {
               return Container();
             }
-            return Text('Select semester',
+            return Text(S.of(context).selectSemester,
                 style: AppTextStyle.color3C3A36S18W500);
           }),
           Obx(() => SizedBox(
-              height: (state.yearSchoolSelected.value == 'All') ? 0 : 10)),
+              height: (state.yearSchoolSelected.value == S.of(context).common_all) ? 0 : 10)),
           _buildSelectSemesterWidget(),
           Obx(() => SizedBox(
-              height: (state.yearSchoolSelected.value == 'All')
+              height: (state.yearSchoolSelected.value == S.of(context).common_all)
                   ? 0
                   : AppDimens.spacingNormal)),
           Text(
-            'Select subject',
+            S.of(context).common_select_subject,
             style: AppTextStyle.color3C3A36S18W500,
           ),
           const SizedBox(height: 10),
@@ -179,7 +179,7 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             color: AppColors.whiteColor,
           ),
           value: state.subjectResponseSelected.value.name,
-          hint: Text('Select subject', style: AppTextStyle.color3C3A36S18W500),
+          hint: Text(S.of(context).common_select_subject, style: AppTextStyle.color3C3A36S18W500),
           onChanged: (value) {
             logic.checkSubjectSelected(value as String);
           },
@@ -217,7 +217,7 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
 
   Widget _buildSelectSemesterWidget() {
     return Obx(() {
-      if (state.yearSchoolSelected.value == 'All') {
+      if (state.yearSchoolSelected.value == S.of(context).common_all) {
         return Container();
       }
       return Container(
@@ -239,8 +239,8 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             hint: Text(
                 (state.listPersonResponse.isNotEmpty &&
                         state.listClassResponse.isNotEmpty)
-                    ? 'All'
-                    : 'No data',
+                    ? S.of(context).common_all
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkSemester(value as String);
@@ -356,8 +356,8 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             hint: Text(
                 (state.listPersonResponse.isNotEmpty &&
                         state.listClassResponse.isNotEmpty)
-                    ? 'All'
-                    : 'No data',
+                    ? S.of(context).common_all
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkPersonSelected(value as String);
@@ -412,8 +412,8 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             value: state.classResponseSelected.value.name,
             hint: Text(
                 (state.listClassResponse.isNotEmpty)
-                    ? 'Select class'
-                    : 'No data',
+                    ? S.of(context).common_select_class
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkClassSelected(value as String);
@@ -468,8 +468,8 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
             value: state.specializedSelected.value.displayName,
             hint: Text(
                 state.listSpecialized.isNotEmpty
-                    ? 'Select specialized'
-                    : 'No data',
+                    ? S.of(context).common_select_specialized
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkSpecializedSelected(value as String);
@@ -519,7 +519,7 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
               }),
               const SizedBox(width: AppDimens.spacingNormal),
               Text(
-                "Score manager",
+                S.of(context).score_manager,
                 style: AppTextStyle.colorDarkS24W500,
               ),
               const Spacer(),
@@ -528,7 +528,7 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
                   logic.clearHandler();
                 },
                 child: Text(
-                  "Clear",
+                  S.of(context).common_clear,
                   style: AppTextStyle.colorDarkS16W500
                       .copyWith(color: AppColors.primaryColor),
                 ),

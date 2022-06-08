@@ -9,6 +9,7 @@ import 'package:qldt/ui/system_manager/subjects/subject_logic.dart';
 import 'package:qldt/ui/system_manager/subjects/subject_state.dart';
 
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../widgets/button/back_button.dart';
 import '../../widgets/textfields/app_text_field.dart';
 
@@ -96,7 +97,7 @@ class _SubjectPageState extends State<SubjectPage> {
   Widget _buildSearchWidget() {
     return AppTextField(
       controller: state.searchTextController,
-      hintText: 'Search',
+      hintText: S.of(context).common_search,
       hintStyle: AppTextStyle.colorGrayS14W500,
       suffixIcon: const Icon(
         Icons.search,
@@ -170,7 +171,7 @@ class _SubjectPageState extends State<SubjectPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
-          child: Text('Subjects', style: AppTextStyle.colorDarkS24W500),
+          child: Text(S.of(context).subjects, style: AppTextStyle.colorDarkS24W500),
         ),
         DropdownButton<String>(
           items: <String>['Add'].map((String value) {

@@ -7,6 +7,7 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/history
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class HistoryDepartmentPage extends StatefulWidget {
@@ -136,7 +137,7 @@ class _HistoryDepartmentPageState extends State<HistoryDepartmentPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
-          child: Text("History", style: AppTextStyle.colorDarkS24W500),
+          child: Text(S.of(context).history, style: AppTextStyle.colorDarkS24W500),
         ),
         const SizedBox(
           width: AppDimens.spacingNormal,

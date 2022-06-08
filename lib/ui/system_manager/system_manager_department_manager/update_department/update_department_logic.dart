@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:qldt/model/response/department_response.dart';
 
 import '../../../../common/app_colors.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/building_response.dart';
 import 'update_department_state.dart';
 
@@ -67,8 +68,8 @@ class UpdateDepartmentLogic {
         state.locationTextController.text == '' ||
         state.descriptionTextController.text == '') {
       Get.snackbar(
-        'Error',
-        'You have not provided enough information',
+        S.current.common_error,
+        S.current.youHaveNotProvidedEnoughInformation,
         backgroundColor: AppColors.warningColor,
         colorText: AppColors.whiteColor,
       );
@@ -92,16 +93,16 @@ class UpdateDepartmentLogic {
       callback();
       Get.back(closeOverlays: true);
       Get.snackbar(
-        'Success',
-        'Update department success',
+        S.current.common_success,
+        S.current.updateDepartmentSuccess,
         backgroundColor: AppColors.successColor,
         colorText: AppColors.whiteColor,
       );
     }).onError((error, stackTrace) {
       state.stateLoading.value = false;
       Get.snackbar(
-        'Error',
-        'Update department failure',
+        S.current.common_error,
+        S.current.updateDepartmentFailure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );

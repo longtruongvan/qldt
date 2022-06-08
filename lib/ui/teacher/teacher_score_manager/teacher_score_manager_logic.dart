@@ -9,6 +9,8 @@ import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_page
 import 'package:qldt/ui/teacher/teacher_score_manager/teacher_score_manager_state.dart';
 import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_page.dart';
 
+import '../../../generated/l10n.dart';
+
 class TeacherScoreManagerLogic {
   final state = TeacherScoreManagerState();
 
@@ -45,7 +47,7 @@ class TeacherScoreManagerLogic {
       students: p,
       currentListStudent: state.currentListPersonResponse,
       typeScoreManager: typeScoreManager,
-      viewType: (state.yearSchoolSelected.value == 'All')
+      viewType: (state.yearSchoolSelected.value == S.current.common_all)
           ? ScoreViewType.all
           : ScoreViewType.subject,
       subjectResponse: state.subjectResponseSelected.value,
@@ -66,7 +68,7 @@ class TeacherScoreManagerLogic {
     state.listClassResponse.clear();
     state.listClassResponse.addAll(state.currentListClassResponse);
 
-    state.yearSchoolSelected.value = 'All';
+    state.yearSchoolSelected.value = S.current.common_all;
     state.yearSchool.clear();
 
     state.personResponseSelected.value = PersonResponse();
@@ -103,7 +105,7 @@ class TeacherScoreManagerLogic {
       if (state.currentListClassResponse[i].name == id) {
         state.classResponseSelected.value = state.currentListClassResponse[i];
         state.yearSchool.clear();
-        state.yearSchoolSelected.value = 'All';
+        state.yearSchoolSelected.value = S.current.common_all;
         state.yearSchool
             .addAll(state.currentListClassResponse[i].schoolYear ?? []);
       }
@@ -122,7 +124,7 @@ class TeacherScoreManagerLogic {
   void checkSpecializedSelected(String id) {
     state.personResponseSelected.value = PersonResponse();
     state.classResponseSelected.value = ClassResponse();
-    state.yearSchoolSelected.value = 'All';
+    state.yearSchoolSelected.value = S.current.common_all;
     state.yearSchool.clear();
     state.spec2Active.value = false;
     state.spec3Active.value = false;
@@ -168,7 +170,7 @@ class TeacherScoreManagerLogic {
       }).toList();
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data specialized failure');
+          title: S.current.common_error, message: S.current.getDataSpecializedFailure);
     });
 
     // Get Class
@@ -181,7 +183,7 @@ class TeacherScoreManagerLogic {
         state.listClassResponse.add(response);
       }).toList();
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Get data class failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.getDataClassFailure);
     });
 
     // Get Person
@@ -195,7 +197,7 @@ class TeacherScoreManagerLogic {
       }).toList();
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data student failure');
+          title: S.current.common_error, message: S.current.getDataStudentFailure);
     });
 
     // Get subject
@@ -209,7 +211,7 @@ class TeacherScoreManagerLogic {
       }).toList();
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data subject failure');
+          title: S.current.common_error, message: S.current.getDataSubjectFailure);
     });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/class_response.dart';
 import '../../../../model/response/person_response.dart';
 import '../../../../model/response/specialized_response.dart';
@@ -20,7 +21,7 @@ class CreateTuitionState {
   Rx<ClassResponse> classResponseSelected = ClassResponse().obs;
 
   RxList<String> yearSchool = <String>[].obs;
-  Rx<String> yearSchoolSelected = 'All'.obs;
+  Rx<String> yearSchoolSelected = S.current.common_all.obs;
   RxInt semesterPositionSelected = 0.obs;
   RxList<String> listSemester = <String>[
     "1",

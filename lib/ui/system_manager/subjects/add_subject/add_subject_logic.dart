@@ -35,7 +35,7 @@ class AddSubjectLogic {
       }).toList();
       state.stateLoading.value = false;
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
       state.stateLoading.value = false;
     });
   }
@@ -68,9 +68,9 @@ class AddSubjectLogic {
       callback(id);
       state.stateLoading.value = false;
       Get.back(closeOverlays: true);
-      AppSnackBar.showSuccess(title: 'Success', message: 'Add subject success');
+      AppSnackBar.showSuccess(title: S.current.common_success, message: S.current.addSubjectSuccess);
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Add subject failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.addSubjectFailure);
       state.stateLoading.value = false;
     });
   }

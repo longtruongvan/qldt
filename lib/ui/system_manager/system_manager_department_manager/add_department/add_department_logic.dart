@@ -8,6 +8,8 @@ import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/add_department/add_department_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../generated/l10n.dart';
+
 class AddDepartmentLogic extends GetxController{
   final state = AddDepartmentState();
 
@@ -66,8 +68,8 @@ class AddDepartmentLogic extends GetxController{
         state.locationTextController.text == '' ||
         state.descriptionTextController.text == '') {
       Get.snackbar(
-        'Error',
-        'You have not provided enough information',
+        S.current.common_error,
+        S.current.youHaveNotProvidedEnoughInformation,
         backgroundColor: AppColors.warningColor,
         colorText: AppColors.whiteColor,
       );
@@ -90,16 +92,16 @@ class AddDepartmentLogic extends GetxController{
       state.stateLoading.value = false;
       Get.back(closeOverlays: true);
       Get.snackbar(
-        'Success',
-        'Add department success',
+        S.current.common_success,
+        S.current.addDepartmentSuccess,
         backgroundColor: AppColors.successColor,
         colorText: AppColors.whiteColor,
       );
     }).catchError((onError) {
       state.stateLoading.value = false;
       Get.snackbar(
-        'Error',
-        'Add department failure',
+        S.current.common_error,
+        S.current.addDepartmentFailure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );

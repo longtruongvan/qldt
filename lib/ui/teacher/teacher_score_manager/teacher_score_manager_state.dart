@@ -4,6 +4,8 @@ import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/model/response/subject_response.dart';
 
+import '../../../generated/l10n.dart';
+
 class TeacherScoreManagerState {
   RxList<SpecializedResponse> currentListSpecialized =
       <SpecializedResponse>[].obs;
@@ -14,7 +16,7 @@ class TeacherScoreManagerState {
   RxList<ClassResponse> listClassResponse = <ClassResponse>[].obs;
   Rx<ClassResponse> classResponseSelected = ClassResponse().obs;
   RxList<String> yearSchool = <String>[].obs;
-  Rx<String> yearSchoolSelected = 'All'.obs;
+  Rx<String> yearSchoolSelected = S.current.common_all.obs;
 
   RxList<PersonResponse> currentListPersonResponse = <PersonResponse>[].obs;
   RxList<PersonResponse> listPersonResponse = <PersonResponse>[].obs;

@@ -7,6 +7,7 @@ import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class CreateExamSchedulePage extends StatefulWidget {
@@ -286,7 +287,8 @@ class _CreateExamSchedulePageState extends State<CreateExamSchedulePage> {
               color: AppColors.whiteColor,
             ),
             value: state.subjectSelected.value.name,
-            hint: Text('Select subject', style: AppTextStyle.colorGrayS18W500),
+            hint: Text(S.of(context).common_select_subject,
+                style: AppTextStyle.colorGrayS18W500),
             onChanged: (value) {
               logic.checkSubjectSelected(value as String);
             },
@@ -335,7 +337,8 @@ class _CreateExamSchedulePageState extends State<CreateExamSchedulePage> {
               color: AppColors.whiteColor,
             ),
             value: state.classSelected.value.name,
-            hint: Text('Select class', style: AppTextStyle.colorGrayS18W500),
+            hint: Text(S.of(context).common_select_class,
+                style: AppTextStyle.colorGrayS18W500),
             onChanged: (value) {
               logic.checkClassSelected(value as String);
             },

@@ -4,6 +4,7 @@ import 'package:qldt/ui/teacher/tuition/search_tution/search_tuition_state.dart'
 import 'package:qldt/ui/teacher/tuition/tuition_state.dart';
 
 import '../../../../common/app_snack_bar.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/class_response.dart';
 import '../../../../model/response/person_response.dart';
 import '../../../../model/response/specialized_response.dart';
@@ -75,7 +76,7 @@ class SearchTuitionLogic extends GetxController{
       }).toList();
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data specialized failure');
+          title: S.current.common_error, message: S.current.getDataSpecializedFailure);
     });
 
     // Get Class
@@ -88,7 +89,7 @@ class SearchTuitionLogic extends GetxController{
         state.listClassResponse.add(response);
       }).toList();
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Get data class failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.getDataClassFailure);
     });
 
     // Get Person
@@ -102,7 +103,7 @@ class SearchTuitionLogic extends GetxController{
       }).toList();
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data student failure');
+          title:  S.current.common_error, message: S.current.getDataStudentFailure);
     });
   }
 }

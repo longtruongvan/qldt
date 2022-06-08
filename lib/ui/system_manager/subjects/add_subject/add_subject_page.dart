@@ -6,6 +6,7 @@ import 'package:qldt/common/app_dimens.dart';
 import 'package:qldt/ui/system_manager/subjects/add_subject/add_subject_logic.dart';
 
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 import '../../../widgets/textfields/app_label_text_field.dart';
 
@@ -103,14 +104,14 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
             const SizedBox(
               height: AppDimens.spacingNormal,
             ),
-            Text('Specialized', style: AppTextStyle.colorDarkS16W500),
+            Text(S.of(context).specialized, style: AppTextStyle.colorDarkS16W500),
             const SizedBox(height: 10),
             _buildSelectSpecializedWidget(),
             const SizedBox(
               height: AppDimens.spacingNormal,
             ),
             AppLabelTextField(
-              title: 'Name subject',
+              title: S.of(context).common_name_subject,
               hintText: "Ex: Flutter",
               titleStyle: AppTextStyle.colorDarkS16W500,
               hintStyle: AppTextStyle.colorGrayS14W500,
@@ -122,7 +123,7 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
               height: AppDimens.spacingNormal,
             ),
             AppLabelTextField(
-              title: 'Code subject',
+              title: S.of(context).add_subject_code_subject,
               hintText: "Ex: Flutter2022",
               titleStyle: AppTextStyle.colorDarkS16W500,
               hintStyle: AppTextStyle.colorGrayS14W500,
@@ -134,7 +135,7 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
               height: AppDimens.spacingNormal,
             ),
             AppLabelTextField(
-              title: 'Number of lesson',
+              title: S.of(context).add_subject_numberOfLesson,
               hintText: "Ex: 60",
               titleStyle: AppTextStyle.colorDarkS16W500,
               hintStyle: AppTextStyle.colorGrayS14W500,
@@ -179,7 +180,7 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
           ),
           value: state.specializedSelected.value.displayName,
           hint:
-              Text('Select specialized', style: AppTextStyle.colorGrayS18W500),
+              Text(S.of(context).common_select_specialized, style: AppTextStyle.colorGrayS18W500),
           onChanged: (value) {
             logic.checkSpecializedSelected(value as String);
           },
@@ -223,7 +224,7 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
-          child: Text('Add Subjects', style: AppTextStyle.colorDarkS24W500),
+          child: Text(S.of(context).addSubjects, style: AppTextStyle.colorDarkS24W500),
         ),
       ],
     );

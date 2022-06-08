@@ -16,6 +16,7 @@ import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 
 class StudentHomePage extends StatefulWidget {
   const StudentHomePage({Key? key}) : super(key: key);
@@ -57,12 +58,12 @@ class _StudentHomePageState extends State<StudentHomePage> {
           ),
           Row(
             children: [
-              _buildItemTopicWidget('Score', () {
+              _buildItemTopicWidget(S.of(context).common_score, () {
                 Get.to(const TeacherScoreManagerPage(
                   typeScoreManager: TypeScoreManager.student,
                 ));
               }, AppImages.imgSpecialized1),
-              _buildItemTopicWidget('Course', () {
+              _buildItemTopicWidget(S.of(context).common_course, () {
                 Get.to(const ListRegisterPage());
               }, AppImages.imgDepartmentManager),
             ],
@@ -72,10 +73,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
           ),
           Row(
             children: [
-              _buildItemTopicWidget('Exam schedule', () {
+              _buildItemTopicWidget(S.of(context).common_exam_schedule, () {
                 Get.to(const ListExamPage());
               }, AppImages.imgSpecialized),
-              _buildItemTopicWidget('Tuition', () {
+              _buildItemTopicWidget(S.of(context).tuition.replaceAll(':', ''), () {
                 Get.to(DetailTuitionPage(
                   personResponse: [authService.person.value!],
                 ));

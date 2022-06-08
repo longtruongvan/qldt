@@ -6,6 +6,7 @@ import 'package:qldt/ui/student/student_home/detail_register/detail_register_log
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class DetailRegisterPage extends StatefulWidget {
@@ -73,18 +74,18 @@ class _DetailRegisterPageState extends State<DetailRegisterPage> {
                   ),
                 ),
                 children: [
-                  _buildRowTableWidget('Name course','${widget.courseEntity.subjectResponse?.name}'),
-                  _buildRowTableWidget('Specialized','${widget.courseEntity.specializedResponse?.name}'),
-                  _buildRowTableWidget('Time payment',widget.courseEntity.subjectRegisterRequest
+                  _buildRowTableWidget(S.of(context).course_name_course,'${widget.courseEntity.subjectResponse?.name}'),
+                  _buildRowTableWidget(S.of(context).specialized,'${widget.courseEntity.specializedResponse?.name}'),
+                  _buildRowTableWidget(S.of(context).course_time_payment,widget.courseEntity.subjectRegisterRequest
                       ?.timePayment ??
-                      'Unknown'),
-                  _buildRowTableWidget('Status','${widget.courseEntity.subjectRegisterRequest?.isAccept}'),
-                  _buildRowTableWidget('Period',widget.courseEntity.subjectRegisterRequest
+                      S.of(context).common_unknown),
+                  _buildRowTableWidget(S.of(context).common_status,'${widget.courseEntity.subjectRegisterRequest?.isAccept}'),
+                  _buildRowTableWidget(S.of(context).course_period,widget.courseEntity.subjectRegisterRequest
                       ?.propossedTime?.period ??
-                      'Unknown'),
-                  _buildRowTableWidget('Number of period',widget.courseEntity.subjectRegisterRequest
+                      S.of(context).common_unknown),
+                  _buildRowTableWidget(S.of(context).course_number_of_period,widget.courseEntity.subjectRegisterRequest
                       ?.propossedTime?.numberOfPeriod ??
-                      'Unknown'),
+                      S.of(context).common_unknown),
                 ],
               ),
               const SizedBox(
@@ -107,7 +108,7 @@ class _DetailRegisterPageState extends State<DetailRegisterPage> {
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
           child: Text(
-            "Detail course",
+            S.of(context).course_detail_course,
             style: AppTextStyle.colorDarkS24W500,
           ),
         ),

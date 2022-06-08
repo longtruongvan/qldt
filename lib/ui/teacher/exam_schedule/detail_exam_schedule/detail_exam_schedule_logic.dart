@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qldt/common/app_snack_bar.dart';
+import 'package:qldt/generated/l10n.dart';
 import 'package:qldt/model/entity/detail_exam_entity.dart';
 import 'package:qldt/model/response/class_response.dart';
 import 'package:qldt/model/response/example_schedule_response.dart';
@@ -51,7 +52,7 @@ class DetailExamScheduleLogic extends GetxController {
       }
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get info subject failure');
+          title: S.current.common_error, message: S.current.getInfoSubjectFailure);
       callback(null);
     });
   }
@@ -69,7 +70,7 @@ class DetailExamScheduleLogic extends GetxController {
       }
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get info subject failure');
+          title: S.current.common_error, message: S.current.getInfoSubjectFailure);
       callback(null);
     });
   }

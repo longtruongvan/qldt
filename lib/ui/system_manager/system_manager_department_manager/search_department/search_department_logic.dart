@@ -5,6 +5,7 @@ import 'package:qldt/model/response/department_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/search_department/search_department_state.dart';
 
 import '../../../../common/app_colors.dart';
+import '../../../../generated/l10n.dart';
 
 class SearchDepartmentLogic extends GetxController {
   final state = SearchDepartmentState();
@@ -94,8 +95,8 @@ class SearchDepartmentLogic extends GetxController {
       state.mergeRequest.value -= 1;
     }).catchError((onError){
       Get.snackbar(
-        'Error',
-        'Fetch data failure',
+        S.current.common_error,
+        S.current.common_fetch_data_failure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );
@@ -120,8 +121,8 @@ class SearchDepartmentLogic extends GetxController {
       state.mergeRequest.value -= 1;
     }).catchError((onError){
       Get.snackbar(
-        'Error',
-        'Fetch data failure',
+        S.current.common_error,
+        S.current.common_fetch_data_failure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );

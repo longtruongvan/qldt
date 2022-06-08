@@ -109,10 +109,10 @@ class _ViewScorePageState extends State<ViewScorePage> {
       },
       children: [
         TableRow(children: [
-          _buildTitleTableWidget('STT'),
-          _buildTitleTableWidget('Name'),
-          _buildTitleTableWidget('Code'),
-          _buildTitleTableWidget('Birth day'),
+          _buildTitleTableWidget(S.of(context).stt),
+          _buildTitleTableWidget(S.of(context).name),
+          _buildTitleTableWidget(S.of(context).common_code),
+          _buildTitleTableWidget(S.of(context).birthDay),
         ]),
       ],
     );
@@ -214,8 +214,8 @@ class _ViewScorePageState extends State<ViewScorePage> {
               const SizedBox(width: 5),
               Text(
                   (state.listScoreEntity[index].isEdit ?? false)
-                      ? 'Save'
-                      : 'Edit',
+                      ? S.of(context).save
+                      : S.of(context).edit,
                   style: AppTextStyle.colorGrayS14W500.copyWith(
                     color: (state.listScoreEntity[index].isEdit ?? false)
                         ? AppColors.whiteColor
@@ -230,11 +230,11 @@ class _ViewScorePageState extends State<ViewScorePage> {
         onTap: () {
           Get.dialog(AlertDialog(
             title: Text(
-              'Do you really want to delete?',
+              S.of(context).doYouReallyWantToDelete,
               style: AppTextStyle.color3C3A36S16W500,
             ),
             content: Text(
-              'The points will return to the value 0. Please confirm',
+              S.of(context).thePointsWillReturnToTheValue0PleaseConfirm,
               style: AppTextStyle.color3C3A36S16,
             ),
             actions: [
@@ -243,7 +243,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
                     Get.back();
                   },
                   child: Text(
-                    'Cancel',
+                    S.of(context).common_cancel,
                     style: AppTextStyle.colorPrimaryS16,
                   )),
               FlatButton(
@@ -269,7 +269,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
             children: [
               const Icon(Icons.remove, size: 18, color: AppColors.grayColor),
               const SizedBox(width: 5),
-              Text('Remove', style: AppTextStyle.colorGrayS14W500),
+              Text(S.of(context).remove, style: AppTextStyle.colorGrayS14W500),
             ],
           ),
         ),
@@ -456,7 +456,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
           const SizedBox(width: AppDimens.spacingNormal),
           Obx(
             () => Text(
-              "Score(${state.listScoreEntity.length}/${widget.students.length})",
+              "${S.of(context).common_score}(${state.listScoreEntity.length}/${widget.students.length})",
               style: AppTextStyle.colorDarkS24W500,
             ),
           ),
@@ -479,7 +479,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
     logic.checkScoreStudent();
     Get.dialog(AlertDialog(
       title: Text(
-        'Detail info',
+        S.of(context).detailInfo,
         style: AppTextStyle.color3C3A36S18W500,
       ),
       content: SizedBox(

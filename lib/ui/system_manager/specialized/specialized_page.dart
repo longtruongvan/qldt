@@ -9,6 +9,7 @@ import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/ui/system_manager/specialized/detail_specialized/detail_specialized_page.dart';
 import 'package:qldt/ui/system_manager/specialized/specialized_logic.dart';
 
+import '../../../generated/l10n.dart';
 import '../../widgets/button/back_button.dart';
 import '../../widgets/textfields/app_text_field.dart';
 import 'add_specialized/add_specialized_page.dart';
@@ -151,7 +152,7 @@ class _SpecializedPageState extends State<SpecializedPage> {
             const SizedBox(width: AppDimens.spacingNormal),
             Expanded(
               child: Text(
-                "Specialized",
+                S.of(context).specialized,
                 style: AppTextStyle.colorDarkS24W500,
               ),
             ),
@@ -185,7 +186,7 @@ class _SpecializedPageState extends State<SpecializedPage> {
   Widget _buildSearchWidget() {
     return AppTextField(
       controller: state.searchTextController,
-      hintText: 'Search',
+      hintText: S.of(context).common_search,
       hintStyle: AppTextStyle.colorGrayS14W500,
       suffixIcon: const Icon(
         Icons.search,

@@ -8,6 +8,7 @@ import 'package:qldt/ui/system_manager/subjects/detail_subject/detail_subject_lo
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_images.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 import '../../../widgets/textfields/app_label_text_field.dart';
 
@@ -192,7 +193,7 @@ class _DetailSubjectPageState extends State<DetailSubjectPage> {
               height: AppDimens.spacingNormal,
             ),
             Obx(() => _buildInfoItemRow(
-                  tile: 'Name subject',
+                  tile: S.of(context).common_name_subject,
                   hint: 'Ex: Flutter',
                   controller: state.nameSubjectTextController,
                 )),

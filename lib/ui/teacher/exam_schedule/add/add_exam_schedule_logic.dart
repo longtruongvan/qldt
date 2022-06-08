@@ -11,6 +11,8 @@ import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/teacher/exam_schedule/add/add_exam_schedule_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../generated/l10n.dart';
+
 class CreateExamScheduleLogic extends GetxController {
   final state = CreateExamScheduleState();
   final authService = Get.find<AuthService>();
@@ -29,8 +31,8 @@ class CreateExamScheduleLogic extends GetxController {
         state.locationTextController.text == '' ||
         state.titleTextController.text == '') {
       AppSnackBar.showWarning(
-          title: 'Warning',
-          message: 'You have not filled in enough information');
+          title: S.current.common_warning,
+          message: S.current.youHaveNotFilledInEnoughInformation);
       return;
     }
 
@@ -89,10 +91,10 @@ class CreateExamScheduleLogic extends GetxController {
         .then((value) {
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
-          title: 'Success', message: 'Create exam schedule success');
+          title: S.current.common_success, message: S.current.createExamScheduleSuccess);
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Create exam schedule failure');
+          title:  S.current.common_error, message: S.current.createExamScheduleFailure);
     });
   }
 

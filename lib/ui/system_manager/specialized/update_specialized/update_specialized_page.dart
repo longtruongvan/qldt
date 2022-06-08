@@ -6,6 +6,7 @@ import 'package:qldt/ui/system_manager/specialized/update_specialized/update_spe
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 import '../../../widgets/textfields/app_label_text_field.dart';
 
@@ -118,25 +119,25 @@ class _UpdateSpecializedPageState extends State<UpdateSpecializedPage> {
         children: [
           const SizedBox(height: AppDimens.spacingNormal),
           AppLabelTextField(
-            title: 'Code',
+            title: S.of(context).common_code,
             titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input code',
+            hintText: S.of(context).inputCode,
             hintStyle: AppTextStyle.colorGrayS18W500,
             controller: state.codeTextController,
           ),
           const SizedBox(height: AppDimens.spacingNormal),
           AppLabelTextField(
-            title: 'Name',
+            title: S.of(context).name,
             titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input name',
+            hintText: S.of(context).inputName,
             hintStyle: AppTextStyle.colorGrayS18W500,
             controller: state.nameTextController,
           ),
           const SizedBox(height: AppDimens.spacingNormal),
           AppLabelTextField(
-            title: 'Display name',
+            title: S.of(context).displayName,
             titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input display name',
+            hintText: S.of(context).inputDisplayName,
             hintStyle: AppTextStyle.colorGrayS18W500,
             controller: state.displayNameTextController,
           )
@@ -156,7 +157,7 @@ class _UpdateSpecializedPageState extends State<UpdateSpecializedPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text(
-          "Update specialized",
+          S.of(context).updateSpecialized,
           style: AppTextStyle.colorDarkS24W500,
         ),
         const SizedBox(

@@ -72,14 +72,14 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
           ),
           Row(
             children: [
-              _buildItemTopicWidget('Score', () {
+              _buildItemTopicWidget(S.of(context).common_score, () {
                 // Get.to(const ViewScorePage(students: []));
                 Get.to(const TeacherScoreManagerPage(
                   typeScoreManager: TypeScoreManager.teacher,
                 ));
               }, AppImages.imgSpecialized1),
               // _buildItemTopicWidget('Đăng ký học', () {}),
-              _buildItemTopicWidget('Exam schedule', () {
+              _buildItemTopicWidget(S.of(context).common_exam_schedule, () {
                 Get.to(const ExamSchedulePage());
               }, AppImages.imgDepartmentManager),
             ],
@@ -89,12 +89,12 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
           ),
           Row(
             children: [
-              _buildItemTopicWidget('Department', () {
+              _buildItemTopicWidget(S.of(context).departmentManager, () {
                 Get.to(const SystemManagerDepartmentManagerPage(
                   isSystemManager: false,
                 ));
               }, AppImages.imgSpecialized),
-              _buildItemTopicWidget('Tuition', () {
+              _buildItemTopicWidget(S.of(context).tuition, () {
                 Get.to(const TuitionPage());
               }, AppImages.imgCoruse),
             ],

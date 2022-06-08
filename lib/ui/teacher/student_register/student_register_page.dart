@@ -24,7 +24,7 @@ class _StudentRegisterListState extends State<StudentRegisterList>
   final logic = Get.put(StudentRegisterLogic());
   final state = Get.find<StudentRegisterLogic>().state;
   late TabController _tabController;
-  int indexTab =0;
+  int indexTab = 0;
 
   @override
   void initState() {
@@ -66,7 +66,7 @@ class _StudentRegisterListState extends State<StudentRegisterList>
     return TabBar(
       indicatorColor: Colors.transparent,
       isScrollable: true,
-      onTap: (index){
+      onTap: (index) {
         indexTab = index;
       },
       tabs: state.course.entries.map((response) {
@@ -117,10 +117,10 @@ class _StudentRegisterListState extends State<StudentRegisterList>
                 (state.course[map.key]?[index].subjectRegisterRequest
                             ?.isAccept ??
                         false)
-                    ? const Text(
-                        'is accept',
-                        style: TextStyle(
-                          color: AppColors.grayColor,
+                    ? Text(
+                        S.of(context).isAccept,
+                        style: const TextStyle(
+                          color: AppColors.successColor,
                         ),
                       )
                     // : GestureDetector(
@@ -149,21 +149,28 @@ class _StudentRegisterListState extends State<StudentRegisterList>
         margin: const EdgeInsets.only(top: AppDimens.spacingNormal),
         child: TabBarView(
           children: state.course.entries.map((map) {
-            return ListView.separated(
-              itemBuilder: (c, index) {
-                return _buildItemRegisterWidget(index, map);
-              },
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimens.spacingNormal,
-              ),
-              shrinkWrap: true,
-              itemCount: (map.value).length,
-              separatorBuilder: (c, index) {
-                return const Divider(
-                  height: 2,
-                  color: AppColors.grayColor,
-                );
-              },
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (c, index) {
+                      return _buildItemRegisterWidget(index, map);
+                    },
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimens.spacingNormal,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: (map.value).length,
+                    separatorBuilder: (c, index) {
+                      return const Divider(
+                        height: 2,
+                        color: AppColors.grayColor,
+                      );
+                    },
+                  ),
+                ),
+                _buildButtonSubmitWidget(logic.checkHideOrShowButtonSubmit(map.value)),
+              ],
             );
           }).toList(),
         ),
@@ -182,12 +189,12 @@ class _StudentRegisterListState extends State<StudentRegisterList>
                 height: AppDimens.spacingNormal,
               ),
               Container(
-                  padding: const EdgeInsets.only(
-                    left: AppDimens.spacingNormal,
-                  ),
-                  child: _buildTabSubjectTitleWidget()),
+                padding: const EdgeInsets.only(
+                  left: AppDimens.spacingNormal,
+                ),
+                child: _buildTabSubjectTitleWidget(),
+              ),
               _buildListCourseRegisterWidget(),
-              _buildButtonSubmitWidget(),
             ],
           ),
         ),
@@ -195,7 +202,10 @@ class _StudentRegisterListState extends State<StudentRegisterList>
     );
   }
 
-  Widget _buildButtonSubmitWidget() {
+  Widget _buildButtonSubmitWidget(bool status) {
+    if(status){
+      return Container();
+    }
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
       color: AppColors.whiteColor,
@@ -212,7 +222,7 @@ class _StudentRegisterListState extends State<StudentRegisterList>
           Get.to(CreateTimeTablePage(
             title: listCourseEntity.first.subjectResponse?.name ?? '',
             listCourseEntity: listCourseEntity,
-            callback: (){
+            callback: () {
               logic.fetchData();
             },
           ));

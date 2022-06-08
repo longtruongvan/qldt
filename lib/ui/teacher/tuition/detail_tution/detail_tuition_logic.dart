@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:qldt/generated/l10n.dart';
 import 'package:qldt/model/entity/tuition_entity.dart';
 import 'package:qldt/model/response/person_response.dart';
 import 'package:qldt/model/response/tuition_response.dart';
@@ -17,11 +18,11 @@ class DetailTuitionLogic {
         .collection('Tuition')
         .doc(state.listTuition[index].tuitionResponse.id)
         .update({'state': true}).then((value) {
-      AppSnackBar.showSuccess(title: 'Success', message: 'Payment success');
+      AppSnackBar.showSuccess(title: S.current.common_success, message: S.current.paymentSuccess);
       state.listTuition[index].tuitionResponse.state = true;
       state.listTuition.refresh();
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Payment failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.paymentFailure);
     });
   }
 

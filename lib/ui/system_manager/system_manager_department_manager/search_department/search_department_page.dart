@@ -6,6 +6,7 @@ import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_images.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/building_response.dart';
 import '../../../../model/response/department_response.dart';
 import '../../../widgets/button/back_button.dart';
@@ -117,7 +118,7 @@ class _SearchDepartmentPageState extends State<SearchDepartmentPage> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                "Status: ${(departmentResponse.status ?? false) ? "Online" : "Offline"}",
+                "${S.of(context).common_status} ${(departmentResponse.status ?? false) ? "Online" : "Offline"}",
                 style: AppTextStyle.colorWhiteS14W500,
               ),
             )
@@ -159,7 +160,7 @@ class _SearchDepartmentPageState extends State<SearchDepartmentPage> {
   Widget _buildSearchWidget() {
     return AppTextField(
       controller: state.searchTextController,
-      hintText: 'Search',
+      hintText: S.of(context).common_search,
       hintStyle: AppTextStyle.colorGrayS14W500,
       suffixIcon: const Icon(
         Icons.search,
@@ -181,7 +182,7 @@ class _SearchDepartmentPageState extends State<SearchDepartmentPage> {
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
           child:
-              Text('Search department', style: AppTextStyle.colorDarkS24W500),
+              Text(S.of(context).searchDepartment, style: AppTextStyle.colorDarkS24W500),
         ),
       ],
     );

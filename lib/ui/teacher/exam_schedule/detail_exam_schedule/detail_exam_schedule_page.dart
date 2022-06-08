@@ -5,6 +5,7 @@ import 'package:qldt/ui/teacher/exam_schedule/detail_exam_schedule/detail_exam_s
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/example_schedule_response.dart';
 import '../../../widgets/button/back_button.dart';
 
@@ -80,16 +81,16 @@ class _DetailExamSchedulePageState extends State<DetailExamSchedulePage> {
                     ),
                     children: [
                       _buildRowTableWidget(
-                          'Title', '${widget.exampleScheduleResponse.title}'),
-                      _buildRowTableWidget('Subject',
+                          S.of(context).detail_exam_title, '${widget.exampleScheduleResponse.title}'),
+                      _buildRowTableWidget(S.of(context).detail_exam_subject,
                           '${state.detailExamEntity.value.subjectResponse?.name ?? widget.exampleScheduleResponse.subjectId}'),
-                      _buildRowTableWidget('Time',
+                      _buildRowTableWidget(S.of(context).detail_exam_time,
                           '${widget.exampleScheduleResponse.timeStart} - ${widget.exampleScheduleResponse.timeEnd}'),
-                      _buildRowTableWidget('Day',
+                      _buildRowTableWidget(S.of(context).detail_exam_day,
                           '${state.detailExamEntity.value.timeFormat ?? widget.exampleScheduleResponse.dayStart}'),
                       // _buildRowTableWidget(
                       //     'Class', widget.exampleScheduleResponse.idClass ?? ''),
-                      _buildRowTableWidget('Description',
+                      _buildRowTableWidget(S.of(context).detail_exam_description,
                           widget.exampleScheduleResponse.description ?? ''),
                     ],
                   )),
@@ -135,7 +136,7 @@ class _DetailExamSchedulePageState extends State<DetailExamSchedulePage> {
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
           child: Text(
-            "Detail exam schedule",
+            S.of(context).detailExamSchedule,
             style: AppTextStyle.colorDarkS24W500,
           ),
         ),

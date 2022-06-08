@@ -9,6 +9,7 @@ import 'package:qldt/ui/teacher/tuition/tuition_logic.dart';
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 import '../../../widgets/textfields/app_label_text_field.dart';
 
@@ -89,49 +90,49 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
           children: [
             const SizedBox(height: AppDimens.spacingNormal),
             Text(
-              'Select Specialized',
+              S.of(context).common_select_specialized,
               style: AppTextStyle.color3C3A36S18W500,
             ),
             const SizedBox(height: 10),
             _buildSelectSpecializedDropdownWidget(),
             const SizedBox(height: AppDimens.spacingNormal),
             Text(
-              'Select class',
+              S.of(context).common_select_class,
               style: AppTextStyle.color3C3A36S18W500,
             ),
             const SizedBox(height: 10),
             _buildSelectClassDropdownWidget(),
             const SizedBox(height: AppDimens.spacingNormal),
             Text(
-              'Select student',
+              S.of(context).common_select_student,
               style: AppTextStyle.color3C3A36S18W500,
             ),
             const SizedBox(height: 10),
             _buildSelectStudentDropdownWidget(),
             const SizedBox(height: AppDimens.spacingNormal),
             Text(
-              'Select time',
+              S.of(context).selectTime,
               style: AppTextStyle.color3C3A36S18W500,
             ),
             const SizedBox(height: 10),
             _buildSelectTimeDropdownWidget(),
             const SizedBox(height: AppDimens.spacingNormal),
             Obx(() {
-              if (state.yearSchoolSelected.value == 'All') {
+              if (state.yearSchoolSelected.value == S.of(context).common_all) {
                 return Container();
               }
-              return Text('Select semester',
+              return Text(S.of(context).selectSemester,
                   style: AppTextStyle.color3C3A36S18W500);
             }),
             Obx(() => SizedBox(
-                height: (state.yearSchoolSelected.value == 'All') ? 0 : 10)),
+                height: (state.yearSchoolSelected.value == S.of(context).common_all) ? 0 : 10)),
             _buildSelectSemesterWidget(),
             Obx(() => SizedBox(
-                height: (state.yearSchoolSelected.value == 'All')
+                height: (state.yearSchoolSelected.value == S.of(context).common_all)
                     ? 0
                     : AppDimens.spacingNormal)),
             AppLabelTextField(
-              title: 'Tuition (VND)',
+              title: '${S.of(context).tuition} (VND)',
               titleStyle: AppTextStyle.color3C3A36S18W500,
               hintText: 'Ex: 1000000',
               hintStyle: AppTextStyle.colorGrayS18W500,
@@ -155,7 +156,7 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
 
   Widget _buildSelectSemesterWidget() {
     return Obx(() {
-      if (state.yearSchoolSelected.value == 'All') {
+      if (state.yearSchoolSelected.value == S.of(context).common_all) {
         return Container();
       }
       return Container(
@@ -177,8 +178,8 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
             hint: Text(
                 (state.listPersonResponse.isNotEmpty &&
                         state.listClassResponse.isNotEmpty)
-                    ? 'All'
-                    : 'No data',
+                    ? S.of(context).common_all
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkSemester(value as String);
@@ -232,8 +233,8 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
           hint: Text(
               (state.listPersonResponse.isNotEmpty &&
                       state.listClassResponse.isNotEmpty)
-                  ? 'All'
-                  : 'No data',
+                  ? S.of(context).common_all
+                  : S.of(context).common_no_data,
               style: AppTextStyle.color3C3A36S18W500),
           onChanged: (value) {
             logic.checkTimeSchoolYear(value as String);
@@ -318,8 +319,8 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
             hint: Text(
                 (state.listPersonResponse.isNotEmpty &&
                         state.listClassResponse.isNotEmpty)
-                    ? 'All'
-                    : 'No data',
+                    ? S.of(context).common_all
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkPersonSelected(value as String);
@@ -374,8 +375,8 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
             value: state.classResponseSelected.value.name,
             hint: Text(
                 (state.listClassResponse.isNotEmpty)
-                    ? 'Select class'
-                    : 'No data',
+                    ? S.of(context).common_select_class
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkClassSelected(value as String);
@@ -430,8 +431,8 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
             value: state.specializedSelected.value.displayName,
             hint: Text(
                 state.listSpecialized.isNotEmpty
-                    ? 'Select specialized'
-                    : 'No data',
+                    ? S.of(context).common_select_specialized
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkSpecializedSelected(value as String);
@@ -479,7 +480,7 @@ class _CreateTuitionPageState extends State<CreateTuitionPage> {
           const SizedBox(width: AppDimens.spacingNormal),
           Expanded(
             child: Text(
-              "Tuition manager",
+              S.of(context).tuitionManager,
               style: AppTextStyle.colorDarkS24W500,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

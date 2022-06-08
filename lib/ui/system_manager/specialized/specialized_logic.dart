@@ -6,6 +6,8 @@ import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/ui/system_manager/specialized/specialized_state.dart';
 
+import '../../../generated/l10n.dart';
+
 class SpecializedLogic extends GetxController {
   final state = SpecializedState();
 
@@ -48,8 +50,8 @@ class SpecializedLogic extends GetxController {
     }).catchError((onError) {
       state.stateLoading.value = false;
       AppSnackBar.showError(
-        title: 'Error',
-        message: 'Fetch data failure',
+        title: S.current.common_error,
+        message: S.current.common_fetch_data_failure,
       );
     });
   }

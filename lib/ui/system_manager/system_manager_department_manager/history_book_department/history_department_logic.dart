@@ -5,6 +5,8 @@ import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/department_history_response.dart';
 import 'package:qldt/ui/system_manager/system_manager_department_manager/history_book_department/history_department_state.dart';
 
+import '../../../../generated/l10n.dart';
+
 class HistoryDepartmentLogic extends GetxController {
   final state = HistoryDepartmentState();
 
@@ -26,7 +28,7 @@ class HistoryDepartmentLogic extends GetxController {
         state.listHistory.add(response);
       }).toList();
     }).onError((handleError) {
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
     });
   }
 }

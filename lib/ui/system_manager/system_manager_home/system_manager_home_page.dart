@@ -11,6 +11,7 @@ import 'package:qldt/ui/system_manager/manager_user/manager_user_page.dart';
 import 'package:qldt/ui/system_manager/specialized/specialized_page.dart';
 import 'package:qldt/ui/system_manager/subjects/subject_page.dart';
 
+import '../../../generated/l10n.dart';
 import 'system_manager_home_logic.dart';
 
 class SystemManagerHomePage extends StatefulWidget {
@@ -115,7 +116,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "Subject Manager",
+                S.of(context).subjectManager,
                 style: AppTextStyle.color3C3A36S24W500,
               ),
             ),
@@ -124,7 +125,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "Add, edit, delete, search, set subject, ...",
+                S.of(context).addEditDeleteSearchSetSubject,
                 style: AppTextStyle.color3C3A36S14W400,
               ),
             ),
@@ -168,7 +169,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "Specialized Manager",
+                S.of(context).system_mn_specializedManager,
                 style: AppTextStyle.color3C3A36S24W500,
               ),
             ),
@@ -177,7 +178,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "Add, edit, delete, search, set specialized, ...",
+                S.of(context).addEditDeleteSearchSetSpecialized,
                 style: AppTextStyle.color3C3A36S14W400,
               ),
             ),
@@ -204,7 +205,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hello,',
+                '${S.of(context).common_hello},',
                 style: AppTextStyle.color3C3A36S16,
               ),
               Text(
@@ -283,7 +284,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "Department Manager",
+                S.of(context).departmentManager,
                 style: AppTextStyle.color3C3A36S24W500,
               ),
             ),
@@ -292,7 +293,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "Add, edit, delete, search, set departments, ...",
+                S.of(context).addEditDeleteSearchSetDepartments,
                 style: AppTextStyle.color3C3A36S14W400,
               ),
             ),
@@ -336,7 +337,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "User Manager",
+                S.of(context).userManager,
                 style: AppTextStyle.color3C3A36S24W500,
               ),
             ),
@@ -345,7 +346,7 @@ class _SystemManagerHomePageState extends State<SystemManagerHomePage>
                 horizontal: AppDimens.spacingNormal,
               ),
               child: Text(
-                "You can add or level permissions for user, ...",
+                S.of(context).youCanAddOrLevelPermissionsForUser,
                 style: AppTextStyle.color3C3A36S14W400,
               ),
             ),

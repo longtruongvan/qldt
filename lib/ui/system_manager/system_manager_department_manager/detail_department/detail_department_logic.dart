@@ -9,6 +9,7 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/detail_
 import 'package:uuid/uuid.dart';
 
 import '../../../../common/app_colors.dart';
+import '../../../../generated/l10n.dart';
 
 class DetailDepartmentLogic extends GetxController {
   final state = DetailDepartmentState();
@@ -53,8 +54,8 @@ class DetailDepartmentLogic extends GetxController {
     }).onError((error) {
       state.statusLoading.value = false;
       Get.snackbar(
-        'Error',
-        'Fetch data failure',
+        S.current.common_error,
+        S.current.common_fetch_data_failure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );
@@ -74,8 +75,8 @@ class DetailDepartmentLogic extends GetxController {
     }).onError((error) {
       state.statusLoading.value = false;
       Get.snackbar(
-        'Error',
-        'Fetch data failure',
+        S.current.common_error,
+        S.current.common_fetch_data_failure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );
@@ -93,16 +94,16 @@ class DetailDepartmentLogic extends GetxController {
       state.statusLoading.value = false;
       Get.back(closeOverlays: true);
       Get.snackbar(
-        'Success',
-        'Delete department success',
+        S.current.common_success,
+        S.current.deleteDepartmentSuccess,
         backgroundColor: AppColors.successColor,
         colorText: AppColors.whiteColor,
       );
     }).catchError((onError) {
       state.statusLoading.value = false;
       Get.snackbar(
-        'Error',
-        'Delete department failure',
+        S.current.common_error,
+        S.current.deleteDepartmentFailure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );
@@ -126,8 +127,8 @@ class DetailDepartmentLogic extends GetxController {
       'idHistory': FieldValue.arrayUnion([idHistory]),
     }).then((value) {
       Get.snackbar(
-        'Success',
-        'Book class room success',
+        S.current.common_success,
+        S.current.bookClassRoomSuccess,
         backgroundColor: AppColors.successColor,
         colorText: AppColors.whiteColor,
       );
@@ -135,8 +136,8 @@ class DetailDepartmentLogic extends GetxController {
     }).catchError((onError) {
       mergeRequest.value--;
       Get.snackbar(
-        'Error',
-        'Book class room failure',
+        S.current.common_error,
+        S.current.bookClassRoomFailure,
         backgroundColor: AppColors.errorColor,
         colorText: AppColors.whiteColor,
       );

@@ -8,6 +8,8 @@ import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/ui/student/student_register_subject/student_register_subject_state.dart';
 import 'package:qldt/ui/student/student_register_subject_2/student_register_subject_next_page.dart';
 
+import '../../../generated/l10n.dart';
+
 class StudentRegisterSubjectLogic {
   final state = StudentRegisterSubjectState();
 
@@ -18,7 +20,7 @@ class StudentRegisterSubjectLogic {
   void clickNextButton(Function() callback) {
     if (state.countSubjectSelected.value == 0) {
       AppSnackBar.showWarning(
-          title: 'Warning', message: 'Please select a subject');
+          title: S.current.common_warning, message: S.current.pleaseSelectASubject);
       return;
     }
 
@@ -90,8 +92,8 @@ class StudentRegisterSubjectLogic {
     }).catchError((onError) {
       state.mergeRequest.value--;
       AppSnackBar.showError(
-        title: 'Error',
-        message: 'Fetch data failure',
+        title: S.current.common_error,
+        message: S.current.common_fetch_data_failure,
       );
     });
 
@@ -107,8 +109,8 @@ class StudentRegisterSubjectLogic {
     }).catchError((onError) {
       state.mergeRequest.value--;
       AppSnackBar.showError(
-        title: 'Error',
-        message: 'Fetch data failure',
+        title: S.current.common_error,
+        message: S.current.common_fetch_data_failure,
       );
     });
   }

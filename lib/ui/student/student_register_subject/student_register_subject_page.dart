@@ -249,7 +249,7 @@ class _StudentRegisterSubjectPageState
                 color: AppColors.whiteColor,
               ),
               value: state.specializedSelected.value.displayName,
-              hint: Text('Select specialized',
+              hint: Text(S.of(context).common_select_specialized,
                   style: AppTextStyle.colorGrayS18W500),
               onChanged: (value) {
                 logic.checkSpecializedSelected(value as String);
@@ -307,7 +307,7 @@ class _StudentRegisterSubjectPageState
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text(
-          "Register subject",
+          S.of(context).register_subject,
           style: AppTextStyle.colorDarkS24W500,
         ),
         const SizedBox(

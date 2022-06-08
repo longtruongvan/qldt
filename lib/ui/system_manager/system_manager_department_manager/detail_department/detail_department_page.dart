@@ -11,6 +11,7 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/update_
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class DetailDepartmentPage extends StatefulWidget {
@@ -104,18 +105,18 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
           ),
           _buildBookNowButtonWidget(),
           Obx(() => _buildInfoItemRowWidget(
-                'Status: ',
+                '${S.of(context).common_status}: ',
                 (state.departmentResponse.value.status ?? false)
                     ? 'Online'
                     : 'Offline',
               )),
           Obx(() => _buildInfoItemRowWidget(
-              'Name: ', '${state.departmentResponse.value.name}')),
+              '${S.of(context).name}: ', '${state.departmentResponse.value.name}')),
           Obx(() => _buildInfoItemRowWidget(
-              'Building: ', state.departmentResponse.value.nameBuilding ?? '')),
+              '${S.of(context).update_department_building}: ', state.departmentResponse.value.nameBuilding ?? '')),
           Obx(() => _buildInfoItemRowWidget(
-              'Location: ', '${state.departmentResponse.value.location}')),
-          Obx(() => _buildInfoItemRowWidget('Description: ',
+              S.of(context).update_department_location, '${state.departmentResponse.value.location}')),
+          Obx(() => _buildInfoItemRowWidget('${S.of(context).update_department_description} ',
               '${state.departmentResponse.value.description}')),
         ],
       ),
@@ -131,11 +132,11 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
               builder: (BuildContext c) {
                 return AlertDialog(
                   title: Text(
-                    'Notification',
+                    S.of(context).common_notification,
                     style: AppTextStyle.colorDarkS20W500,
                   ),
                   content: Text(
-                    "You can't book this room, because someone already booked",
+                    S.of(context).youCantBookThisRoomBecauseSomeoneAlreadyBooked,
                     style: AppTextStyle.colorDarkS16W500,
                   ),
                   actions: [
@@ -178,7 +179,7 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
                       size: 20,
                     ),
                     Text(
-                      "Book now",
+                      S.of(context).bookNow,
                       style: AppTextStyle.colorWhiteS14W500,
                     )
                   ],
@@ -290,17 +291,17 @@ class _DetailDepartmentPageState extends State<DetailDepartmentPage> {
         builder: (BuildContext c) {
           return AlertDialog(
             title: Text(
-              'Notification',
+              S.of(context).common_notification,
               style: AppTextStyle.colorDarkS20W500,
             ),
             content: Text(
-              'Do you want to delete this department? Please confirm.',
+              S.of(context).doYouWantToDeleteThisDepartmentPleaseConfirm,
               style: AppTextStyle.colorDarkS16W500,
             ),
             actions: [
               FlatButton(
                 child: Text(
-                  'Cancel',
+                  S.of(context).common_cancel,
                   style: AppTextStyle.colorPrimaryS16,
                 ),
                 onPressed: () {

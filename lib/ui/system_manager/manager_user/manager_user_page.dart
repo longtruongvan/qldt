@@ -8,6 +8,7 @@ import 'package:qldt/ui/system_manager/manager_user/manager_user_logic.dart';
 
 import '../../../common/app_dimens.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../widgets/button/back_button.dart';
 import '../../widgets/textfields/app_text_field.dart';
 
@@ -115,7 +116,7 @@ class _ManagerUserPageState extends State<ManagerUserPage> {
       padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
       child: AppTextField(
         controller: state.searchTextController,
-        hintText: 'Search',
+        hintText: S.of(context).common_search,
         hintStyle: AppTextStyle.colorGrayS14W500,
         suffixIcon: const Icon(
           Icons.search,
@@ -144,7 +145,7 @@ class _ManagerUserPageState extends State<ManagerUserPage> {
           const SizedBox(width: AppDimens.spacingNormal),
           Expanded(
             child: Text(
-              "User manager",
+              S.of(context).userManager,
               style: AppTextStyle.colorDarkS24W500,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

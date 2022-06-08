@@ -4,6 +4,7 @@ import 'package:qldt/model/response/building_response.dart';
 
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 
 class DialogChooseBuilding extends StatefulWidget {
   final List listBuilding;
@@ -24,7 +25,7 @@ class _DialogChooseBuildingState extends State<DialogChooseBuilding> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        "Select building",
+        S.of(context).common_select_building,
         style: AppTextStyle.colorDarkS16W500,
       ),
       content: SizedBox(

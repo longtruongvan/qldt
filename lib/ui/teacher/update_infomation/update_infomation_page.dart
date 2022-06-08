@@ -95,7 +95,7 @@ class _UpdateInfomationState extends State<UpdateInfomationPage> {
                 textStyle: AppTextStyle.colorGrayS16W500,
                 hintText: (authService.user.value?.phoneNumber) ??
                     (authService.person.value?.phone) ??
-                    'Add phone number',
+                    S.of(context).addPhoneNumber,
                 keyboardType: TextInputType.phone,
                 prefixIcon: const Icon(Icons.phone),
               ),

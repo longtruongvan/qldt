@@ -7,6 +7,7 @@ import 'package:qldt/ui/system_manager/system_manager_department_manager/update_
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 import '../../../widgets/textfields/app_label_text_field.dart';
 import '../add_department_dialog_choose_building/dialog_choose_building.dart';
@@ -135,8 +136,8 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                 );
               },
               child: AppLabelTextField(
-                title: 'Select building',
-                hintText: "Select building",
+                title: S.of(context).common_select_building,
+                hintText: S.of(context).common_select_building,
                 titleStyle: AppTextStyle.colorDarkS16W500,
                 hintStyle: AppTextStyle.colorGrayS14W500,
                 controller: state.nameBuildingTextController,
@@ -149,8 +150,8 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
               height: AppDimens.spacingNormal,
             ),
             AppLabelTextField(
-              title: 'Name department',
-              hintText: "Name department",
+              title: S.of(context).nameDepartment,
+              hintText: S.of(context).nameDepartment,
               titleStyle: AppTextStyle.colorDarkS16W500,
               hintStyle: AppTextStyle.colorGrayS14W500,
               controller: state.nameDepartmentTextController,
@@ -160,8 +161,8 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
               height: AppDimens.spacingNormal,
             ),
             AppLabelTextField(
-              title: 'Location department',
-              hintText: "Location department",
+              title: S.of(context).locationDepartment,
+              hintText: S.of(context).locationDepartment,
               titleStyle: AppTextStyle.colorDarkS16W500,
               hintStyle: AppTextStyle.colorGrayS14W500,
               controller: state.locationTextController,
@@ -171,8 +172,8 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
               height: AppDimens.spacingNormal,
             ),
             AppLabelTextField(
-              title: 'Description department',
-              hintText: "Description department",
+              title: S.of(context).descriptionDepartment,
+              hintText: S.of(context).descriptionDepartment,
               titleStyle: AppTextStyle.colorDarkS16W500,
               hintStyle: AppTextStyle.colorGrayS14W500,
               controller: state.descriptionTextController,
@@ -225,7 +226,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text(
-          "Update department",
+          S.of(context).updateDepartment,
           style: AppTextStyle.colorDarkS24W500,
         ),
       ],

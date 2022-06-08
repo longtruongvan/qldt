@@ -8,6 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../common/app_dimens.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../widgets/button/back_button.dart';
 
 class ExamSchedulePage extends StatefulWidget {
@@ -100,7 +101,7 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
                           child: Row(
                             children: [
                               Text(
-                                'Create exam schedule',
+                                S.of(context).createExamSchedule,
                                 style: AppTextStyle.color3C3A36S18W500
                                     .copyWith(color: AppColors.primaryColor),
                               ),
@@ -137,7 +138,7 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
                           child: Row(
                             children: [
                               Text(
-                                'List of exam schedule',
+                                S.of(context).listOfExamSchedule,
                                 style: AppTextStyle.color3C3A36S18W500
                                     .copyWith(color: AppColors.primaryColor),
                               ),
@@ -170,7 +171,7 @@ class _ExamSchedulePageState extends State<ExamSchedulePage> {
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
           child: Text(
-            "Exam schedule",
+            S.of(context).examSchedule_page,
             style: AppTextStyle.colorDarkS24W500,
           ),
         ),

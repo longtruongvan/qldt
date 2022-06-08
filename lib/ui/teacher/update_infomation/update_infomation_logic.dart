@@ -51,13 +51,13 @@ class UpdateInfomationLogic {
       callback();
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
-        title: 'Success',
-        message: 'Update information success',
+        title: S.current.common_success,
+        message: S.current.updateInformationSuccess,
       );
     }).catchError((onError) {
       AppSnackBar.showError(
-        title: 'Error',
-        message: 'Update information failure',
+        title: S.current.common_error,
+        message: S.current.updateInformationFailure,
       );
     });
   }

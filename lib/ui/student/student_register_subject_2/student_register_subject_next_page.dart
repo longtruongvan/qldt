@@ -7,6 +7,7 @@ import 'package:qldt/ui/widgets/textfields/app_text_field.dart';
 
 import '../../../common/app_dimens.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../../model/response/subject_response.dart';
 import '../../widgets/button/back_button.dart';
 
@@ -115,7 +116,7 @@ class _StudentRegisterSubjectNextPageState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'List Subject',
+            S.of(context).list_subject,
             style: AppTextStyle.color3C3A36S18W500.copyWith(
               color: AppColors.primaryColor,
             ),
@@ -157,7 +158,7 @@ class _StudentRegisterSubjectNextPageState
               height: AppDimens.spacingNormal,
             ),
             Text(
-              'Name subject: ${widget.listSubject[index].name}',
+              '${S.of(context).common_name_subject}: ${widget.listSubject[index].name}',
               style: AppTextStyle.colorGrayS18W500,
             ),
             const SizedBox(
@@ -171,7 +172,7 @@ class _StudentRegisterSubjectNextPageState
               height: AppDimens.spacingNormal,
             ),
             Text(
-              'Specialized: ${widget.specializedResponse.name}',
+              '${S.of(context).specialized}: ${widget.specializedResponse.name}',
               style: AppTextStyle.colorGrayS18W500,
             ),
             const SizedBox(
@@ -238,7 +239,7 @@ class _StudentRegisterSubjectNextPageState
             AppTextField(
               controller: state.listSubjectEntity[index].numberOfPreiodTextController ??
                   TextEditingController(),
-              hintText: 'Number of preriod',
+              hintText: S.of(context).numberOfPeriod,
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.number,
               hintStyle: AppTextStyle.colorGrayS18W500,
@@ -251,7 +252,7 @@ class _StudentRegisterSubjectNextPageState
               controller:
                   state.listSubjectEntity[index].preiodStartTextController ??
                       TextEditingController(),
-              hintText: 'Preriod start',
+              hintText: S.of(context).periodStart,
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.number,
               hintStyle: AppTextStyle.colorGrayS18W500,
@@ -278,7 +279,7 @@ class _StudentRegisterSubjectNextPageState
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
           child: Text(
-            "Register subject (${widget.listSubject.length})",
+            '${S.of(context).registerSubject} (${widget.listSubject.length})',
             style: AppTextStyle.colorDarkS24W500,
           ),
         ),

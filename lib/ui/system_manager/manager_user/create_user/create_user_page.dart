@@ -183,7 +183,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
-          child: Text('Create user', style: AppTextStyle.colorDarkS24W500),
+          child: Text(S.of(context).createUser, style: AppTextStyle.colorDarkS24W500),
         ),
       ],
     );

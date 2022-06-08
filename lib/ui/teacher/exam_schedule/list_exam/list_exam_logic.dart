@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qldt/common/app_snack_bar.dart';
+import 'package:qldt/generated/l10n.dart';
 import 'package:qldt/model/response/example_schedule_response.dart';
 import 'package:qldt/ui/teacher/exam_schedule/list_exam/list_exam_state.dart';
 
@@ -36,7 +37,7 @@ class ListExamLogic extends GetxController {
       state.mergeRequest.value--;
     }).catchError((onError) {
       state.mergeRequest.value--;
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data error');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
     });
   }
 }

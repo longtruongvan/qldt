@@ -209,7 +209,7 @@ class CreateTuitionLogic extends GetxController {
       if (state.currentListClassResponse[i].name == id) {
         state.classResponseSelected.value = state.currentListClassResponse[i];
         state.yearSchool.clear();
-        state.yearSchoolSelected.value = 'All';
+        state.yearSchoolSelected.value = S.current.common_all;
         state.yearSchool
             .addAll(state.currentListClassResponse[i].schoolYear ?? []);
       }
@@ -273,7 +273,7 @@ class CreateTuitionLogic extends GetxController {
       dispatchGroup.value--;
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data specialized failure');
+          title: S.current.common_error, message: S.current.getDataSpecializedFailure);
       dispatchGroup.value--;
     });
 
@@ -288,7 +288,7 @@ class CreateTuitionLogic extends GetxController {
       }).toList();
       dispatchGroup.value--;
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Get data class failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.getDataClassFailure);
       dispatchGroup.value--;
     });
 
@@ -306,7 +306,7 @@ class CreateTuitionLogic extends GetxController {
       dispatchGroup.value--;
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data student failure');
+          title: S.current.common_error, message: S.current.getDataStudentFailure);
       dispatchGroup.value--;
     });
   }

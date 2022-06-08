@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:qldt/ui/teacher/tuition/tuition_state.dart';
 
 import '../../../common/app_snack_bar.dart';
+import '../../../generated/l10n.dart';
 import '../../../model/response/class_response.dart';
 import '../../../model/response/person_response.dart';
 import '../../../model/response/specialized_response.dart';
@@ -48,7 +49,7 @@ class TuitionLogic extends GetxController {
       }
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: 'Error', message: 'Get data student failure');
+          title: S.current.common_error, message: S.current.getDataStudentFailure);
     });
   }
 }

@@ -6,6 +6,8 @@ import 'package:qldt/common/app_text_style.dart';
 import 'package:qldt/ui/student/timetable/time_table_logic.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../generated/l10n.dart';
+
 class TimeTablePage extends StatefulWidget {
   const TimeTablePage({Key? key}) : super(key: key);
 
@@ -124,7 +126,7 @@ class _TimeTablePageState extends State<TimeTablePage> {
                     if (state.currentListCourse.isEmpty) {
                       return Center(
                         child: Text(
-                          "You don't have any class today 😅",
+                          S.of(context).youDontHaveAnyClassToday,
                           style: AppTextStyle.color3C3A36S16W500,
                         ),
                       );

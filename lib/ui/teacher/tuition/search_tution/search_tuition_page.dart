@@ -9,6 +9,7 @@ import 'package:qldt/ui/teacher/tuition/tuition_logic.dart';
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class SearchTuitionPage extends StatefulWidget {
@@ -66,21 +67,21 @@ class _SearchTuitionPageState extends State<SearchTuitionPage> {
           children: [
             const SizedBox(height: AppDimens.spacingNormal),
             Text(
-              'Select Specialized',
+              S.of(context).common_select_specialized,
               style: AppTextStyle.color3C3A36S18W500,
             ),
             const SizedBox(height: 10),
             _buildSelectSpecializedDropdownWidget(),
             const SizedBox(height: AppDimens.spacingNormal),
             Text(
-              'Select class',
+              S.of(context).common_select_class,
               style: AppTextStyle.color3C3A36S18W500,
             ),
             const SizedBox(height: 10),
             _buildSelectClassDropdownWidget(),
             const SizedBox(height: AppDimens.spacingNormal),
             Text(
-              'Select student',
+              S.of(context).common_select_student,
               style: AppTextStyle.color3C3A36S18W500,
             ),
             const SizedBox(height: 10),
@@ -143,8 +144,8 @@ class _SearchTuitionPageState extends State<SearchTuitionPage> {
             hint: Text(
                 (state.listPersonResponse.isNotEmpty &&
                         state.listClassResponse.isNotEmpty)
-                    ? 'All'
-                    : 'No data',
+                    ? S.of(context).common_all
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkPersonSelected(value as String);
@@ -199,8 +200,8 @@ class _SearchTuitionPageState extends State<SearchTuitionPage> {
             value: state.classResponseSelected.value.name,
             hint: Text(
                 (state.listClassResponse.isNotEmpty)
-                    ? 'Select class'
-                    : 'No data',
+                    ? S.of(context).common_select_class
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkClassSelected(value as String);
@@ -255,8 +256,8 @@ class _SearchTuitionPageState extends State<SearchTuitionPage> {
             value: state.specializedSelected.value.displayName,
             hint: Text(
                 state.listSpecialized.isNotEmpty
-                    ? 'Select specialized'
-                    : 'No data',
+                    ? S.of(context).common_select_specialized
+                    : S.of(context).common_no_data,
                 style: AppTextStyle.color3C3A36S18W500),
             onChanged: (value) {
               logic.checkSpecializedSelected(value as String);
@@ -303,7 +304,7 @@ class _SearchTuitionPageState extends State<SearchTuitionPage> {
           }),
           const SizedBox(width: AppDimens.spacingNormal),
           Text(
-            "Tuition manager",
+            S.of(context).tuitionManager,
             style: AppTextStyle.colorDarkS24W500,
           ),
           const Spacer(),

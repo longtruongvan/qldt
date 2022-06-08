@@ -9,6 +9,8 @@ import 'package:qldt/model/response/subject_response.dart';
 import 'package:qldt/services/auth_service.dart';
 import 'package:qldt/ui/student/student_home/list_register/list_register_state.dart';
 
+import '../../../../generated/l10n.dart';
+
 class ListRegisterLogic extends GetxController {
   final state = ListRegisterState();
   final authService = Get.find<AuthService>();
@@ -41,7 +43,7 @@ class ListRegisterLogic extends GetxController {
       }
       state.stateLoading.value = false;
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data error');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
       state.stateLoading.value = false;
     });
   }

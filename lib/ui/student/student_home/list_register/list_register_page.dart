@@ -8,6 +8,7 @@ import 'package:qldt/ui/student/student_register_subject/student_register_subjec
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class ListRegisterPage extends StatefulWidget {
@@ -188,7 +189,7 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
           }),
           const SizedBox(width: AppDimens.spacingNormal),
           Text(
-            "Courses",
+            S.of(context).courses,
             style: AppTextStyle.colorDarkS24W500,
           ),
           const Spacer(),

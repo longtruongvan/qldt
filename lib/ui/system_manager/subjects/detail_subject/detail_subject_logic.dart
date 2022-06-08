@@ -30,7 +30,7 @@ class DetailSubjectLogic extends GetxController {
       }).toList();
       state.stateLoading.value = false;
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
       state.stateLoading.value = false;
     });
   }
@@ -70,10 +70,10 @@ class DetailSubjectLogic extends GetxController {
       callback(subjectResponse);
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
-          title: 'Success', message: 'Update subject success');
+          title: S.current.common_success, message: S.current.updateSubjectSuccess);
     }).catchError((onError) {
       state.stateLoading.value = false;
-      AppSnackBar.showError(title: 'Error', message: 'Update subject failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.updateSubjectFailure);
     });
   }
 
@@ -87,10 +87,10 @@ class DetailSubjectLogic extends GetxController {
       Get.back();
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
-          title: 'Success', message: 'Delete subject success');
+          title: S.current.common_success, message: S.current.deleteSubjectSuccess);
     }).catchError((onError) {
       state.stateLoading.value = false;
-      AppSnackBar.showError(title: 'Error', message: 'Delete subject failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.deleteSubjectFailure);
     });
   }
 }

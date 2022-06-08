@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/subject_response.dart';
 
+import '../../../generated/l10n.dart';
 import 'subject_state.dart';
 
 class SubjectLogic extends GetxController {
@@ -44,7 +45,7 @@ class SubjectLogic extends GetxController {
       }
     }).catchError((onError) {
       state.stateLoading.value = false;
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
     });
   }
 
@@ -65,7 +66,7 @@ class SubjectLogic extends GetxController {
       }
     }).catchError((onError) {
       state.stateLoading.value = false;
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data failure');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
     });
   }
 

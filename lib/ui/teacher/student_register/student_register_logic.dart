@@ -18,6 +18,16 @@ class StudentRegisterLogic extends GetxController {
     fetchData();
   }
 
+  bool checkHideOrShowButtonSubmit(List<CourseEntity> value){
+    for(int i=0;i<value.length;i++){
+      if((value[i].subjectRegisterRequest?.isAccept??false)==false){
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   void checkCountAdd(){
 
   }
@@ -94,7 +104,7 @@ class StudentRegisterLogic extends GetxController {
       state.stateLoading.value = false;
     }).catchError((onError) {
       AppSnackBar.showError(
-          title: S.current.common_error, message: 'Fetch data error');
+          title: S.current.common_error, message: S.current.common_fetch_data_failure);
       state.stateLoading.value = false;
     });
   }

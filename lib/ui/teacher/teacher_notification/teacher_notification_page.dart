@@ -8,6 +8,7 @@ import 'package:qldt/ui/teacher/teacher_notification/teacher_notification_logic.
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 
 class TeacherNotificationPage extends StatefulWidget {
   final PersonType personType;
@@ -67,8 +68,8 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
       child: SafeArea(
         child: Obx(() {
           if (state.listNotification.isEmpty) {
-            return const Center(
-              child: Text('You are not have any message'),
+            return Center(
+              child: Text(S.of(context).youAreNotHaveAnyMessage),
             );
           }
           return RefreshIndicator(
@@ -185,7 +186,7 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
         children: [
           const SizedBox(width: AppDimens.spacingNormal),
           Text(
-            "Notifications",
+            S.of(context).notifications,
             style: AppTextStyle.colorDarkS24W500.copyWith(
               color: AppColors.whiteColor,
             ),

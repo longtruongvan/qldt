@@ -105,6 +105,7 @@ class CreateTimeTableLogic extends GetxController {
     handlerApproved(course,(){
       callback();
     });
+
   }
 
   void checkLessonInDayOffWeek(int index) {

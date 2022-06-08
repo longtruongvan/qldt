@@ -5,6 +5,8 @@ import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/ui/system_manager/specialized/add_specialized/add_specialized_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../generated/l10n.dart';
+
 class AddSpecializedLogic extends GetxController {
   final state = AddSpecializedState();
 
@@ -14,8 +16,8 @@ class AddSpecializedLogic extends GetxController {
         state.displayNameTextController.text == '' ||
         state.codeTextController.text == '') {
       AppSnackBar.showWarning(
-        title: 'Warning',
-        message: 'You have not provided enough information. Please check again',
+        title: S.current.common_warning,
+        message: S.current.youHaveNotProvidedEnoughInformationPleaseCheckAgain,
       );
       state.stateLoading.value = false;
       return;
@@ -34,8 +36,8 @@ class AddSpecializedLogic extends GetxController {
         .then((value) {
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
-        title: 'Success',
-        message: 'Add specialized success',
+        title: S.current.common_success,
+        message: S.current.addSpecializedSuccess,
       );
       state.stateLoading.value = false;
     }).catchError((onError) {

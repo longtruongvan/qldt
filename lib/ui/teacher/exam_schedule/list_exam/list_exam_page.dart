@@ -5,6 +5,7 @@ import 'package:qldt/ui/teacher/exam_schedule/list_exam/list_exam_logic.dart';
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 import '../detail_exam_schedule/detail_exam_schedule_page.dart';
 
@@ -126,7 +127,7 @@ class _ListExamPageState extends State<ListExamPage> {
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
           child: Text(
-            "Exam schedules",
+            S.of(context).examSchedules,
             style: AppTextStyle.colorDarkS24W500,
           ),
         ),

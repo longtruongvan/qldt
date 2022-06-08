@@ -7,6 +7,7 @@ import 'package:qldt/ui/system_manager/specialized/update_specialized/update_spe
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 import 'detail_specialized_logic.dart';
 
@@ -67,7 +68,7 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: AppColors.grayColor, width: 1)),
               child: Text(
-                'Code: ${widget.specializedResponse.code??'Unknown'}',
+                '${S.of(context).common_code}: ${widget.specializedResponse.code??S.of(context).common_unknown}',
                 style: AppTextStyle.color3C3A36S16W500,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -84,7 +85,7 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
                   border: Border.all(color: AppColors.grayColor, width: 1)),
               child: Obx(() {
                 return Text(
-                  'Name: ${state.specialized.value.name ?? ''}',
+                  '${S.of(context).name}: ${state.specialized.value.name ?? ''}',
                   style: AppTextStyle.color3C3A36S16W500,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -102,7 +103,7 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
                   border: Border.all(color: AppColors.grayColor, width: 1)),
               child: Obx((){
                 return Text(
-                  'Display name: ${state.specialized.value.displayName ?? ''}',
+                  '${S.of(context).displayName}: ${state.specialized.value.displayName ?? ''}',
                   style: AppTextStyle.color3C3A36S16W500,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -178,17 +179,17 @@ class _DetailSpecializedPageState extends State<DetailSpecializedPage> {
         builder: (BuildContext c) {
           return AlertDialog(
             title: Text(
-              'Notification',
+              S.of(context).common_notification,
               style: AppTextStyle.colorDarkS20W500,
             ),
             content: Text(
-              'Do you want to delete specialized. Please confirm',
+              S.of(context).doYouWantToDeleteSpecializedPleaseConfirm,
               style: AppTextStyle.colorDarkS16W500,
             ),
             actions: [
               FlatButton(
                 child: Text(
-                  'Cancel',
+                  S.of(context).common_cancel,
                   style: AppTextStyle.colorPrimaryS16,
                 ),
                 onPressed: () {

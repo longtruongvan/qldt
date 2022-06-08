@@ -4,6 +4,8 @@ import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/response/specialized_response.dart';
 import 'package:qldt/ui/system_manager/specialized/update_specialized/update_specialized_state.dart';
 
+import '../../../../generated/l10n.dart';
+
 class UpdateSpecializedLogic extends GetxController {
   final state = UpdateSpecializedState();
 
@@ -13,7 +15,7 @@ class UpdateSpecializedLogic extends GetxController {
     state.displayNameTextController.text =
         state.specializedResponse.value.displayName ?? '';
     state.codeTextController.text =
-        state.specializedResponse.value.code ?? 'Unknown';
+        state.specializedResponse.value.code ?? S.current.common_unknown;
   }
 
   void submitButtonClickListener(Function() callback) {
@@ -22,8 +24,8 @@ class UpdateSpecializedLogic extends GetxController {
         state.displayNameTextController.text == '' ||
         state.codeTextController.text == '') {
       AppSnackBar.showWarning(
-        title: 'Warning',
-        message: 'You have not provided enough information. Please check again',
+        title: S.current.common_warning,
+        message: S.current.youHaveNotProvidedEnoughInformationPleaseCheckAgain,
       );
       return;
     }
@@ -38,8 +40,8 @@ class UpdateSpecializedLogic extends GetxController {
     }).then((value) {
       Get.back(closeOverlays: true);
       AppSnackBar.showSuccess(
-        title: 'Success',
-        message: 'Update specialized success',
+        title: S.current.common_success,
+        message: S.current.updateSpecializedSuccess,
       );
       state.stateLoading.value = false;
       callback();

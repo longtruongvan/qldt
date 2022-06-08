@@ -4,6 +4,7 @@ import 'package:qldt/common/app_snack_bar.dart';
 import 'package:qldt/model/request/subject_register_request.dart';
 import 'package:qldt/model/response/person_response.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../model/entity/course_entity.dart';
 import '../../../model/response/specialized_response.dart';
 import '../../../model/response/subject_response.dart';
@@ -140,7 +141,7 @@ class TimeTableLogic extends GetxController {
       }
       state.stateLoading.value = false;
     }).catchError((onError) {
-      AppSnackBar.showError(title: 'Error', message: 'Fetch data error');
+      AppSnackBar.showError(title: S.current.common_error, message: S.current.common_fetch_data_failure);
       state.stateLoading.value = false;
     });
   }

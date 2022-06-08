@@ -6,6 +6,7 @@ import 'package:qldt/ui/widgets/textfields/app_label_text_field.dart';
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../widgets/button/back_button.dart';
 
 class AddSpecializedPage extends StatefulWidget {
@@ -98,25 +99,25 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
         children: [
           const SizedBox(height: AppDimens.spacingNormal),
           AppLabelTextField(
-            title: 'Code',
+            title: S.of(context).common_code,
             titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input code',
+            hintText: S.of(context).inputCode,
             hintStyle: AppTextStyle.colorGrayS18W500,
             controller: state.codeTextController,
           ),
           const SizedBox(height: AppDimens.spacingNormal),
           AppLabelTextField(
-            title: 'Name',
+            title: S.of(context).name,
             titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input name',
+            hintText: S.of(context).inputName,
             hintStyle: AppTextStyle.colorGrayS18W500,
             controller: state.nameTextController,
           ),
           const SizedBox(height: AppDimens.spacingNormal),
           AppLabelTextField(
-            title: 'Display name',
+            title: S.of(context).displayName,
             titleStyle: AppTextStyle.color3C3A36S18W500,
-            hintText: 'input display name',
+            hintText: S.of(context).inputDisplayName,
             hintStyle: AppTextStyle.colorGrayS18W500,
             controller: state.displayNameTextController,
           )
@@ -134,7 +135,7 @@ class _AddSpecializedPageState extends State<AddSpecializedPage> {
         }),
         const SizedBox(width: AppDimens.spacingNormal),
         Text(
-          "Add specialized",
+          S.of(context).addSpecialized,
           style: AppTextStyle.colorDarkS24W500,
         ),
         const SizedBox(width: AppDimens.spacingNormal,),

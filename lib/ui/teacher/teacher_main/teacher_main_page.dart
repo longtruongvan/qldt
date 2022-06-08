@@ -7,6 +7,7 @@ import 'package:qldt/ui/teacher/teacher_profile/teacher_profile_page.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../../services/fcm_service.dart';
 import '../../setting/setting_page.dart';
 import '../teacher_notification/teacher_notification_page.dart';
@@ -79,22 +80,22 @@ class _TeacherMainPageState extends State<TeacherMainPage> with AutomaticKeepAli
             () => Row(
           children: [
             _buildBottomNavItem(
-              title: "Home",
+              title: S.of(context).common_home,
               icon: Icons.home_filled,
               positionItem: 0,
             ),
             _buildBottomNavItem(
-              title: "Alert",
+              title: S.of(context).common_alert,
               icon: Icons.notifications_rounded,
               positionItem: 1,
             ),
             _buildBottomNavItem(
-              title: "Profile",
+              title: S.of(context).common_profile,
               icon: Icons.person,
               positionItem: 2,
             ),
             _buildBottomNavItem(
-              title: "Setting",
+              title: S.of(context).common_setting,
               icon: Icons.settings,
               positionItem: 3,
             ),
