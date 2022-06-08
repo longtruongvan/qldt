@@ -27,6 +27,9 @@
   "edit_profile_add_location": "Add location",
   "edit_profile_update_infomation": "Update information",
   "common_send_to_me": "Send to me",
-  "home_student_register": "Sinh viên đăng ký học",
-  "common_hello": "Hello,"
+  "home_student_register": "Student registration",
+  "common_hello": "Hello,",
+  "create_time_table_select_day": "Select day",
+  "create_time_table_select_lesson": "Select lesson",
+  "create_time_table_please_select_calendar": "Please select a calendar"
 }

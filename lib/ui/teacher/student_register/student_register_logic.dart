@@ -14,9 +14,12 @@ import '../../../model/response/subject_response.dart';
 class StudentRegisterLogic extends GetxController {
   final state = StudentRegisterState();
   final auth = Get.find<AuthService>();
-
   StudentRegisterLogic() {
     fetchData();
+  }
+
+  void checkCountAdd(){
+
   }
 
   void fetchData() {
@@ -48,6 +51,8 @@ class StudentRegisterLogic extends GetxController {
       }
     });
 
+    state.listCourse.clear();
+    state.course.clear();
     FirebaseFirestore.instance.collection('Course').get().then((value) {
       value.docs.map((e) {
         var response = SubjectRegisterRequest.fromJson(e.data());

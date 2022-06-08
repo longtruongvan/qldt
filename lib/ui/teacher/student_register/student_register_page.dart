@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/model/entity/course_entity.dart';
+import 'package:qldt/model/request/subject_register_request.dart';
+import 'package:qldt/ui/teacher/student_register/create_time_table/create_time_table_page.dart';
 import 'package:qldt/ui/teacher/student_register/student_register_logic.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_dimens.dart';
 import '../../../common/app_images.dart';
 import '../../../common/app_text_style.dart';
+import '../../../generated/l10n.dart';
 import '../../widgets/button/back_button.dart';
 
 class StudentRegisterList extends StatefulWidget {
@@ -16,9 +19,21 @@ class StudentRegisterList extends StatefulWidget {
   State<StudentRegisterList> createState() => _StudentRegisterListState();
 }
 
-class _StudentRegisterListState extends State<StudentRegisterList> {
+class _StudentRegisterListState extends State<StudentRegisterList>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final logic = Get.put(StudentRegisterLogic());
   final state = Get.find<StudentRegisterLogic>().state;
+  late TabController _tabController;
+  int indexTab =0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: state.course.length, vsync: this);
+    _tabController.addListener(() {
+      indexTab = _tabController.index;
+    });
+  }
 
   @override
   void dispose() {
@@ -51,6 +66,9 @@ class _StudentRegisterListState extends State<StudentRegisterList> {
     return TabBar(
       indicatorColor: Colors.transparent,
       isScrollable: true,
+      onTap: (index){
+        indexTab = index;
+      },
       tabs: state.course.entries.map((response) {
         return Container(
           child: Text(response.key),
@@ -70,7 +88,8 @@ class _StudentRegisterListState extends State<StudentRegisterList> {
     );
   }
 
-  Widget _buildItemRegisterWidget(int index, CourseEntity value) {
+  Widget _buildItemRegisterWidget(
+      int index, MapEntry<String, List<CourseEntity>> map) {
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -87,7 +106,7 @@ class _StudentRegisterListState extends State<StudentRegisterList> {
               children: [
                 Expanded(
                   child: Text(
-                    "${value.personResponse?.name}",
+                    map.value[index].personResponse?.name ?? '',
                     style: AppTextStyle.colorDarkS16W500,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -95,19 +114,26 @@ class _StudentRegisterListState extends State<StudentRegisterList> {
                   ),
                 ),
                 const SizedBox(width: 10),
-                (value.subjectRegisterRequest?.isAccept ?? false)
+                (state.course[map.key]?[index].subjectRegisterRequest
+                            ?.isAccept ??
+                        false)
                     ? const Text(
                         'is accept',
                         style: TextStyle(
                           color: AppColors.grayColor,
                         ),
                       )
-                    : GestureDetector(
-                        onTap: () {
-                          value.isAdd=!value.isAdd;
-                        },
-                        child: (value.isAdd)?const Icon(Icons.remove):const Icon(Icons.add),
-                      )
+                    // : GestureDetector(
+                    //     onTap: () {
+                    //       state.course[map.key]?[index].isAdd =
+                    //           !(state.course[map.key]?[index].isAdd ?? false);
+                    //       state.course.refresh();
+                    //     },
+                    //     child: (state.course[map.key]?[index].isAdd ?? false)
+                    //         ? const Icon(Icons.remove)
+                    //         : const Icon(Icons.add),
+                    //   )
+                    : Container()
               ],
             ),
             const SizedBox(width: 10),
@@ -125,7 +151,7 @@ class _StudentRegisterListState extends State<StudentRegisterList> {
           children: state.course.entries.map((map) {
             return ListView.separated(
               itemBuilder: (c, index) {
-                return _buildItemRegisterWidget(index, map.value[index]);
+                return _buildItemRegisterWidget(index, map);
               },
               padding: const EdgeInsets.symmetric(
                 horizontal: AppDimens.spacingNormal,
@@ -160,9 +186,49 @@ class _StudentRegisterListState extends State<StudentRegisterList> {
                     left: AppDimens.spacingNormal,
                   ),
                   child: _buildTabSubjectTitleWidget()),
-              _buildListCourseRegisterWidget()
+              _buildListCourseRegisterWidget(),
+              _buildButtonSubmitWidget(),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButtonSubmitWidget() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.spacingNormal),
+      color: AppColors.whiteColor,
+      child: GestureDetector(
+        onTap: () {
+          int count = 0;
+          List<CourseEntity> listCourseEntity = [];
+          state.course.forEach((key, value) {
+            if (count == indexTab) {
+              listCourseEntity.addAll(value);
+            }
+            count++;
+          });
+          Get.to(CreateTimeTablePage(
+            title: listCourseEntity.first.subjectResponse?.name ?? '',
+            listCourseEntity: listCourseEntity,
+            callback: (){
+              logic.fetchData();
+            },
+          ));
+        },
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 20),
+          decoration: BoxDecoration(
+              color: AppColors.primaryColor,
+              borderRadius: BorderRadius.circular(20)),
+          height: 60,
+          child: Center(
+              child: Text(
+            S.current.common_ok,
+            style: AppTextStyle.colorWhiteS16
+                .copyWith(fontWeight: FontWeight.w500),
+          )),
         ),
       ),
     );
@@ -190,4 +256,7 @@ class _StudentRegisterListState extends State<StudentRegisterList> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

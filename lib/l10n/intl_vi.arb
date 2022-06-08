@@ -28,5 +28,8 @@
   "edit_profile_update_infomation": "Cập nhật thông tin",
   "common_send_to_me": "Gửi đến tôi",
   "home_student_register": "Sinh viên đăng ký học",
-  "common_hello": "Xin chào,"
+  "common_hello": "Xin chào,",
+  "create_time_table_select_day": "Chọn ngày học",
+  "create_time_table_select_lesson": "Chọn tiết học",
+  "create_time_table_please_select_calendar": "Vui lòng chọn ngày học"
 }

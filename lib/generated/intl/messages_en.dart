@@ -40,6 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "common_subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "common_success": MessageLookupByLibrary.simpleMessage("Success"),
         "common_warning": MessageLookupByLibrary.simpleMessage("Warning"),
+        "create_time_table_please_select_calendar":
+            MessageLookupByLibrary.simpleMessage("Please select a calendar"),
+        "create_time_table_select_day":
+            MessageLookupByLibrary.simpleMessage("Select day"),
+        "create_time_table_select_lesson":
+            MessageLookupByLibrary.simpleMessage("Select lesson"),
         "create_user_input_number_student":
             MessageLookupByLibrary.simpleMessage(
                 "Enter the number of students"),
@@ -54,7 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update information"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "home_student_register":
-            MessageLookupByLibrary.simpleMessage("Sinh viên đăng ký học"),
+            MessageLookupByLibrary.simpleMessage("Student registration"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "light": MessageLookupByLibrary.simpleMessage("Light"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),

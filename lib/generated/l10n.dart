@@ -330,10 +330,10 @@ class S {
     );
   }
 
-  /// `Sinh viên đăng ký học`
+  /// `Student registration`
   String get home_student_register {
     return Intl.message(
-      'Sinh viên đăng ký học',
+      'Student registration',
       name: 'home_student_register',
       desc: '',
       args: [],
@@ -345,6 +345,36 @@ class S {
     return Intl.message(
       'Hello,',
       name: 'common_hello',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select day`
+  String get create_time_table_select_day {
+    return Intl.message(
+      'Select day',
+      name: 'create_time_table_select_day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select lesson`
+  String get create_time_table_select_lesson {
+    return Intl.message(
+      'Select lesson',
+      name: 'create_time_table_select_lesson',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select a calendar`
+  String get create_time_table_please_select_calendar {
+    return Intl.message(
+      'Please select a calendar',
+      name: 'create_time_table_please_select_calendar',
       desc: '',
       args: [],
     );

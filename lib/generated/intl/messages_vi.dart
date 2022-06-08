@@ -40,6 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "common_subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "common_success": MessageLookupByLibrary.simpleMessage("Thành công"),
         "common_warning": MessageLookupByLibrary.simpleMessage("Cảnh báo"),
+        "create_time_table_please_select_calendar":
+            MessageLookupByLibrary.simpleMessage("Vui lòng chọn ngày học"),
+        "create_time_table_select_day":
+            MessageLookupByLibrary.simpleMessage("Chọn ngày học"),
+        "create_time_table_select_lesson":
+            MessageLookupByLibrary.simpleMessage("Chọn tiết học"),
         "create_user_input_number_student":
             MessageLookupByLibrary.simpleMessage("Nhập số lượng sinh viên"),
         "create_user_state_success":

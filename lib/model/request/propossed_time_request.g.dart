@@ -15,6 +15,9 @@ PropossedTimeRequest _$PropossedTimeRequestFromJson(
           .toList(),
       period: json['period'] as String?,
       numberOfPeriod: json['numberOfPeriod'] as String?,
+      dayOffWeekData: (json['dayOffWeekData'] as List<dynamic>?)
+          ?.map((e) => DayOffWeekData.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PropossedTimeRequestToJson(
@@ -24,4 +27,5 @@ Map<String, dynamic> _$PropossedTimeRequestToJson(
       'dayOfWeek': instance.dayOfWeek,
       'period': instance.period,
       'numberOfPeriod': instance.numberOfPeriod,
+      'dayOffWeekData': instance.dayOffWeekData?.map((e) => e.toJson()).toList(),
     };

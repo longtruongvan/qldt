@@ -118,7 +118,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
               child: Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
-                elevation: 2,
+                elevation: 1,
                 child: Container(
                   padding: const EdgeInsets.all(AppDimens.spacingNormal),
                   child: Row(

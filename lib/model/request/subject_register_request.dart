@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:qldt/model/request/propossed_time_request.dart';
 
+import '../entity/day_off_week_data.dart';
+
 part 'subject_register_request.g.dart';
 
 @JsonSerializable()
