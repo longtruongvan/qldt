@@ -24,15 +24,18 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "common_add_location":
             MessageLookupByLibrary.simpleMessage("Add location"),
+        "common_code": MessageLookupByLibrary.simpleMessage("Code"),
         "common_enter_enough_information": MessageLookupByLibrary.simpleMessage(
             "Please enter enough information"),
         "common_error": MessageLookupByLibrary.simpleMessage("Error"),
         "common_fetch_data_failure":
             MessageLookupByLibrary.simpleMessage("Fetch data failure"),
         "common_next": MessageLookupByLibrary.simpleMessage("Next"),
+        "common_ok": MessageLookupByLibrary.simpleMessage("OK"),
         "common_save": MessageLookupByLibrary.simpleMessage("Save"),
         "common_select_class":
             MessageLookupByLibrary.simpleMessage("Select class"),
+        "common_subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "common_success": MessageLookupByLibrary.simpleMessage("Success"),
         "common_warning": MessageLookupByLibrary.simpleMessage("Warning"),
         "create_user_input_number_student":

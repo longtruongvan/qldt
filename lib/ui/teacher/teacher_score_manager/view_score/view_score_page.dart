@@ -9,6 +9,7 @@ import 'package:qldt/ui/teacher/teacher_score_manager/view_score/view_score_logi
 
 import '../../../../common/app_dimens.dart';
 import '../../../../common/app_text_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../model/response/person_response.dart';
 import '../../../widgets/button/back_button.dart';
 import '../teacher_score_manager_page.dart';
@@ -23,6 +24,7 @@ enum ScoreViewType {
 
 class ViewScorePage extends StatefulWidget {
   final List<PersonResponse> students;
+  final List<PersonResponse> currentListStudent;
   final ScoreViewType viewType;
   final SubjectResponse subjectResponse;
   final TypeScoreManager typeScoreManager;
@@ -30,6 +32,7 @@ class ViewScorePage extends StatefulWidget {
   const ViewScorePage({
     Key? key,
     required this.students,
+    required this.currentListStudent,
     required this.viewType,
     required this.subjectResponse,
     required this.typeScoreManager,
@@ -46,7 +49,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
 
   @override
   void initState() {
-    logic.fetchData(widget.students, widget.viewType,widget.subjectResponse);
+    logic.fetchData(widget.students, widget.viewType, widget.subjectResponse);
     super.initState();
   }
 
@@ -167,7 +170,7 @@ class _ViewScorePageState extends State<ViewScorePage> {
   }
 
   Widget _buildActionInfoStudentWidget(int index) {
-    if(widget.typeScoreManager==TypeScoreManager.student){
+    if (widget.typeScoreManager == TypeScoreManager.student) {
       return Container();
     }
     return Row(children: [
@@ -451,12 +454,110 @@ class _ViewScorePageState extends State<ViewScorePage> {
             Get.back();
           }),
           const SizedBox(width: AppDimens.spacingNormal),
-          Text(
-            "Score",
-            style: AppTextStyle.colorDarkS24W500,
+          Obx(
+            () => Text(
+              "Score(${state.listScoreEntity.length}/${widget.students.length})",
+              style: AppTextStyle.colorDarkS24W500,
+            ),
           ),
+          const Spacer(),
+          IconButton(
+              onPressed: () {
+                _showDialogInfo();
+              },
+              icon: const Icon(
+                Icons.info_outline,
+                color: AppColors.grayColor,
+              )),
+          const SizedBox(width: AppDimens.spacingNormal),
         ],
       ),
     );
   }
+
+  void _showDialogInfo() {
+    logic.checkScoreStudent();
+    Get.dialog(AlertDialog(
+      title: Text(
+        'Detail info',
+        style: AppTextStyle.color3C3A36S18W500,
+      ),
+      content: SizedBox(
+        width: 300,
+        child: Table(
+          columnWidths: const {
+            0: FlexColumnWidth(4),
+            1: FlexColumnWidth(6),
+          },
+          border: const TableBorder(
+            horizontalInside: BorderSide(
+              width: 1,
+              color: AppColors.grayColor,
+              style: BorderStyle.solid,
+            ),
+            verticalInside: BorderSide(
+              width: 1,
+              color: AppColors.grayColor,
+              style: BorderStyle.solid,
+            ),
+            top: BorderSide(
+              color: AppColors.grayColor,
+            ),
+            left: BorderSide(
+              color: AppColors.grayColor,
+            ),
+            right: BorderSide(
+              color: AppColors.grayColor,
+            ),
+            bottom: BorderSide(
+              color: AppColors.grayColor,
+            ),
+          ),
+          children: [
+            _buildRowTableWidget(S.of(context).common_subject,'${widget.subjectResponse.name}'),
+            _buildRowTableWidget(S.of(context).common_code,'${widget.subjectResponse.code}'),
+            _buildRowTableWidget('Sinh viên đăng ký học','${state.listScoreEntity.length}'),
+            _buildRowTableWidget('Sinh viên không đăng ký học','${widget.students.length}'),
+            _buildRowTableWidget('Sinh viên đã có điểm','${state.countScore}'),
+            _buildRowTableWidget('Sinh viên chưa có điểm','${state.countNotScore}'),
+          ],
+        ),
+      ),
+      actions: [
+        FlatButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text(
+            S.of(context).common_ok,
+            style: AppTextStyle.color3C3A36S18W500.copyWith(
+              color: AppColors.primaryColor,
+            ),
+          ),
+        )
+      ],
+    ));
+  }
+
+  TableRow _buildRowTableWidget(String title,String value){
+    return TableRow(children: [
+      Container(
+        margin: const EdgeInsets.only(top: 10, bottom: 10,left: 10),
+        child: Text(
+          title,
+          style: AppTextStyle.colorDarkS16W500,
+        ),
+      ),
+      Container(
+        margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+        child: Text(
+          value,
+          style: AppTextStyle.colorDarkS16W500,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    ]);
+  }
+
 }

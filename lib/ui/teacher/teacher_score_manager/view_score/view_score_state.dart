@@ -15,4 +15,6 @@ class ViewScoreState {
 
   RxInt mergeRequest = 0.obs;
   RxBool statusLoading = false.obs;
+  RxInt countScore = 0.obs;
+  RxInt countNotScore = 0.obs;
 }

@@ -18,5 +18,8 @@
   "common_next": "Next",
   "common_enter_enough_information": "Vui lòng nhập đủ thông tin",
   "common_success": "Thành công",
-  "create_user_state_success": "Tạo tài khoản thành công"
+  "create_user_state_success": "Tạo tài khoản thành công",
+  "common_ok": "OK",
+  "common_subject": "Subject",
+  "common_code": "Code"
 }

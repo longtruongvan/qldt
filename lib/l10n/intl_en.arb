@@ -18,5 +18,8 @@
   "common_next": "Next",
   "common_enter_enough_information": "Please enter enough information",
   "common_success": "Success",
-  "create_user_state_success": "Create user success"
+  "create_user_state_success": "Create user success",
+  "common_ok": "OK",
+  "common_subject": "Subject",
+  "common_code": "Code"
 }

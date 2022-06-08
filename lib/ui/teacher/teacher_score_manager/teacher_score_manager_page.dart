@@ -335,64 +335,6 @@ class _TeacherScoreManagerPageState extends State<TeacherScoreManagerPage> {
         ));
   }
 
-  Widget _buildSelectTimeDropdownWidget() {
-    return Obx(() {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          border: Border.all(color: AppColors.grayColor, width: 1),
-        ),
-        child: DropdownButton2(
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            color: AppColors.grayColor,
-          ),
-          isExpanded: true,
-          underline: Container(
-            color: AppColors.whiteColor,
-          ),
-          value: state.yearSchoolSelected.value,
-          hint: Text(
-              (state.listPersonResponse.isNotEmpty &&
-                      state.listClassResponse.isNotEmpty)
-                  ? 'All'
-                  : 'No data',
-              style: AppTextStyle.color3C3A36S18W500),
-          onChanged: (value) {
-            logic.checkTimeSchoolYear(value as String);
-          },
-          dropdownDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppDimens.spacingNormal),
-          ),
-          dropdownWidth: Get.width - 32,
-          buttonWidth: Get.width - 32,
-          offset: const Offset(-11, -AppDimens.spacingNormal),
-          items: (state.yearSchool.isNotEmpty)
-              ? state.yearSchool.map((element) {
-                  return DropdownMenuItem(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Spacer(),
-                        Text(
-                          element,
-                          style: AppTextStyle.color3C3A36S18W500,
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
-                    value: element,
-                  );
-                }).toList()
-              : null,
-        ),
-      );
-    });
-  }
-
   Widget _buildSelectStudentDropdownWidget() {
     return Obx(() {
       return Container(

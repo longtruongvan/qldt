@@ -249,6 +249,36 @@ class S {
       args: [],
     );
   }
+
+  /// `OK`
+  String get common_ok {
+    return Intl.message(
+      'OK',
+      name: 'common_ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subject`
+  String get common_subject {
+    return Intl.message(
+      'Subject',
+      name: 'common_subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code`
+  String get common_code {
+    return Intl.message(
+      'Code',
+      name: 'common_code',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

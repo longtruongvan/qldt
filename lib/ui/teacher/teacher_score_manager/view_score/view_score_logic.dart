@@ -19,6 +19,16 @@ class ViewScoreLogic {
 
   ViewScoreLogic() {}
 
+  void checkScoreStudent(){
+    for(int i=0;i<state.listScoreEntity.length;i++){
+      if(state.listScoreEntity[i].endOfCourseTextController?.value.text!=''){
+        state.countScore.value++;
+      }else{
+        state.countNotScore.value++;
+      }
+    }
+  }
+
   void deleteScore(int index, Function() callback) {
     state.statusLoading.value = true;
     state.listScoreEntity[index].diligenceTextController?.text = '0.0';
@@ -52,6 +62,8 @@ class ViewScoreLogic {
           title: 'Success', message: 'Remove score success');
       state.statusLoading.value = false;
       state.listScoreEntity.refresh();
+      //count score
+      checkScoreStudent();
     }).catchError((onError) {
       AppSnackBar.showError(title: 'Error', message: 'Remove score failure');
       state.statusLoading.value = false;
@@ -114,6 +126,8 @@ class ViewScoreLogic {
         (state.listScoreEntity[index].listScore ?? []).add(scoreResponse);
         state.listScoreEntity[index].isExist = true;
         state.listScoreEntity.refresh();
+        //count score
+        checkScoreStudent();
       }).catchError((onError) {
         AppSnackBar.showError(title: 'Error', message: 'Add score failure');
         state.statusLoading.value = false;
@@ -142,6 +156,8 @@ class ViewScoreLogic {
         if (!updateFailure) {
           AppSnackBar.showSuccess(
               title: 'Success', message: 'Update score success');
+          //count score
+          checkScoreStudent();
         }
       }
     });
@@ -240,6 +256,8 @@ class ViewScoreLogic {
     state.mergeRequest.listen((value) {
       if (value <= 0) {
         state.statusLoading.value = false;
+        //count score
+        checkScoreStudent();
         for (int i = 0; i < state.listAllSubjectResponse.length; i++) {}
       }
     });

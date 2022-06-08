@@ -43,6 +43,7 @@ class TeacherScoreManagerLogic {
     }
     Get.to(ViewScorePage(
       students: p,
+      currentListStudent: state.currentListPersonResponse,
       typeScoreManager: typeScoreManager,
       viewType: (state.yearSchoolSelected.value == 'All')
           ? ScoreViewType.all
