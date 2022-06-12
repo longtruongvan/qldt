@@ -134,6 +134,36 @@ class _ListRegisterPageState extends State<ListRegisterPage> {
   }
 
   Widget _buildDayOfWeekWidget(int position) {
+    if(state.listCourse[position].subjectRegisterRequest?.propossedTime?.dayOffWeekData!=null){
+      return SizedBox(
+        height: 40,
+        width: Get.width,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(left: AppDimens.spacingNormal),
+          itemBuilder: (c, index) {
+            return Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(right: 10),
+              decoration: BoxDecoration(
+                color: AppColors.successColor,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                state.listCourse[position].subjectRegisterRequest?.propossedTime
+                    ?.dayOffWeekData?[index].day ??
+                    '',
+                style: AppTextStyle.colorWhiteS14W500,
+              ),
+            );
+          },
+          itemCount: state.listCourse[position].subjectRegisterRequest
+              ?.propossedTime?.dayOffWeekData?.length,
+        ),
+      );
+    }
     return SizedBox(
       height: 40,
       width: Get.width,

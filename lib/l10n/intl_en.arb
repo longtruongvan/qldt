@@ -178,5 +178,6 @@
   "searchAdvance": "Search advance",
   "updateInformationSuccess": "Update information success",
   "updateInformationFailure": "Update information failure",
-  "addPhoneNumber": "Add phone number"
+  "addPhoneNumber": "Add phone number",
+  "student_register_list_register": "List register"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qldt/model/entity/course_entity.dart';
+import 'package:qldt/model/entity/day_off_week_data.dart';
 import 'package:qldt/ui/student/student_home/detail_register/detail_register_logic.dart';
 
 import '../../../../common/app_colors.dart';
@@ -74,18 +75,42 @@ class _DetailRegisterPageState extends State<DetailRegisterPage> {
                   ),
                 ),
                 children: [
-                  _buildRowTableWidget(S.of(context).course_name_course,'${widget.courseEntity.subjectResponse?.name}'),
-                  _buildRowTableWidget(S.of(context).specialized,'${widget.courseEntity.specializedResponse?.name}'),
-                  _buildRowTableWidget(S.of(context).course_time_payment,widget.courseEntity.subjectRegisterRequest
-                      ?.timePayment ??
-                      S.of(context).common_unknown),
-                  _buildRowTableWidget(S.of(context).common_status,'${widget.courseEntity.subjectRegisterRequest?.isAccept}'),
-                  _buildRowTableWidget(S.of(context).course_period,widget.courseEntity.subjectRegisterRequest
-                      ?.propossedTime?.period ??
-                      S.of(context).common_unknown),
-                  _buildRowTableWidget(S.of(context).course_number_of_period,widget.courseEntity.subjectRegisterRequest
-                      ?.propossedTime?.numberOfPeriod ??
-                      S.of(context).common_unknown),
+                  _buildRowTableWidget(S.of(context).course_name_course,
+                      '${widget.courseEntity.subjectResponse?.name}'),
+                  _buildRowTableWidget(S.of(context).specialized,
+                      '${widget.courseEntity.specializedResponse?.name}'),
+                  // _buildRowTableWidget(S.of(context).course_time_payment,widget.courseEntity.subjectRegisterRequest
+                  //     ?.timePayment ??
+                  //     S.of(context).common_unknown),
+                  _buildRowTableWidget(
+                      S.of(context).common_status,
+                      (widget.courseEntity.subjectRegisterRequest?.isAccept ??
+                              false)
+                          ? 'Đã được phê duyệt'
+                          : 'Chưa được phê duyệt'),
+                  (widget.courseEntity.subjectRegisterRequest?.isAccept ??
+                          false)
+                      ? _buildRowTableDayOffWeekWidget(
+                          'Day',
+                          widget.courseEntity.subjectRegisterRequest
+                                  ?.propossedTime?.dayOffWeekData ??
+                              [])
+                      : _buildRowTableWidget(
+                          S.of(context).course_period,
+                          widget.courseEntity.subjectRegisterRequest
+                                  ?.propossedTime?.period ??
+                              S.of(context).common_unknown),
+                  (widget.courseEntity.subjectRegisterRequest?.isAccept ??
+                          false)
+                      ? TableRow(children: [
+                          Container(),
+                          Container(),
+                        ])
+                      : _buildRowTableWidget(
+                          S.of(context).course_number_of_period,
+                          widget.courseEntity.subjectRegisterRequest
+                                  ?.propossedTime?.numberOfPeriod ??
+                              S.of(context).common_unknown),
                 ],
               ),
               const SizedBox(
@@ -116,10 +141,10 @@ class _DetailRegisterPageState extends State<DetailRegisterPage> {
     );
   }
 
-  TableRow _buildRowTableWidget(String title,String value){
+  TableRow _buildRowTableWidget(String title, String value) {
     return TableRow(children: [
       Container(
-        margin: const EdgeInsets.only(top: 10, bottom: 10,left: 10),
+        margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
         child: Text(
           title,
           style: AppTextStyle.colorDarkS16W500,
@@ -137,34 +162,34 @@ class _DetailRegisterPageState extends State<DetailRegisterPage> {
     ]);
   }
 
-  Widget _buildDayOfWeekWidget() {
-    return SizedBox(
-      height: 40,
-      width: Get.width,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        padding: const EdgeInsets.only(left: AppDimens.spacingNormal),
-        itemBuilder: (c, index) {
-          return Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-              color: AppColors.successColor,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              widget.courseEntity.subjectRegisterRequest?.propossedTime
-                  ?.dayOfWeek?[index] ??
-                  '',
-              style: AppTextStyle.colorWhiteS14W500,
-            ),
-          );
-        },
-        itemCount: widget.courseEntity.subjectRegisterRequest
-            ?.propossedTime?.dayOfWeek?.length,
+  TableRow _buildRowTableDayOffWeekWidget(
+      String title, List<DayOffWeekData> data) {
+    String value = '';
+
+    for (int i = 0; i < data.length; i++) {
+      value += '${data[i].day ?? ' '}, ';
+    }
+
+    if (value.endsWith(', ')) {
+      value = value.substring(0, value.length - 2);
+    }
+    return TableRow(children: [
+      Container(
+        margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+        child: Text(
+          title,
+          style: AppTextStyle.colorDarkS16W500,
+        ),
       ),
-    );
+      Container(
+        margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+        child: Text(
+          value,
+          style: AppTextStyle.colorDarkS16W500,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    ]);
   }
 }

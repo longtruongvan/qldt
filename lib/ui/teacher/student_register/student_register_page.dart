@@ -256,7 +256,7 @@ class _StudentRegisterListState extends State<StudentRegisterList>
         const SizedBox(width: AppDimens.spacingNormal),
         Expanded(
           child: Text(
-            "List register",
+            S.of(context).student_register_list_register,
             style: AppTextStyle.colorDarkS24W500,
           ),
         ),

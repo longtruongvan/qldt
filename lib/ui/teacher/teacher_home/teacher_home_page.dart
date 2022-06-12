@@ -94,7 +94,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
                   isSystemManager: false,
                 ));
               }, AppImages.imgSpecialized),
-              _buildItemTopicWidget(S.of(context).tuition, () {
+              _buildItemTopicWidget(S.of(context).tuition.replaceAll(':', ''), () {
                 Get.to(const TuitionPage());
               }, AppImages.imgCoruse),
             ],

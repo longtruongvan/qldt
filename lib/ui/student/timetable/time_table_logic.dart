@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:qldt/common/app_snack_bar.dart';
+import 'package:qldt/model/entity/day_off_week_data.dart';
 import 'package:qldt/model/request/subject_register_request.dart';
 import 'package:qldt/model/response/person_response.dart';
 
@@ -89,11 +90,11 @@ class TimeTableLogic extends GetxController {
         state.sun.clear();
         print('LONGTV @@ ${state.listCourse.length}');
         for (int i = 0; i < state.listCourse.length; i++) {
-          List<String> dayOfWeek = state.listCourse[i].subjectRegisterRequest
-                  ?.propossedTime?.dayOfWeek ??
+          List<DayOffWeekData> dayOfWeek = state.listCourse[i].subjectRegisterRequest
+                  ?.propossedTime?.dayOffWeekData ??
               [];
           for (int k = 0; k < dayOfWeek.length; k++) {
-            switch (dayOfWeek[k]) {
+            switch (dayOfWeek[k].day) {
               case 'Mon':
                 state.mon.add(state.listCourse[i]);
                 break;

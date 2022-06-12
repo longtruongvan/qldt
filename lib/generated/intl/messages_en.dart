@@ -256,6 +256,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "specialized": MessageLookupByLibrary.simpleMessage("Specialized"),
         "stt": MessageLookupByLibrary.simpleMessage("STT"),
+        "student_register_list_register":
+            MessageLookupByLibrary.simpleMessage("List register"),
         "subjectManager":
             MessageLookupByLibrary.simpleMessage("Subject Manager"),
         "subjects": MessageLookupByLibrary.simpleMessage("Subjects"),

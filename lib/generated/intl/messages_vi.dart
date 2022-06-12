@@ -253,6 +253,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "specialized": MessageLookupByLibrary.simpleMessage("Khoa"),
         "stt": MessageLookupByLibrary.simpleMessage("STT"),
+        "student_register_list_register":
+            MessageLookupByLibrary.simpleMessage("Danh sách đăng ký"),
         "subjectManager":
             MessageLookupByLibrary.simpleMessage("Quản lý môn học"),
         "subjects": MessageLookupByLibrary.simpleMessage("Các môn học"),

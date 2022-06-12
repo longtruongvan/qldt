@@ -1849,6 +1849,16 @@ class S {
       args: [],
     );
   }
+
+  /// `List register`
+  String get student_register_list_register {
+    return Intl.message(
+      'List register',
+      name: 'student_register_list_register',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

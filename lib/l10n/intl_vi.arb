@@ -178,5 +178,6 @@
   "searchAdvance": "Tìm kiếm nâng cao",
   "updateInformationSuccess": "Cập nhật thông tin thành công",
   "updateInformationFailure": "Cập nhật thông tin thất bại",
-  "addPhoneNumber": "Thêm số điện thoại"
+  "addPhoneNumber": "Thêm số điện thoại",
+  "student_register_list_register": "Danh sách đăng ký"
 }
