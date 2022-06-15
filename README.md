@@ -1,6 +1,3 @@
 # qldt
 
-Step 1:
-![](https://imgur.com/a/H3HGPYy)
-Step 2:
-![](https://imgur.com/a/H3HGPYy)
+![](https://user-images.githubusercontent.com/102961077/173858476-8a0d29d2-9c3f-4c11-95f4-f256c59fbac6.png)
