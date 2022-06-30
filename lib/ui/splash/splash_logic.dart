@@ -61,6 +61,8 @@ class SplashLogic extends GetxController {
             } else {
               Get.offAll(const StudentMainPage());
             }
+          }).onError((error, stackTrace){
+            print(error);
           });
         } else {
           String idFirstNotification = const Uuid().v1();

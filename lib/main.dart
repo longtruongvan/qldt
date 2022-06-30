@@ -28,56 +28,56 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 Future initService() async {
   await Firebase.initializeApp();
   await Get.putAsync(() => AuthService().init());
-  await NotificationService().init(); // <----
+  // await NotificationService().init(); // <----
   await Get.putAsync(() => SettingService().init());
-
-  if (Platform.isIOS) {
-    await FirebaseMessaging.instance.requestPermission();
-  }
-  final deviceToken = await FirebaseMessaging.instance.getToken();
-  print('Device token $deviceToken');
-
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
-
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-
-    // If `onMessage` is triggered with a notification, construct our own
-    // local notification to show to users using the created channel.
-    if (notification != null && android != null) {
-      flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              channelDescription: channel.description,
-              icon: android.smallIcon,
-              // other properties...
-            ),
-          ));
-    }
-  });
+  //
+  // if (Platform.isIOS) {
+  //   await FirebaseMessaging.instance.requestPermission();
+  // }
+  // final deviceToken = await FirebaseMessaging.instance.getToken();
+  // print('Device token $deviceToken');
+  //
+  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  // NotificationSettings settings = await messaging.requestPermission(
+  //   alert: true,
+  //   announcement: false,
+  //   badge: true,
+  //   carPlay: false,
+  //   criticalAlert: false,
+  //   provisional: false,
+  //   sound: true,
+  // );
+  //
+  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  // FlutterLocalNotificationsPlugin();
+  //
+  // await flutterLocalNotificationsPlugin
+  //     .resolvePlatformSpecificImplementation<
+  //     AndroidFlutterLocalNotificationsPlugin>()
+  //     ?.createNotificationChannel(channel);
+  //
+  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   RemoteNotification? notification = message.notification;
+  //   AndroidNotification? android = message.notification?.android;
+  //
+  //   // If `onMessage` is triggered with a notification, construct our own
+  //   // local notification to show to users using the created channel.
+  //   if (notification != null && android != null) {
+  //     flutterLocalNotificationsPlugin.show(
+  //         notification.hashCode,
+  //         notification.title,
+  //         notification.body,
+  //         NotificationDetails(
+  //           android: AndroidNotificationDetails(
+  //             channel.id,
+  //             channel.name,
+  //             channelDescription: channel.description,
+  //             icon: android.smallIcon,
+  //             // other properties...
+  //           ),
+  //         ));
+  //   }
+  // });
 }
 
 

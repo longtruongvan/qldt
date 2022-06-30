@@ -86,6 +86,8 @@ class LoginLogic extends GetxController {
             } else if (response.type == PersonType.GV.name) {
               Get.offAll(const TeacherMainPage());
             }
+          }).onError((error, stackTrace){
+            print(error);
           });
         } else {
           String idFirstNotification = const Uuid().v1();
