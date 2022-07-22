@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "190939044108-0cf43pnds8lku2gd9orgt99tgarj73jh.apps.googleusercontent.com",
+          "client_id": "190939044108-o093e5q8m76iav0h060d3agtethgisfv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.longtv.qldt",
-            "certificate_hash": "ff412d065d3a038d574c01f48584bd0a31e8173b"
+            "certificate_hash": "38ad3a7f6b94abae20fd2dafdb2de5a54415a3da"
           }
         },
         {

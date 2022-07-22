@@ -31,7 +31,9 @@ class Authentication {
       return user;
     }
     final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
+        await googleSignIn.signIn().catchError((onError){
+          print(onError);
+        });
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
